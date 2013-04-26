@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarIn", "CarIn\CarIn.csproj", "{088334BA-36FB-4633-B18B-E19AC4A94ED4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarIn.Tests", "CarIn.Tests\CarIn.Tests.csproj", "{DB5AB80F-E0D4-43F5-A5B7-82A3B2160943}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{088334BA-36FB-4633-B18B-E19AC4A94ED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{088334BA-36FB-4633-B18B-E19AC4A94ED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{088334BA-36FB-4633-B18B-E19AC4A94ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{088334BA-36FB-4633-B18B-E19AC4A94ED4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB5AB80F-E0D4-43F5-A5B7-82A3B2160943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB5AB80F-E0D4-43F5-A5B7-82A3B2160943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB5AB80F-E0D4-43F5-A5B7-82A3B2160943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB5AB80F-E0D4-43F5-A5B7-82A3B2160943}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
