@@ -197,8 +197,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DAL\DbContext\CarIn_Context.cs" />
-    <Compile Include="DAL\DbInitializers\CarIn_DbInitializer.cs" />
+    <Compile Include="DAL\Context\CarInContext.cs" />
+    <Compile Include="DAL\DbInitializers\CarInDbInitializer.cs" />
+    <Compile Include="DAL\Repositories\Abstract\IRepository.cs" />
+    <Compile Include="DAL\Repositories\Repository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -313,7 +315,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DAL\Repositories\" />
     <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>

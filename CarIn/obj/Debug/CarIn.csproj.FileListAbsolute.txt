@@ -168,3 +168,12 @@ C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\bin\zh-Hant\S
 C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\obj\Debug\CarIn.csprojResolveAssemblyReference.cache
 C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\obj\Debug\CarIn.dll
 C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\obj\Debug\CarIn.pdb
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\bin\Microsoft.AspNet.SignalR.Owin.dll
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\bin\Owin.dll
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\bin\Microsoft.AspNet.SignalR.Owin.xml
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn\bin\Microsoft.Owin.Host.SystemWeb.xml
