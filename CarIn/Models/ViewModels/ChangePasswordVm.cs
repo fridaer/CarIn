@@ -8,6 +8,9 @@ namespace CarIn.Models.ViewModels
 {
     public class ChangePasswordVm
     {
+        [ScaffoldColumn(false)]
+        public int userId { get; set; }
+
         [Required(ErrorMessage = "*")]
         [Display(Name = "Användarnamn")]
         public string Username { get; set; }

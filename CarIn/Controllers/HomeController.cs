@@ -23,9 +23,16 @@ namespace CarIn.Controllers
         public ActionResult ChangePassword()
         {
             ViewBag.Message = "Ändra lösenord";
+            var loggedinUser = _userRepo.FindByID(3);
+            var viewModelChangePassword = new ChangePasswordVm
+                                              {
+                                                  userId = loggedinUser.ID,
+                                                  Username = loggedinUser.Username
+                                              };
 
-            return View();
+            return View(viewModelChangePassword);
         }
+
         public ActionResult ChangePassword(ChangePasswordVm model)
         {
             if(ModelState.IsValid)
@@ -35,8 +42,11 @@ namespace CarIn.Controllers
                     ModelState.AddModelError("OldPassword", "Felaktigt lösenord");
                     return View(model);
                 }
-
+                var user = _userRepo.FindAll(x => x.Username == model.Username).FirstOrDefault();
+                user.Password = HashPassword(model.NewPassword);
+                _userRepo.Update(user);
             }
+            return View(model);
         }
 
         public ActionResult Contact()
@@ -44,9 +54,15 @@ namespace CarIn.Controllers
             ViewBag.Message = "Your contact page.";
             return View();
         }
+
+
         private static bool CheckIfPasswordMatch(string password)
         {
             return true;
+        }
+        private static string HashPassword(string password)
+        {
+            return password;
         }
     }
 }
