@@ -1,0 +1,5 @@
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn.Tests\bin\Debug\CarIn.Tests.dll
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn.Tests\bin\Debug\CarIn.Tests.pdb
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn.Tests\obj\Debug\CarIn.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn.Tests\obj\Debug\CarIn.Tests.dll
+C:\Users\Fredrik\Documents\Visual Studio 2012\Projects\CarIn\CarIn.Tests\obj\Debug\CarIn.Tests.pdb
