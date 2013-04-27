@@ -9,17 +9,21 @@ namespace CarIn.Models.ViewModels
     public class ChangePasswordVm
     {
         [Required(ErrorMessage = "*")]
+        [Display(Name = "Användarnamn")]
         public string Username { get; set; }
         
         [Required(ErrorMessage = "*")]
-        public string Password { get; set; }
+        [Display(Name = "Nuvarande lösenord")]
+        public string OldPassword { get; set; }
 
         [Required(ErrorMessage = "*")]
+        [Display(Name = "Nytt lösenord")]
         public string NewPassword { get; set; }
 
         [Required]
+        [Display(Name = "Upprepa lösenord")]
         [Compare("NewPassword", ErrorMessage = "*")]
-        public string ConfirmeNewPassword { get; set; }
+        public string ConfirmNewPassword { get; set; }
 
     }
 }

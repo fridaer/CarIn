@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CarIn.DAL.Repositories;
 using CarIn.Models.Entities;
+using CarIn.Models.ViewModels;
 
 namespace CarIn.Controllers
 {
@@ -19,16 +20,33 @@ namespace CarIn.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult ChangePassword()
         {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "Ändra lösenord";
+
             return View();
+        }
+        public ActionResult ChangePassword(ChangePasswordVm model)
+        {
+            if(ModelState.IsValid)
+            {
+                if(!CheckIfPasswordMatch(model.OldPassword))
+                {
+                    ModelState.AddModelError("OldPassword", "Felaktigt lösenord");
+                    return View(model);
+                }
+
+            }
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
             return View();
+        }
+        private static bool CheckIfPasswordMatch(string password)
+        {
+            return true;
         }
     }
 }
