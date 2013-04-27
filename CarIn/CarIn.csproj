@@ -200,6 +200,7 @@
     <Compile Include="DAL\Context\CarInContext.cs" />
     <Compile Include="DAL\DbInitializers\CarInDbInitializer.cs" />
     <Compile Include="DAL\Repositories\Abstract\IRepository.cs" />
+    <Compile Include="DAL\Repositories\FakeRepository.cs" />
     <Compile Include="DAL\Repositories\Repository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
