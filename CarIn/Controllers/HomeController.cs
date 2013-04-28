@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CarIn.BLL;
 using CarIn.DAL.Repositories;
 using CarIn.Models.Entities;
 using CarIn.Models.ViewModels;
@@ -39,14 +40,18 @@ namespace CarIn.Controllers
         {
             if(ModelState.IsValid)
             {
-                if(!CheckIfPasswordMatch(model.OldPassword))
+                var passHelper = new PasswordHelper();
+
+                if(!passHelper.CheckIfPasswordMatch(model.OldPassword, model.OldPassword))
                 {
                     ModelState.AddModelError("OldPassword", "Felaktigt lösenord");
                     return View(model);
                 }
+
                 var user = _userRepo.FindAll(x => x.Username == model.Username).FirstOrDefault();
-                user.Password = HashPassword(model.NewPassword);
+                user.Password = passHelper.HashPassword(model.NewPassword);
                 _userRepo.Update(user);
+
             }
             return View(model);
         }
@@ -58,13 +63,5 @@ namespace CarIn.Controllers
         }
 
 
-        private static bool CheckIfPasswordMatch(string password)
-        {
-            return true;
-        }
-        private static string HashPassword(string password)
-        {
-            return password;
-        }
     }
 }
