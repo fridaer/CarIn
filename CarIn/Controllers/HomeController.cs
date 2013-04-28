@@ -24,16 +24,17 @@ namespace CarIn.Controllers
         {
 
             ViewBag.Message = "Ändra lösenord";
-            var loggedinUser = _userRepo.FindAll().SingleOrDefault();
+
+            var tmpLoggedinUser = _userRepo.FindAll().FirstOrDefault();
             var viewModelChangePassword = new ChangePasswordVm
-                                              {
-                                                  userId = loggedinUser.ID,
-                                                  Username = loggedinUser.Username
-                                              };
+                                                  {
+                                                      userId = tmpLoggedinUser.ID,
+                                                      Username = tmpLoggedinUser.Username
+                                                  };
 
             return View(viewModelChangePassword);
         }
-
+        [HttpPost]
         public ActionResult ChangePassword(ChangePasswordVm model)
         {
             if(ModelState.IsValid)
