@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using CarIn.BLL;
 using CarIn.DAL.Repositories;
 using CarIn.Models.Entities;
-using CarIn.Models.ViewModels;
 
 namespace CarIn.Controllers
 {
@@ -20,8 +19,12 @@ namespace CarIn.Controllers
             return View();
         }
 
-        public ActionResult ChangePassword()
+        public ActionResult About()
         {
+<<<<<<< HEAD
+            ViewBag.Message = "Your app description page.";
+            return View();
+=======
 
             ViewBag.Message = "Ändra lösenord";
             ChangePasswordVm viewModelChangePassword = null;
@@ -65,6 +68,7 @@ namespace CarIn.Controllers
                 return RedirectToAction("Index");
             }
             return View("ChangePassword", model);
+>>>>>>> changePass
         }
 
         public ActionResult Contact()
@@ -72,7 +76,10 @@ namespace CarIn.Controllers
             ViewBag.Message = "Your contact page.";
             return View();
         }
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> changePass
     }
 }
