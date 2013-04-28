@@ -7,21 +7,14 @@ using System.Web;
 namespace CarIn.Models.ViewModels
 {
     public class ChangePasswordVm
-    {
+    {   
+        [ScaffoldColumn(false)]
+        public int UserId { get; set; }
+
         [Required(ErrorMessage = "*")]
+        [Display(Name = "Användarnamn")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "*")]
-<<<<<<< HEAD
-        public string Password { get; set; }
-
-        [Required(ErrorMessage = "*")]
-        public string NewPassword { get; set; }
-
-        [Required]
-        [Compare("NewPassword", ErrorMessage = "*")]
-        public string ConfirmeNewPassword { get; set; }
-=======
         [Display(Name = "Nuvarande lösenord")]
         [DataType(DataType.Password)]
         public string OldPassword { get; set; }
@@ -36,7 +29,6 @@ namespace CarIn.Models.ViewModels
         [Compare("NewPassword", ErrorMessage = "Lösenorden stämmer inte")]
         [DataType(DataType.Password)]
         public string ConfirmNewPassword { get; set; }
->>>>>>> changePass
 
     }
 }

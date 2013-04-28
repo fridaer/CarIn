@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CarIn.BLL;
 using CarIn.DAL.Repositories;
 using CarIn.Models.Entities;
+using CarIn.Models.ViewModels;
 
 namespace CarIn.Controllers
 {
@@ -19,21 +20,17 @@ namespace CarIn.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult ChangePassword()
         {
-<<<<<<< HEAD
-            ViewBag.Message = "Your app description page.";
-            return View();
-=======
 
-            ViewBag.Message = "Ändra lösenord";
+
             ChangePasswordVm viewModelChangePassword = null;
             var tmpLoggedinUser = _userRepo.FindAll().FirstOrDefault();
             if(tmpLoggedinUser != null)
             {
                 viewModelChangePassword = new ChangePasswordVm
                 {
-                    userId = tmpLoggedinUser.ID,
+                    UserId = tmpLoggedinUser.ID,
                     Username = tmpLoggedinUser.Username
                 };
             }
@@ -41,7 +38,7 @@ namespace CarIn.Controllers
             {
                 viewModelChangePassword = new ChangePasswordVm
                                               {
-                                                  userId = 0,
+                                                  UserId = 0,
                                                   Username = "TmpUserNotInDb"
                                               };
             }
@@ -68,7 +65,7 @@ namespace CarIn.Controllers
                 return RedirectToAction("Index");
             }
             return View("ChangePassword", model);
->>>>>>> changePass
+
         }
 
         public ActionResult Contact()
@@ -76,10 +73,5 @@ namespace CarIn.Controllers
             ViewBag.Message = "Your contact page.";
             return View();
         }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> changePass
     }
 }
