@@ -22,6 +22,7 @@ namespace CarIn.Controllers
 
         public ActionResult ChangePassword()
         {
+
             ViewBag.Message = "Ändra lösenord";
             var loggedinUser = _userRepo.FindByID(3);
             var viewModelChangePassword = new ChangePasswordVm
