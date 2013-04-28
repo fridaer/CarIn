@@ -24,7 +24,7 @@ namespace CarIn.Controllers
         {
 
             ViewBag.Message = "Ändra lösenord";
-            var loggedinUser = _userRepo.FindByID(3);
+            var loggedinUser = _userRepo.FindAll().SingleOrDefault();
             var viewModelChangePassword = new ChangePasswordVm
                                               {
                                                   userId = loggedinUser.ID,
