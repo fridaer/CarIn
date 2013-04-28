@@ -16,7 +16,6 @@ namespace CarIn.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
             ViewBag.AllUsers = _userRepo.FindAll().ToList(); 
             return View();
         }
@@ -25,15 +24,26 @@ namespace CarIn.Controllers
         {
 
             ViewBag.Message = "Ändra lösenord";
-
+            ChangePasswordVm viewModelChangePassword = null;
             var tmpLoggedinUser = _userRepo.FindAll().FirstOrDefault();
-            var viewModelChangePassword = new ChangePasswordVm
-                                                  {
-                                                      userId = tmpLoggedinUser.ID,
-                                                      Username = tmpLoggedinUser.Username
-                                                  };
+            if(tmpLoggedinUser != null)
+            {
+                viewModelChangePassword = new ChangePasswordVm
+                {
+                    userId = tmpLoggedinUser.ID,
+                    Username = tmpLoggedinUser.Username
+                };
+            }
+            else
+            {
+                viewModelChangePassword = new ChangePasswordVm
+                                              {
+                                                  userId = 0,
+                                                  Username = "TmpUserNotInDb"
+                                              };
+            }
+            return View("ChangePassword", viewModelChangePassword);
 
-            return View(viewModelChangePassword);
         }
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordVm model)
@@ -51,9 +61,10 @@ namespace CarIn.Controllers
                 var user = _userRepo.FindAll(x => x.Username == model.Username).FirstOrDefault();
                 user.Password = passHelper.HashPassword(model.NewPassword);
                 _userRepo.Update(user);
-
+                ViewBag.Message = "Lösenord ändrat";
+                return RedirectToAction("Index");
             }
-            return View(model);
+            return View("ChangePassword", model);
         }
 
         public ActionResult Contact()
