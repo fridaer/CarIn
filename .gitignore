@@ -1,3 +1,5 @@
 CarIn.v11.suo
 _ReSharper.CarIn/
-obj/Debug/
+CarIn/obj/Debug/
+CarIn.Tests/obj/Debug/
+CarIn.Tests/bin/Debug/
