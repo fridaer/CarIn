@@ -5,3 +5,4 @@ CarIn.Tests/obj/Debug/
 CarIn.Tests/bin/Debug/
 CarIn/App_Data/CarIn.DAL.Context.CarInContext.mdf
 CarIn/App_Data/CarIn.DAL.Context.CarInContext_log.ldf
+CarIn/obj/Debug/CarIn.csprojResolveAssemblyReference.cache
