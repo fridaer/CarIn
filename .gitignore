@@ -3,3 +3,5 @@ _ReSharper.CarIn/
 CarIn/obj/Debug/
 CarIn.Tests/obj/Debug/
 CarIn.Tests/bin/Debug/
+CarIn/App_Data/CarIn.DAL.Context.CarInContext.mdf
+CarIn/App_Data/CarIn.DAL.Context.CarInContext_log.ldf
