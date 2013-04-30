@@ -48,20 +48,19 @@ namespace CarIn.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordVm model)
         {
-            var saltFromDB = "salt";
             if(ModelState.IsValid)
             {
                 var passHelper = new PasswordHelper();
 
-                if(!passHelper.CheckIfPasswordMatch(model.OldPassword, model.OldPassword,saltFromDB,null))
+                if(!passHelper.CheckIfPasswordMatch(model.OldPassword, model.OldPassword))
                 {
                     ModelState.AddModelError("OldPassword", "Felaktigt lösenord");
                     return View(model);
                 }
 
                 var user = _userRepo.FindAll(x => x.Username == model.Username).FirstOrDefault();
-                var passWordArray = passHelper.HashPassword(model.NewPassword, null, null);
-                user.Password = passWordArray[0];
+                var password = passHelper.HashPassword(model.NewPassword, passHelper.GenerateSalt().ToString());
+                user.Password = password;
                 //user.PasswordSalt = passWordArray[1];
                 _userRepo.Update(user);
                 ViewBag.Message = "Lösenord ändrat";

@@ -8,8 +8,10 @@ namespace CarIn.BLL.Abstract
 {
     public interface IPasswordHelper
     {
-        bool CheckIfPasswordMatch(string clearData, string hashedPassword, string saltValue, HashAlgorithm hash);
+        bool CheckIfPasswordMatch(string clearTextPassword, string hashedPassword);
 
-        string[] HashPassword(string clearData, string saltValue, HashAlgorithm hash);
+        string HashPassword(string clearData, string saltValue);
+
+        string GenerateSalt();
     }
 }
