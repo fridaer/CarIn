@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CarIn.DAL.DbInitializers;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -16,6 +18,9 @@ namespace CarIn
     {
         protected void Application_Start()
         {
+
+            Database.SetInitializer(new CarInDbInitializer());
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
