@@ -37,6 +37,10 @@
                             </form>
                         </section>
                        @ViewBag.loggedInMessage
+                        @if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
+                        {
+                            @Html.ActionLink("Ändra lösenord", "ChangePassword", "Home")
+                        }
                     </div>
                     <div class="clear"></div>
                 </header>

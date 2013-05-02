@@ -25,10 +25,12 @@ namespace CarIn.Controllers
                 if ((bool)Session["IsLoggedIn"] == true)
                 {
                     ViewBag.loggedInMessage = "Inloggad";
+                    ViewBag.showChangePassLink = true;
                 }
             }
             catch
             {
+                ViewBag.showChangePassLink = false;
 
                 ViewBag.loggedInMessage = "Inte inloggad";
             }
