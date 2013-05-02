@@ -77,7 +77,9 @@ namespace CarIn.Controllers
                 }
 
                 var user = _userRepo.FindAll(x => x.Username == model.Username).FirstOrDefault();
-                user.Password = passHelper.HashPassword(model.NewPassword);
+                var password = passHelper.HashPassword(model.NewPassword, passHelper.GenerateSalt().ToString());
+                user.Password = password;
+                //user.PasswordSalt = passWordArray[1];
                 _userRepo.Update(user);
                 ViewBag.Message = "Lösenord ändrat";
                 return RedirectToAction("Index");
