@@ -13,10 +13,27 @@ namespace CarIn.Controllers
     public class HomeController : Controller
     {
         private readonly Repository<User> _userRepo = new Repository<User>();
+        
 
         public ActionResult Index()
         {
             ViewBag.NameOfProject = "CarIn";
+
+            // Checking Logged In Session
+            try
+            {
+                if ((bool)Session["IsLoggedIn"] == true)
+                {
+                    ViewBag.loggedInMessage = "Inloggad";
+                }
+            }
+            catch
+            {
+
+                ViewBag.loggedInMessage = "Inte inloggad";
+            }
+
+
             ViewBag.AllUsers = _userRepo.FindAll().ToList(); 
             return View();
         }

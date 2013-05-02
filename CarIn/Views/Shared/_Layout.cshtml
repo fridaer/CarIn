@@ -36,7 +36,7 @@
                                 <input type="submit" class="btnSubmit" value="Logga in" />
                             </form>
                         </section>
-                       @ViewBag.mittMeddelande
+                       @ViewBag.loggedInMessage
                     </div>
                     <div class="clear"></div>
                 </header>
@@ -45,9 +45,11 @@
                 <div class="span12">
                      <nav class="mainmenu">
                         <ul>
-                            <li>@Html.ActionLink("Hem", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Väder", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li><a href="#">Olyckor</a><!-- @Html.ActionLink("Contact", "Contact", "Home")--></li>
+                            <li><a href="#">Tullar</a><!-- @Html.ActionLink("Väder", "About", "Home") --></li>
+                            <li><a href="#">Väder</a><!-- @Html.ActionLink("Hem", "Index", "Home") --></li>
+                            <li><a href="#">Lokaltrafik</a></li>
+                            <li><a href="#">Inställningar</a></li>
                         </ul>
                     </nav>
 

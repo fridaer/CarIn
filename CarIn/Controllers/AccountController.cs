@@ -19,21 +19,19 @@ namespace CarIn.Controllers
         [HttpPost]
         public ActionResult LogOn(string username, string password)
         {
+            
             if (username == "hej")
             {
                 if (password == "losen")
                 {
                     Session["IsLoggedIn"] = true;
-                    ViewBag.mittMeddelande = "inloggad!";
                 }
             }
             else
             {
-                ViewBag.mittMeddelande = "användarnamn eller lösenord är felaktigt";
             }
 
-
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
     }
