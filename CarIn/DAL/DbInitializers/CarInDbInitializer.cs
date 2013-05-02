@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using CarIn.DAL.Context;
 using CarIn.Models.Entities;
+using CarIn.BLL;
 
 namespace CarIn.DAL.DbInitializers
 {
@@ -13,24 +14,26 @@ namespace CarIn.DAL.DbInitializers
 
         protected override void Seed(CarInContext context)
         {
+            var passHelper = new PasswordHelper();
             var Users = new List<User>
             {
-                new User { ID = 1, Username = "Tobiasen" , Password = "delösersig"},
-                new User { ID = 2, Username = "Björn" , Password = "delösersig"},
-                new User { ID = 3, Username = "Frida" , Password = "delösersig"},
-                new User { ID = 4, Username = "Fredrik" , Password = "delösersig"},
-                new User { ID = 5, Username = "Urban" , Password = "delösersig"},
-                new User { ID = 6, Username = "Nisselina" , Password = "delösersig"},
-                new User { ID = 7, Username = "Kalle" , Password = "delösersig"},
-                new User { ID = 8, Username = "Sean" , Password = "delösersig"},
-                new User { ID = 9, Username = "Albert" , Password = "delösersiginte"},
-                new User { ID = 10, Username = "Sofia" , Password = "delösersiginte"},
-                new User { ID = 11, Username = "Victoria" , Password = "delösersiginte"},
-                new User { ID = 12, Username = "Karin" , Password = "delösersiginte"},
-                new User { ID = 13, Username = "Birger" , Password = "delösersiginte"},
-                new User { ID = 14, Username = "Nisse" , Password = "delösersiginte"},
-                new User { ID = 15, Username = "Alice" , Password = "delösersiginte"},
-                new User { ID = 16, Username = "Algott" , Password = "delösersiginte"},
+
+                new User { Username = "Tobiasen" , Password = passHelper.HashPassword("delösersig", passHelper.GenerateSalt())},
+                new User { Username = "Björn" , Password = passHelper.HashPassword("delösersig", passHelper.GenerateSalt())},
+                new User { Username = "Frida" , Password = passHelper.HashPassword("delösersig", passHelper.GenerateSalt())},
+                new User { Username = "Fredrik" ,  Password = passHelper.HashPassword("delösersig", passHelper.GenerateSalt())},
+                new User { Username = "Urban" ,  Password = passHelper.HashPassword("delösersig", passHelper.GenerateSalt())},
+                new User { Username = "Nisselina" ,  Password = passHelper.HashPassword("delösersig", passHelper.GenerateSalt())},
+                new User { Username = "Kalle" ,  Password = passHelper.HashPassword("delösersig", passHelper.GenerateSalt())},
+                new User { Username = "Sean" , Password = passHelper.HashPassword("delösersig", passHelper.GenerateSalt())},
+                new User { Username = "Albert" , Password = passHelper.HashPassword("delösersiginte", passHelper.GenerateSalt())},
+                new User { Username = "Sofia" , Password = passHelper.HashPassword("delösersiginte", passHelper.GenerateSalt())},
+                new User { Username = "Victoria" , Password = passHelper.HashPassword("delösersiginte", passHelper.GenerateSalt())},
+                new User { Username = "Karin" , Password = passHelper.HashPassword("delösersiginte", passHelper.GenerateSalt())},
+                new User { Username = "Birger" , Password = passHelper.HashPassword("delösersiginte", passHelper.GenerateSalt())},
+                new User { Username = "Nisse" , Password = passHelper.HashPassword("delösersiginte", passHelper.GenerateSalt())},
+                new User { Username = "Alice" , Password = passHelper.HashPassword("delösersiginte", passHelper.GenerateSalt())},
+                new User { Username = "Algott" , Password = passHelper.HashPassword("delösersiginte", passHelper.GenerateSalt())},
             };
 
 

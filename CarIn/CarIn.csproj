@@ -197,6 +197,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\Abstract\IPasswordHelper.cs" />
+    <Compile Include="BLL\BCrypt.cs" />
     <Compile Include="BLL\PasswordHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAL\Context\CarInContext.cs" />
@@ -287,7 +288,9 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Views\Home\ChangePassword.cshtml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
