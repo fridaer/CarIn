@@ -16,6 +16,7 @@ namespace CarIn.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.NameOfProject = "CarIn";
             ViewBag.AllUsers = _userRepo.FindAll().ToList(); 
             return View();
         }
@@ -73,5 +74,25 @@ namespace CarIn.Controllers
             ViewBag.Message = "Your contact page.";
             return View();
         }
+
+        /*private void btnLogin_Click(object sender, EventArgs e)
+        {
+            if (txtUsername.Text == "user")
+            {
+                if (txtPassword.Text == "password")
+                {
+                    new Form2().Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Error: invalid password or usernam");
+                }
+            }
+            else 
+            { 
+                MessageBox.Show("Error: invalid password or usernam"); 
+            }
+        }*/
     }
 }

@@ -4,10 +4,10 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using System.Data.Entity;
 using CarIn.DAL.Context;
 using CarIn.DAL.Repositories.Abstract;
 using CarIn.Models.Entities.Abstract;
+
 
 namespace CarIn.DAL.Repositories
 {

@@ -1,0 +1,157 @@
+﻿/* GRADIENT */
+/* ROUNDED CORNERS */
+/* BOX SHADOW */
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+}
+.clear {
+  clear: both;
+}
+img {
+  display: block;
+  border: none;
+}
+.zero-margin {
+  margin: 0;
+  padding: 0;
+}
+.border {
+  border: 1px solid black;
+}
+.shadow {
+  -webkit-box-shadow: 1px 1px 5px #333333;
+  -moz-box-shadow: 1px 1px 5px #333333;
+  box-shadow: 1px 1px 5px #333333;
+}
+.RenasFont {
+  font-family: 'Inder', sans-serif;
+}
+h1 {
+  font-family: 'Inder', sans-serif;
+  font-size: 25px;
+  line-height: 20px;
+}
+body {
+  background: #ccc;
+}
+.container {
+  /*.box-shadow(0px 5px 20px #555);*/
+
+}
+header {
+  background: #72d09f;
+  padding: 5px;
+}
+.logo {
+  margin: 30px;
+}
+.mainmenu {
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f0f0f0), color-stop(1, #ffffff));
+  background: -ms-linear-gradient(bottom, #f0f0f0, #ffffff);
+  background: -moz-linear-gradient(center bottom, #f0f0f0 0%, #ffffff 100%);
+  background: -o-linear-gradient(#ffffff, #f0f0f0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f0f0f0', GradientType=0);
+  -webkit-box-shadow: 0 3px 3px -1px #cccccc;
+  -moz-box-shadow: 0 3px 3px -1px #cccccc;
+  box-shadow: 0 3px 3px -1px #cccccc;
+  z-index: 10;
+  /*margin-bottom: 10px;*/
+
+}
+.mainmenu ul {
+  float: right;
+  display: table;
+  width: 100%;
+}
+.mainmenu ul li {
+  display: table-cell;
+  text-align: center;
+  width: 120px;
+}
+.mainmenu ul li a {
+  display: block;
+  font-family: 'Inder', sans-serif;
+  text-decoration: none;
+  color: #888;
+  font-weight: bold;
+  padding: 10px 20px;
+  white-space: nowrap;
+  text-shadow: -1px 1px #ffffff;
+  border-left: 1px solid #eee;
+}
+.mainmenu ul li a:hover {
+  background-color: #ffffff;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f5f5f5), color-stop(1, #ffffff));
+  background: -ms-linear-gradient(bottom, #f5f5f5, #ffffff);
+  background: -moz-linear-gradient(center bottom, #f5f5f5 0%, #ffffff 100%);
+  background: -o-linear-gradient(#ffffff, #f5f5f5);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f5f5f5', GradientType=0);
+  color: #333;
+}
+.mainmenu ul .active {
+  background-color: #01b5e2;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #18d0fe), color-stop(1, #01b5e2));
+  background: -ms-linear-gradient(bottom, #18d0fe, #01b5e2);
+  background: -moz-linear-gradient(center bottom, #18d0fe 0%, #01b5e2 100%);
+  background: -o-linear-gradient(#01b5e2, #18d0fe);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#01b5e2', endColorstr='#18d0fe', GradientType=0);
+}
+.mainmenu ul .active a {
+  -webkit-box-shadow: inset 10px 0 10px -10px #888888, inset -10px 0 10px -10px #888888;
+  -moz-box-shadow: inset 10px 0 10px -10px #888888, inset -10px 0 10px -10px #888888;
+  box-shadow: inset 10px 0 10px -10px #888888, inset -10px 0 10px -10px #888888;
+  color: #fff;
+  text-shadow: -1px 1px #888888;
+}
+.mainmenu ul .active a:hover {
+  background-color: #01b5e2;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #18d0fe), color-stop(1, #01b5e2));
+  background: -ms-linear-gradient(bottom, #18d0fe, #01b5e2);
+  background: -moz-linear-gradient(center bottom, #18d0fe 0%, #01b5e2 100%);
+  background: -o-linear-gradient(#01b5e2, #18d0fe);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#01b5e2', endColorstr='#18d0fe', GradientType=0);
+  color: #fff;
+}
+/*.theMap {
+        width: 100%;
+        height: 100%;
+        border: 0px;
+        overflow: hidden;
+        /*frameborder="0" scrolling="no" marginheight="0" marginwidth="0" }
+    }*/
+.maincontent {
+  padding: 30px 0px;
+}
+.content {
+  margin-right: 20px;
+}
+footer {
+  background: #f0f0f0;
+  -webkit-border-radius: 0px 0px 40px 40px;
+  -moz-border-radius: 0px 0px 40px 40px;
+  -ms-border-radius: 0px 0px 40px 40px;
+  -o-border-radius: 0px 0px 40px 40px;
+  border-radius: 0px 0px 40px 40px;
+  padding: 20px;
+}
+footer img {
+  float: left;
+}
+footer .footer-text {
+  padding: 10px;
+  font-family: 'Inder', sans-serif;
+  /*color: #fff;
+            text-shadow: -1px 1px #888;*/
+
+  text-align: center;
+}
+footer .footer-text .big {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 40px;
+}
