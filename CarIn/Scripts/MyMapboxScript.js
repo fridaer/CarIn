@@ -20,8 +20,79 @@ layer.on('ready', function () {
             description: '2 långtradare har koliderat, brinner på vägbannan',
             // one can customize markers by adding simplestyle properties
             // http://mapbox.com/developers/simplestyle/
+            'marker-symbol': 'cross',
             'marker-size': 'large',
-            'marker-color': '#f0a'
+            'marker-color': '#3E679E'
+        }
+    }).addTo(map);
+    L.mapbox.markerLayer({
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [12.25, 57.8]
+        },
+        properties: {
+            title: 'Stora störningar i skogen i bushen.',
+            description: 'Var vaksam när du är ute och går',
+            'marker-symbol': 'cross',
+            'marker-size': 'small',
+            'marker-color': '#3E679E'
+        }
+    }).addTo(map);
+    L.mapbox.markerLayer({
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [12.032776, 57.63511]
+        },
+        properties: {
+            title: 'Stora störningar i trafiken',
+            description: 'Medelhastighet 55km/h',
+            'marker-symbol': 'cross',
+            'marker-size': 'small',
+            'marker-color': '#3E679E'
+        }
+    }).addTo(map);
+    L.mapbox.markerLayer({
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [12.008743, 57.774884]
+        },
+        properties: {
+            title: 'Stora störningar i trafiken',
+            description: 'Medelhastighet 35km/h',
+            'marker-symbol': 'cross',
+            'marker-size': 'small',
+            'marker-color': '#3E679E'
+        }
+    }).addTo(map);
+    L.mapbox.markerLayer({
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [12.098694, 57.736784]
+        },
+        properties: {
+            title: 'Stora störningar i trafiken',
+            description: 'Medelhastighet 35km/h',
+            'marker-symbol': 'cross',
+            'marker-size': 'small',
+            'marker-color': '#3E679E'
+        }
+    }).addTo(map);
+    L.mapbox.markerLayer({
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [11.990891, 57.718086]
+        },
+        properties: {
+            title: 'Spår Arbete',
+            description: 'Försvårad framkomlighet i centrala delar av stan.',
+            'marker-symbol': 'cross',
+            'marker-size': 'small',
+            'marker-color': '#3E679E'
         }
     }).addTo(map);
 })
