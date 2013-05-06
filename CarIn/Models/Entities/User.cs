@@ -12,5 +12,11 @@ namespace CarIn.Models.Entities
         public string Username { get; set; }
         public string Password { get; set; }
 
+        public bool ShowWeather { get; set; }
+        public bool ShowAccidents { get; set; }
+        public bool ShowTraffic { get; set; }
+        public bool ShowPublicTransport { get; set; }
+
+
     }
 }

@@ -50,13 +50,14 @@ namespace CarIn.Controllers
 
 
             ChangePasswordVm viewModelChangePassword = null;
+            var LoggedinUser = Session["UserName"].ToString();
             var tmpLoggedinUser = _userRepo.FindAll().FirstOrDefault();
             if(tmpLoggedinUser != null)
             {
                 viewModelChangePassword = new ChangePasswordVm
                 {
                     UserId = tmpLoggedinUser.ID,
-                    Username = tmpLoggedinUser.Username
+                    Username = LoggedinUser
                 };
             }
             else
@@ -73,26 +74,31 @@ namespace CarIn.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordVm model)
         {
+            var db = new DAL.Context.CarInContext();
             if(ModelState.IsValid)
             {
                 var passHelper = new PasswordHelper();
 
-                if(!passHelper.CheckIfPasswordMatch(model.OldPassword, model.OldPassword))
+                if (!passHelper.CheckIfPasswordMatch(model.OldPassword, _userRepo.FindAll(u => u.Username == Session["username"].ToString()).Select(u => u.Password).FirstOrDefault()))
                 {
                     ModelState.AddModelError("OldPassword", "Felaktigt lösenord");
                     return View(model);
                 }
-
                 var user = _userRepo.FindAll(x => x.Username == model.Username).FirstOrDefault();
                 var password = passHelper.HashPassword(model.NewPassword, passHelper.GenerateSalt().ToString());
                 user.Password = password;
-                //user.PasswordSalt = passWordArray[1];
                 _userRepo.Update(user);
                 ViewBag.Message = "Lösenord ändrat";
                 return RedirectToAction("Index");
             }
             return View("ChangePassword", model);
 
+        }
+
+        public ActionResult SignOut()
+        {
+            Session["IsLoggedIn"] = null;
+            return RedirectToAction("Index");
         }
 
         public ActionResult Contact()

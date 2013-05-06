@@ -19,17 +19,24 @@ namespace CarIn.Controllers
         [HttpPost]
         public ActionResult LogOn(string username, string password)
         {
-            
-            if (username == "hej")
+
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
             {
-                if (password == "losen")
-                {
-                    Session["IsLoggedIn"] = true;
+                var db = new DAL.Context.CarInContext();
+                var passwordHelper = new BLL.PasswordHelper();
+                var hashedPassword = db.Users.Where(u => u.Username == username).Select(u => u.Password).FirstOrDefault();
+                if(!string.IsNullOrEmpty(hashedPassword)){
+                    if(passwordHelper.CheckIfPasswordMatch(password, hashedPassword))
+                    {
+                        Session["UserName"] = username;
+                        Session["IsLoggedIn"] = true;
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+                
             }
-            else
-            {
-            }
+            
+            Session["IsLoggedIn"] = false;
 
             return RedirectToAction("Index", "Home");
         }
