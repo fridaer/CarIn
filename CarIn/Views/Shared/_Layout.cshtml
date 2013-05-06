@@ -40,6 +40,7 @@
                         @if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
                         {
                             @Html.ActionLink("Ändra lösenord", "ChangePassword", "Home")
+                            @Html.ActionLink("Logga Ut", "SignOut", "Home")
                         }
                     </div>
                     <div class="clear"></div>
