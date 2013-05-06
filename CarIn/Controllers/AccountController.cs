@@ -28,6 +28,7 @@ namespace CarIn.Controllers
                 if(!string.IsNullOrEmpty(hashedPassword)){
                     if(passwordHelper.CheckIfPasswordMatch(password, hashedPassword))
                     {
+                        Session["UserName"] = username;
                         Session["IsLoggedIn"] = true;
                         return RedirectToAction("Index", "Home");
                     }
@@ -36,17 +37,6 @@ namespace CarIn.Controllers
             }
             
             Session["IsLoggedIn"] = false;
-
-            //if (username == "hej")
-            //{
-            //    if (password == "losen")
-            //    {
-            //        Session["IsLoggedIn"] = true;
-            //    }
-            //}
-            //else
-            //{
-            //}
 
             return RedirectToAction("Index", "Home");
         }

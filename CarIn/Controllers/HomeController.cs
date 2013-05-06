@@ -50,13 +50,14 @@ namespace CarIn.Controllers
 
 
             ChangePasswordVm viewModelChangePassword = null;
+            var LoggedinUser = Session["UserName"].ToString();
             var tmpLoggedinUser = _userRepo.FindAll().FirstOrDefault();
             if(tmpLoggedinUser != null)
             {
                 viewModelChangePassword = new ChangePasswordVm
                 {
                     UserId = tmpLoggedinUser.ID,
-                    Username = tmpLoggedinUser.Username
+                    Username = LoggedinUser
                 };
             }
             else
@@ -73,11 +74,12 @@ namespace CarIn.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordVm model)
         {
+            var db = new DAL.Context.CarInContext();
             if(ModelState.IsValid)
             {
                 var passHelper = new PasswordHelper();
 
-                if(!passHelper.CheckIfPasswordMatch(model.OldPassword, model.OldPassword))
+                if(!passHelper.CheckIfPasswordMatch(model.OldPassword, db.Users.Where(u => u.Username == Session["username"].ToString()).Select(u => u.Password).FirstOrDefault()))
                 {
                     ModelState.AddModelError("OldPassword", "Felaktigt lösenord");
                     return View(model);
