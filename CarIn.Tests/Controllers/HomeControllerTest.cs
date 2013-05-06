@@ -5,7 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using CarIn.Controllers;
+using CarIn.DAL.Repositories;
+using CarIn.DAL.Repositories.Abstract;
+using CarIn.Models.Entities;
 using CarIn.Models.ViewModels;
+using Moq;
 using NUnit.Framework;
 
 namespace CarIn.Tests.Controllers
@@ -17,7 +21,9 @@ namespace CarIn.Tests.Controllers
         [SetUp]
         public void Setup()
         {
-            _homeController = new HomeController();
+            var mock = new Mock<IRepository<User>>();
+            mock.Setup(x => x.Add(new User()));
+            _homeController = new HomeController(mock.Object);
         }
         [Test]
 

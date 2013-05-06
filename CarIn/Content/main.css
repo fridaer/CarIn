@@ -25,16 +25,12 @@ img {
   -moz-box-shadow: 1px 1px 5px #333333;
   box-shadow: 1px 1px 5px #333333;
 }
-.RenasFont {
-  font-family: 'Inder', sans-serif;
-}
 h1 {
-  font-family: 'Inder', sans-serif;
   font-size: 25px;
   line-height: 20px;
 }
 body {
-  background: #ccc;
+  background: #808080;
 }
 .container {
   /*.box-shadow(0px 5px 20px #555);*/
@@ -75,13 +71,13 @@ header {
 }
 .mainmenu ul li a {
   display: block;
-  font-family: 'Inder', sans-serif;
   text-decoration: none;
   color: #888;
   font-weight: bold;
   padding: 10px 20px;
   white-space: nowrap;
-  text-shadow: -1px 1px #ffffff;
+  /*text-shadow: -1px 1px #fff;*/
+
   border-left: 1px solid #eee;
 }
 .mainmenu ul li a:hover {
@@ -102,11 +98,14 @@ header {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#01b5e2', endColorstr='#18d0fe', GradientType=0);
 }
 .mainmenu ul .active a {
-  -webkit-box-shadow: inset 10px 0 10px -10px #888888, inset -10px 0 10px -10px #888888;
-  -moz-box-shadow: inset 10px 0 10px -10px #888888, inset -10px 0 10px -10px #888888;
-  box-shadow: inset 10px 0 10px -10px #888888, inset -10px 0 10px -10px #888888;
+  /*.box-shadow(
+                        inset 10px 0 10px -10px #888,
+                        inset -10px 0 10px -10px #888;
+                    );*/
+
   color: #fff;
-  text-shadow: -1px 1px #888888;
+  /*text-shadow: -1px 1px #888;*/
+
 }
 .mainmenu ul .active a:hover {
   background-color: #01b5e2;
@@ -144,7 +143,6 @@ footer img {
 }
 footer .footer-text {
   padding: 10px;
-  font-family: 'Inder', sans-serif;
   /*color: #fff;
             text-shadow: -1px 1px #888;*/
 

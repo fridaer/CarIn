@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using CarIn.BLL;
 using CarIn.DAL.Repositories;
+using CarIn.DAL.Repositories.Abstract;
 using CarIn.Models.Entities;
 using CarIn.Models.ViewModels;
 
@@ -12,8 +13,12 @@ namespace CarIn.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Repository<User> _userRepo = new Repository<User>();
-        
+        private readonly IRepository<User> _userRepo;
+
+        public HomeController(IRepository<User> repo)
+        {
+            _userRepo = repo;
+        }
 
         public ActionResult Index()
         {

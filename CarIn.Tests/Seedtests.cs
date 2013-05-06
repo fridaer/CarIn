@@ -17,7 +17,7 @@ namespace CarIn.Tests
     [TestFixture]
     class Seedtests
     {
-        private User User1;
+        private List<User> Users;
         [SetUp]
         public void Setup()
         {

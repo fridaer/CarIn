@@ -1,4 +1,5 @@
-﻿using CarIn.DAL.DbInitializers;
+﻿using CarIn.App_Start;
+using CarIn.DAL.DbInitializers;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -22,7 +23,7 @@ namespace CarIn
             Database.SetInitializer(new CarInDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
-
+            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
