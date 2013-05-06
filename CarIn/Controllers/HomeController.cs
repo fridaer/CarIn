@@ -120,5 +120,9 @@ namespace CarIn.Controllers
                 MessageBox.Show("Error: invalid password or usernam"); 
             }
         }*/
+        public ActionResult Kart_Demo()
+        {
+            return View();
+        }
     }
 }
