@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CarIn.DAL.Repositories.Abstract;
+using CarIn.Models.Entities;
 
 namespace CarIn.Controllers
 {
     public class AccountController : Controller
     {
-        //
-        // GET: /Account/
+        private readonly IRepository<User> _userRepo;
 
-        public ActionResult Index()
+        public AccountController(IRepository<User> repo)
         {
-            return View();
+            _userRepo = repo;
         }
 
         [HttpPost]
@@ -22,9 +23,8 @@ namespace CarIn.Controllers
 
             if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
             {
-                var db = new DAL.Context.CarInContext();
                 var passwordHelper = new BLL.PasswordHelper();
-                var hashedPassword = db.Users.Where(u => u.Username == username).Select(u => u.Password).FirstOrDefault();
+                var hashedPassword = _userRepo.FindAll(u => u.Username == username).Select(u => u.Password).FirstOrDefault();
                 if(!string.IsNullOrEmpty(hashedPassword)){
                     if(passwordHelper.CheckIfPasswordMatch(password, hashedPassword))
                     {
