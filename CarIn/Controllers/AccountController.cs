@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CarIn.BLL;
 using CarIn.DAL.Repositories.Abstract;
 using CarIn.Models.Entities;
 
@@ -23,7 +24,7 @@ namespace CarIn.Controllers
 
             if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
             {
-                var passwordHelper = new BLL.PasswordHelper();
+                var passwordHelper = new PasswordHelper();
                 var hashedPassword = _userRepo.FindAll(u => u.Username == username).Select(u => u.Password).FirstOrDefault();
                 if(!string.IsNullOrEmpty(hashedPassword)){
                     if(passwordHelper.CheckIfPasswordMatch(password, hashedPassword))

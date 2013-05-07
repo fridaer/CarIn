@@ -2,7 +2,7 @@
 layer.on('ready', function () {
     // the layer has been fully loaded now, and you can
     // call .getTileJSON and investigate its properties
-    var map = L.mapbox.map('map', 'tobohr.map-n6vjouf7').setView([57.681789894876026, 12.239759687484923], 11);
+    var map = L.mapbox.map('map', 'tobohr.map-n6vjouf7').setView([57.75, 11.974749], 11);
 
         (function ($) {
             var url = 'http://dev.virtualearth.net/REST/v1/Traffic/Incidents/57.497813,11.602687,57.885356,12.406062?key=AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj&o=json&jsonp=?';

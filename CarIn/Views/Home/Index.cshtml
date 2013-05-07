@@ -4,12 +4,8 @@
 }
 
           
-<h3>Alla users i databasen</h3>
-<ul>
-    @foreach(var item in ViewBag.AllUsers as List<User>)
-    {
-        <li>
-            ID = @item.ID Användarnamn = @item.Username Lösenord = @item.Password 
-        </li>
-    }
-</ul>
+<div>
+  
+        @Html.Partial("Kart_Demo")
+  
+</div>
