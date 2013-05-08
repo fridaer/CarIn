@@ -50,7 +50,7 @@ namespace CarIn.Controllers
 
 
             ChangePasswordVm viewModelChangePassword = null;
-            var LoggedinUser = Session["UserName"].ToString();
+            var loggedinUser = Session["UserName"].ToString();
             var tmpLoggedinUser = _userRepo.FindAll().FirstOrDefault();
             if(tmpLoggedinUser != null)
             {
