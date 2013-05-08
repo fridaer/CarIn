@@ -12,57 +12,87 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- StyleSheets -->
-        <link type="text/css" rel="stylesheet" href="/Content/bootstrap-responsive.min.css"  />
+       <!-- <link type="text/css" rel="stylesheet" href="/Content/bootstrap-responsive.min.css"  /> -->
+        <link type="text/css" rel="stylesheet" href="/Content/bootstrap.css"  />
         <!-- <link type="text/css" rel="stylesheet/less" href="/Content/main.less" /> -->
         <link type="text/css" rel="stylesheet" href="/Content/main.css" />
 
         <!-- Javascripts -->
-        <script src="/Scripts/bootstrap.min.js" type="text/javascript"></script> 
+        <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+        <script src="/Scripts/bootstrap.min.js" type="text/javascript"></script>  
+        <!-- <script src="/Scripts/bootstrap.js" type="text/javascript"></script> -->
         <script src="/Scripts/less.js" type="text/javascript"></script>
     </head>
     <body>
+        <div class="fridas-media" >
+			<div class="margin"></div>
+			<div class="fixed">
+				<div class="visible-phone">
+					<span class="show_at_320px">320px</span>
+					<span class="show_at_480px">480px och mindre</span>
+					<span class="show_at_767px">767px och mindre ::: Mobiltelefoner: Landscape phone to portrait tablet </span> 
+				</div>
+				<div class="visible-tablet">768px-979px ::: Tablets: Portrait tablet to landscape tablets and desktop </div>
+				<div class="visible-desktop">
+					<span class="show_at_980px">980px och större </span>
+					<span class="show_at_1200px">1200px och större</span> ::: Large desktop
+				</div>
+			</div>
+		</div>
         <div class="container">
             <div class="row-fluid">
-                <header>
-            
-                    <div class="span4">
-                        <h1>@ViewBag.NameOfProject</h1>
-                    </div>
-                    <div class="span8">
-                        <section id="login">
-                            <form action="/Account/LogOn" method="post">
-                                <input type="text" name="username" value="Användarnamn"/>
-                                <input type="text" name="password" value="Lösenord"/>
-                                <input type="submit" class="btnSubmit" value="Logga in" />
-                            </form>
-                        </section>
-                       @ViewBag.loggedInMessage
+                <header class="span12">
+                    
+                        <a href="/" class="logo">@ViewBag.NameOfProject</a>
+                    
+                        <p class="viewbagmessage">@ViewBag.loggedInMessage</p>
                         @if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
                         {
                             @Html.ActionLink("Ändra lösenord", "ChangePassword", "Home")
                             @Html.ActionLink("Logga Ut", "SignOut", "Home")
                         }
-                    </div>
-                    <div class="clear"></div>
+                        else {
+                            <!-- Button to trigger modal-LogIn -->
+				            <a href="#myModal" role="button" class="btn log-in-btn" data-toggle="modal">Logga in</a>
+				
+				            <!-- Modal-LogIn -->
+				            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				                <div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					                <h3 id="myModalLabel">Logga in</h3>
+				                </div>
+                                <form action="/Account/LogOn" method="post">
+				                    <div class="modal-body">
+					                    <input type="text" name="username" value="Användarnamn"/>
+                                        <input type="text" name="password" value="Lösenord"/>
+ 				                    </div>
+				                    <div class="modal-footer">
+					                    <button class="btn" data-dismiss="modal" aria-hidden="true">Avbryt</button>
+                                        <input type="submit" class="btnSubmit btn btn-primary" value="Logga in" />
+				                    </div>
+                                </form>
+				            </div>
+                        }
+                        <div class="clear"></div>
                 </header>
             </div>
             <div class="row-fluid">
                 <div class="span12">
-                     <nav class="mainmenu">
+                    <div class="map">
+                        @RenderSection("featured", required: false)
+                        <section class="content-wrapper main-content clear-fix">
+                            @RenderBody()
+                        </section>
+                    </div>
+                    <nav class="mainmenu">
                         <ul>
-                            <li><a href="#">Olyckor</a><!-- @Html.ActionLink("Contact", "Contact", "Home")--></li>
-                            <li><a href="#">Tullar</a><!-- @Html.ActionLink("Väder", "About", "Home") --></li>
-                            <li><a href="#">Väder</a><!-- @Html.ActionLink("Hem", "Index", "Home") --></li>
-                            <li><a href="#">Lokaltrafik</a></li>
-                            <li><a href="#">Inställningar</a></li>
+                            <li><a href="#" class="olycka"><span class="hidden-phone">Olyckor</span><img src="Images/icon-varning.png" alt="Olycka" /></a><!-- @Html.ActionLink("Contact", "Contact", "Home")--></li>
+                            <li><a href="#" class="tullar"><span class="hidden-phone">Tullar</span><img src="Images/icon-tullar.png" alt="Tullar" /></a><!-- @Html.ActionLink("Väder", "About", "Home") --></li>
+                            <li><a href="#" class="vader"><span class="hidden-phone">Väder</span><img src="Images/icon-vader.png" alt="Väder" /></a><!-- @Html.ActionLink("Hem", "Index", "Home") --></li>
+                            <li><a href="#" class="lokaltrafik"><span class="hidden-phone">Lokaltrafik</span><img src="Images/icon-lokaltrafik.png" alt="Lokaltrafik" /></a></li>
+                            <li><a href="#" class="installningar"><span class="hidden-phone">Inställningar</span><img src="Images/icon-installningar.png" alt="Olycka" /></a></li>
                         </ul>
                     </nav>
-
-                    @RenderSection("featured", required: false)
-                    <section class="content-wrapper main-content clear-fix">
-                        <!-- <iframe class="theMap" src="https://maps.google.se/?ie=UTF8&amp;t=m&amp;ll=57.695708,12.21199&amp;spn=0.176138,0.439453&amp;z=11&amp;output=embed"></iframe> -->
-                        @RenderBody()
-                    </section>
                 </div>
             </div>
             <div class="row-fluid">

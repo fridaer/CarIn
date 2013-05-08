@@ -57,7 +57,7 @@ namespace CarIn.Controllers
                 viewModelChangePassword = new ChangePasswordVm
                 {
                     UserId = tmpLoggedinUser.ID,
-                    Username = LoggedinUser
+                    Username = loggedinUser
                 };
             }
             else
