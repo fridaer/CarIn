@@ -17,8 +17,8 @@ layer.on('ready', function () {
     },500);
 
         (function ($) {
-            var url = 'http://dev.virtualearth.net/REST/v1/Traffic/Incidents/57.497813,11.602687,57.885356,12.406062?key=AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj&o=json&jsonp=?';
-
+            //var url = 'http://dev.virtualearth.net/REST/v1/Traffic/Incidents/57.497813,11.602687,57.885356,12.406062?key=AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj&o=json&jsonp=?';
+            var url = "";
             $.ajax({
                 type: 'GET',
                 url: url,
