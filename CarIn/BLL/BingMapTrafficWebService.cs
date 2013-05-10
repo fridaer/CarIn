@@ -35,7 +35,7 @@ namespace CarIn.BLL
         }
 
 
-        public List<TrafficIncident> MakeRequestReturnTrafficIncidents()
+        public List<TrafficIncident> MakeRequest()
         {
             try
             {
@@ -84,7 +84,7 @@ namespace CarIn.BLL
             var jArray = (JArray)resourcesSets["resourceSets"][0]["resources"];
 
             var trafficIncidents = new List<TrafficIncident>();
-            for (int i = 0; i < totalResources; i++)
+            for (var i = 0; i < totalResources; i++)
             {
                 var trafficIncident = new TrafficIncident()
                 {

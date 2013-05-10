@@ -23,7 +23,6 @@ namespace CarIn.Controllers
         public ActionResult Index()
         {
             ViewBag.NameOfProject = "CarIn";
-
             // Checking Logged In Session
             try
             {

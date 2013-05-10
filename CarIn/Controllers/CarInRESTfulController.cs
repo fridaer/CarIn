@@ -8,6 +8,7 @@ using System.Web.Http;
 using CarIn.DAL.Repositories;
 using CarIn.DAL.Repositories.Abstract;
 using CarIn.Models.Entities;
+using CarIn.Models.ViewModels;
 using Newtonsoft.Json.Linq;
 
 namespace CarIn.Controllers
@@ -21,10 +22,16 @@ namespace CarIn.Controllers
         }
         public Object GetAllInfo()
         {
-            //var _repository = new Repository<TrafficIncident>();
-            var trafficIncidents = _repository.FindAll();
+            //var trafficIncidents = _repository.FindAll();
+            //return trafficIncidents;
 
-            return trafficIncidents;
+            var tmpRepWheather = new Repository<WheatherPeriod>();
+            var mapInfoModel = new MapInfoVm
+                                   {
+                                       TrafficIncidents = _repository.FindAll().ToList(),
+                                       WheatherPeriods = tmpRepWheather.FindAll().ToList()
+                                   };
+            return mapInfoModel;
         }
 
         // GET api/carinrestful/5

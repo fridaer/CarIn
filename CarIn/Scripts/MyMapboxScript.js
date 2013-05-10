@@ -26,23 +26,31 @@ layer.on('ready', function () {
                 async: true,
                 success: function (json) {
                     //json[0] = 
-                    //Description: "mellan Pinan och Färjeled till Hönö - Vägarbete."
-                    //End: "06/28/2013 21:00:00"
-                    //ID: 1
-                    //IncidentId: "403657022"
-                    //Lane: null
-                    //LastModified: "05/07/2013 06:01:26"
-                    //PointLat: "57.70863"
-                    //PointLong: "11.703"
-                    //RoadClosed: "False"
-                    //Severity: "1"
-                    //Start: "04/30/2013 23:00:00"
-                    //ToPointLat: "57.70742"
-                    //ToPointLong: "11.69865"
-                    //Type: "9"
-                    //Verified: "True"
+                        //TrafficIncidents
+                            //Description: "mellan Pinan och Färjeled till Hönö - Vägarbete."
+                            //End: "06/28/2013 21:00:00"
+                            //ID: 1
+                            //IncidentId: "403657022"
+                            //Lane: null
+                            //LastModified: "05/07/2013 06:01:26"
+                            //PointLat: "57.70863"
+                            //PointLong: "11.703"
+                            //RoadClosed: "False"
+                            //Severity: "1"
+                            //Start: "04/30/2013 23:00:00"
+                            //ToPointLat: "57.70742"
+                            //ToPointLong: "11.69865"
+                            //Type: "9"
+                            //Verified: "True"
+                        //WheatherPeriods
+                            //ID: 1
+                            //PeriodNumber: "3"
+                            //SymbolName: "Fair"
+                            //TemperatureCelsius: "15"
+                            //WindCode: "S"
+                            //WindSpeedMps: "6.8"
                     console.log(json);
-                    $.each(json, function () {
+                    $.each(json.TrafficIncidents, function () {
                         console.log(this);
                         L.mapbox.markerLayer({
                             type: 'Feature',
@@ -78,7 +86,7 @@ layer.on('ready', function () {
                             }).addTo(map);
                         }
                     });
-
+                    $('.vader span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
                 },
                 error: function (e) {
                     console.log("Det gick åt apan :( ");
