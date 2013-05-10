@@ -38,6 +38,13 @@ namespace CarIn.DAL.DbInitializers
 
             Users.ForEach(s => context.Users.Add(s));
 
+            var bingMapWebService = new BingMapTrafficWebService("AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj");
+            var trafficIncidents = bingMapWebService.MakeRequestReturnTrafficIncidents();
+            if(trafficIncidents.Any())
+            {
+                trafficIncidents.ForEach(x => context.TrafficIncidents.Add(x));
+            }
+
             context.SaveChanges();
         }
     }

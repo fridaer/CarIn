@@ -34,11 +34,13 @@ namespace CarIn.Controllers
         // PUT api/carinrestful/5
         public void Put(int id, [FromBody]string value)
         {
+
         }
 
         // DELETE api/carinrestful/5
         public void Delete(int id)
         {
+
         }
     }
 }

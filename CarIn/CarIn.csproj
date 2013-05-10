@@ -204,6 +204,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\Abstract\IPasswordHelper.cs" />
     <Compile Include="BLL\BCrypt.cs" />
+    <Compile Include="BLL\BingMapTrafficWebService.cs" />
     <Compile Include="BLL\PasswordHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarInRESTfulController.cs" />
@@ -217,6 +218,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
+    <Compile Include="Models\Entities\TrafficIncident.cs" />
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Models\ViewModels\ChangePasswordVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

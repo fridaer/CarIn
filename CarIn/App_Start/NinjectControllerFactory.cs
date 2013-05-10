@@ -33,6 +33,7 @@ namespace CarIn.App_Start
 
         private void AddBindings()
         {
+
             _kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>));
         }
     }

@@ -10,5 +10,7 @@ namespace CarIn.DAL.Context
     public class CarInContext : System.Data.Entity.DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<TrafficIncident> TrafficIncidents { get; set; }
+
     }
 }
