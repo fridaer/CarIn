@@ -14,7 +14,8 @@ using CarIn.BLL;
 
 namespace CarIn.Tests
 {
-    [TestFixture]
+    [TestFixture ]
+    [Category("SlowTest")]
     class Seedtests
     {
         private List<User> Users;

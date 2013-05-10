@@ -31,6 +31,7 @@ namespace CarIn.Tests.Controllers
             Assert.IsFalse(result, "Shuld be false");
         }
         [Test]
+        [Category("SlowTest")]
         public void CheckIfPasswordMatch_Return_True_If_Current_PassWord_Is_Correct()
         { 
             //Arrange
