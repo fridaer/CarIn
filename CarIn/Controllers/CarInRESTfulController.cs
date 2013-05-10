@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Helpers;
 using System.Web.Http;
+using CarIn.DAL.Repositories;
 using CarIn.DAL.Repositories.Abstract;
 using CarIn.Models.Entities;
 using Newtonsoft.Json.Linq;
@@ -13,11 +14,17 @@ namespace CarIn.Controllers
 {
     public class CarInRESTfulController : ApiController
     {
+        //private readonly IRepository<TrafficIncident> _repository;
+        //public CarInRESTfulController(IRepository<TrafficIncident> repo )
+        //{
+        //    _repository = repo;
+        //}
         public Object GetAllInfo()
         {
-            var tmpObj = new {foo = "Foo", bar = "Bar"};
+            var _repository = new Repository<TrafficIncident>();
+            var trafficIncidents = _repository.FindAll();
 
-            return tmpObj;
+            return trafficIncidents;
         }
 
         // GET api/carinrestful/5
