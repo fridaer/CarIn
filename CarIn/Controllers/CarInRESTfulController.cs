@@ -14,14 +14,14 @@ namespace CarIn.Controllers
 {
     public class CarInRESTfulController : ApiController
     {
-        //private readonly IRepository<TrafficIncident> _repository;
-        //public CarInRESTfulController(IRepository<TrafficIncident> repo )
-        //{
-        //    _repository = repo;
-        //}
+        private readonly IRepository<TrafficIncident> _repository;
+        public CarInRESTfulController(IRepository<TrafficIncident> repo)
+        {
+            _repository = repo;
+        }
         public Object GetAllInfo()
         {
-            var _repository = new Repository<TrafficIncident>();
+            //var _repository = new Repository<TrafficIncident>();
             var trafficIncidents = _repository.FindAll();
 
             return trafficIncidents;
