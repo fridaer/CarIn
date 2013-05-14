@@ -29,15 +29,18 @@ namespace CarIn.Controllers
                 if(!string.IsNullOrEmpty(hashedPassword)){
                     if(passwordHelper.CheckIfPasswordMatch(password, hashedPassword))
                     {
-                        Session["UserName"] = username;
-                        Session["IsLoggedIn"] = true;
+                        var cookieHelper = new CookieHelper();
+
+                        //Response.Cookies["domain"].Domain = "support.contoso.com";
+                        Response.Cookies.Add(cookieHelper.CreateCookie(username));
+
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 
             }
             
-            Session["IsLoggedIn"] = false;
+            //Session["IsLoggedIn"] = false;
 
             return RedirectToAction("Index", "Home");
         }

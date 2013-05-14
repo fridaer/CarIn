@@ -26,9 +26,26 @@ namespace CarIn.Controllers
             // Checking Logged In Session
             try
             {
+                if (Request.Cookies["userInfo"] != null)
+                {
+                    var cookieHelper = new CookieHelper();
+
+
+
+                    HttpCookie aCookie = Request.Cookies["userInfo"];
+
+                    if (cookieHelper.VerifyCookie(aCookie))
+                    {
+                        ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
+                        ViewBag.showChangePassLink = true;
+                        Session["IsLoggedIn"] = true;
+                    }
+
+
+                }
                 if ((bool)Session["IsLoggedIn"] == true)
                 {
-                    ViewBag.loggedInMessage = "Inloggad";
+
                     ViewBag.showChangePassLink = true;
                 }
             }
@@ -98,7 +115,13 @@ namespace CarIn.Controllers
 
         public ActionResult SignOut()
         {
-            Session["IsLoggedIn"] = null;
+            if (Request.Cookies["userInfo"] != null)
+            {
+                HttpCookie myCookie = new HttpCookie("userInfo");
+                myCookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(myCookie);
+            }
+            Session["IsLoggedIn"] = false;
             return RedirectToAction("Index");
         }
 
