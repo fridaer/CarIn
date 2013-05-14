@@ -131,25 +131,6 @@ namespace CarIn.Controllers
             return View();
         }
 
-        /*private void btnLogin_Click(object sender, EventArgs e)
-        {
-            if (txtUsername.Text == "user")
-            {
-                if (txtPassword.Text == "password")
-                {
-                    new Form2().Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Error: invalid password or usernam");
-                }
-            }
-            else 
-            { 
-                MessageBox.Show("Error: invalid password or usernam"); 
-            }
-        }*/
         public ActionResult Kart_Demo()
         {
             return View();
