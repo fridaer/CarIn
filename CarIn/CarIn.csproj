@@ -206,6 +206,7 @@
     <Compile Include="BLL\BCrypt.cs" />
     <Compile Include="BLL\BingMapTrafficWebService.cs" />
     <Compile Include="BLL\PasswordHelper.cs" />
+    <Compile Include="BLL\VasttrafikTrafficWebService.cs" />
     <Compile Include="BLL\YrWeatherWebService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarInRESTfulController.cs" />
