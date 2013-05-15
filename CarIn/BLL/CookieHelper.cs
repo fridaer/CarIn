@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 
 namespace CarIn.BLL
@@ -34,6 +35,18 @@ namespace CarIn.BLL
                 return true;
             }
 
+            return false;
+        }
+
+        public bool SignInByCookie(HttpCookie aCookie)
+        {
+            var cookieHelper = new CookieHelper();
+            if (cookieHelper.VerifyCookie(aCookie))
+            {
+                var userName = aCookie.Values["userName"];
+                FormsAuthentication.SetAuthCookie(userName, false);
+                return true;
+            }
             return false;
         }
     }

@@ -26,27 +26,24 @@ namespace CarIn.Controllers
             // Checking Logged In Session
             try
             {
-                if (Request.Cookies["userInfo"] != null)
+                if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated) //User is logged in via membership provider
                 {
+                    ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
+                    ViewBag.showChangePassLink = true;
+                    return View();
+                }
+                if (Request.Cookies["userInfo"] != null) //User is not logged in but has a cookie
+                {
+
                     var cookieHelper = new CookieHelper();
-
-
-
                     HttpCookie aCookie = Request.Cookies["userInfo"];
 
-                    if (cookieHelper.VerifyCookie(aCookie))
+                    if (cookieHelper.SignInByCookie(aCookie))
                     {
                         ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
                         ViewBag.showChangePassLink = true;
-                        Session["IsLoggedIn"] = true;
+                        return View();
                     }
-
-
-                }
-                if ((bool)Session["IsLoggedIn"] == true)
-                {
-
-                    ViewBag.showChangePassLink = true;
                 }
             }
             catch
@@ -56,7 +53,7 @@ namespace CarIn.Controllers
                 ViewBag.loggedInMessage = "Inte inloggad";
             }
 
-
+            //User is not signed in and has no/no valid cookie
             ViewBag.AllUsers = _userRepo.FindAll().ToList(); 
             return View();
         }
@@ -113,17 +110,6 @@ namespace CarIn.Controllers
 
         }
 
-        public ActionResult SignOut()
-        {
-            if (Request.Cookies["userInfo"] != null)
-            {
-                HttpCookie myCookie = new HttpCookie("userInfo");
-                myCookie.Expires = DateTime.Now.AddDays(-1d);
-                Response.Cookies.Add(myCookie);
-            }
-            Session["IsLoggedIn"] = false;
-            return RedirectToAction("Index");
-        }
 
         public ActionResult Contact()
         {

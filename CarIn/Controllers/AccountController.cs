@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using CarIn.BLL;
 using CarIn.DAL.Repositories.Abstract;
 using CarIn.Models.Entities;
@@ -19,30 +20,55 @@ namespace CarIn.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogOn(string username, string password)
+        public ActionResult LogOn(string userName, string passWord)
         {
 
-            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+            if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(passWord))
             {
                 var passwordHelper = new PasswordHelper();
-                var hashedPassword = _userRepo.FindAll(u => u.Username == username).Select(u => u.Password).FirstOrDefault();
+                var hashedPassword = _userRepo.FindAll(u => u.Username == userName).Select(u => u.Password).FirstOrDefault();
                 if(!string.IsNullOrEmpty(hashedPassword)){
-                    if(passwordHelper.CheckIfPasswordMatch(password, hashedPassword))
+                    if(passwordHelper.CheckIfPasswordMatch(passWord, hashedPassword))
                     {
                         var cookieHelper = new CookieHelper();
 
                         //Response.Cookies["domain"].Domain = "support.contoso.com";
-                        Response.Cookies.Add(cookieHelper.CreateCookie(username));
-
+                        Response.Cookies.Add(cookieHelper.CreateCookie(userName));
+                        FormsAuthentication.SetAuthCookie(userName, false);
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 
             }
-            
-            //Session["IsLoggedIn"] = false;
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public bool SignInByCookie(HttpCookie aCookie) 
+        {
+            var cookieHelper = new CookieHelper();
+            if (cookieHelper.VerifyCookie(aCookie)) 
+            {
+                string userName = Request.Cookies["userInfo"]["userName"];
+                FormsAuthentication.SetAuthCookie(userName, false);
+                return true;
+            }
+            return false;
+        }
+
+        public ActionResult SignOut()
+        {
+            if (Request.Cookies["userInfo"] != null)
+            {
+                HttpCookie myCookie = new HttpCookie("userInfo");
+                myCookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(myCookie);
+            }
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated) 
+            {
+                FormsAuthentication.SignOut();
+            }
+            return RedirectToAction("Index","Home");
         }
 
     }
