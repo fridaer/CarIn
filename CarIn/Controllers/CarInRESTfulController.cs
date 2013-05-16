@@ -24,14 +24,21 @@ namespace CarIn.Controllers
         {
             //var trafficIncidents = _repository.FindAll();
             //return trafficIncidents;
+            try
+            {
+                var tmpRepWheather = new Repository<WheatherPeriod>();
 
-            var tmpRepWheather = new Repository<WheatherPeriod>();
-            var mapInfoModel = new MapInfoVm
-                                   {
-                                       TrafficIncidents = _repository.FindAll().ToList(),
-                                       WheatherPeriods = tmpRepWheather.FindAll().ToList()
-                                   };
-            return mapInfoModel;
+                var mapInfoModel = new MapInfoVm
+                                       {
+                                           TrafficIncidents = _repository.FindAll().ToList(),
+                                           WheatherPeriods = tmpRepWheather.FindAll().ToList()
+                                       };
+                return mapInfoModel;
+            }
+            catch (Exception ex) {
+
+                return ex.Message;
+            }
         }
 
         // GET api/carinrestful/5
