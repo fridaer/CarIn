@@ -15,10 +15,15 @@ namespace CarIn.Controllers
 {
     public class CarInRESTfulController : ApiController
     {
-        private readonly IRepository<TrafficIncident> _repository;
-        public CarInRESTfulController(IRepository<TrafficIncident> repo)
+        private readonly IRepository<TrafficIncident> _trafficRepository;
+        private readonly IRepository<WheatherPeriod> _wheaterRepository;
+        private readonly IRepository<VasttrafikIncident> _vasttrafikRepository;
+
+        public CarInRESTfulController(IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, IRepository<VasttrafikIncident> vasttrafikRepository)
         {
-            _repository = repo;
+            _trafficRepository = trafficRepository;
+            _wheaterRepository = wheaterRepository;
+            _vasttrafikRepository = vasttrafikRepository;
         }
         public Object GetAllInfo()
         {
@@ -29,7 +34,7 @@ namespace CarIn.Controllers
             var tmpRepVasttrafik = new Repository<VasttrafikIncident>();
             var mapInfoModel = new MapInfoVm
                                    {
-                                       TrafficIncidents = _repository.FindAll().ToList(),
+                                       TrafficIncidents = _trafficRepository.FindAll().ToList(),
                                        WheatherPeriods = tmpRepWheather.FindAll().ToList(),
                                        VasttrafikIncidents = tmpRepVasttrafik.FindAll().ToList()
                                    };

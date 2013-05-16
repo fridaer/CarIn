@@ -309,6 +309,7 @@
     <Content Include="Scripts\mapbox.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyMapboxScript.js" />
+    <Content Include="Scripts\tooltipbox.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Home\ChangePassword.cshtml" />
     <Content Include="Web.config">

@@ -15,7 +15,10 @@ namespace CarIn
         class SimpleContainer : IDependencyResolver
         {
 
-            static readonly IRepository<TrafficIncident> Respository = new Repository<TrafficIncident>();
+            static readonly IRepository<TrafficIncident> trafficRespository = new Repository<TrafficIncident>();
+            static readonly IRepository<WheatherPeriod> wheatherRespository = new Repository<WheatherPeriod>();
+            static readonly IRepository<VasttrafikIncident> vasttrafikRespository = new Repository<VasttrafikIncident>();
+
 
             public IDependencyScope BeginScope()
             {
@@ -27,7 +30,7 @@ namespace CarIn
             {
                 if (serviceType == typeof(CarInRESTfulController))
                 {
-                    return new CarInRESTfulController(Respository);
+                    return new CarInRESTfulController(trafficRespository, wheatherRespository, vasttrafikRespository);
                 }
                     return null;
             }
