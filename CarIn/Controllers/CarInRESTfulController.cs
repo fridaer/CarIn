@@ -26,10 +26,12 @@ namespace CarIn.Controllers
             //return trafficIncidents;
 
             var tmpRepWheather = new Repository<WheatherPeriod>();
+            var tmpRepVasttrafik = new Repository<VasttrafikIncident>();
             var mapInfoModel = new MapInfoVm
                                    {
                                        TrafficIncidents = _repository.FindAll().ToList(),
-                                       WheatherPeriods = tmpRepWheather.FindAll().ToList()
+                                       WheatherPeriods = tmpRepWheather.FindAll().ToList(),
+                                       VasttrafikIncidents = tmpRepVasttrafik.FindAll().ToList()
                                    };
             return mapInfoModel;
         }

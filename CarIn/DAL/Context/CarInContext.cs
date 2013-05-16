@@ -11,7 +11,10 @@ namespace CarIn.DAL.Context
     {
         public DbSet<User> Users { get; set; }
         public DbSet<TrafficIncident> TrafficIncidents { get; set; }
-        public DbSet<WheatherPeriod> WheatherPeriods { get; set; } 
+        public DbSet<WheatherPeriod> WheatherPeriods { get; set; }
+        public DbSet<VasttrafikIncident> VasttrafikIncidents { get; set; } 
+ 
+        
 
     }
 }

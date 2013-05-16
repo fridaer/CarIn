@@ -6,7 +6,7 @@ using CarIn.Models.Entities.Abstract;
 
 namespace CarIn.Models.Entities
 {
-    public class VasttrafikIncidents :IEntity
+    public class VasttrafikIncident :IEntity
     {
         public int ID { get; set; }
         public string Title { get; set; }

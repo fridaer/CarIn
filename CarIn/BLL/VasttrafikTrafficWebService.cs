@@ -12,7 +12,7 @@ namespace CarIn.BLL
     public class VasttrafikTrafficWebService
     {
 
-        public List<VasttrafikIncidents> MakeRequest()
+        public List<VasttrafikIncident> MakeRequest()
         {
             try
             {
@@ -35,31 +35,23 @@ namespace CarIn.BLL
                 }
                 var vasttrafikIncidents = GetResponse(xElement);
 
-                foreach (var vasttrafikIncident in vasttrafikIncidents)
-                {
-                    if(vasttrafikIncident.GetType() != typeof(VasttrafikIncidents))
-                    {
-                        var tmp = "jag är fel";
-                    }
-                }
-
                 return vasttrafikIncidents;
             }
             catch (Exception e)
             {
-                return new List<VasttrafikIncidents>();
+                return new List<VasttrafikIncident>();
             }
         }
 
-        private List<VasttrafikIncidents> GetResponse(XElement vasttrafikResponse)
+        private List<VasttrafikIncident> GetResponse(XElement vasttrafikResponse)
         {
             var trafficInfos = vasttrafikResponse.Elements();
-            var vasttrafikTafficInfos = new List<VasttrafikIncidents>();
+            var vasttrafikTrafficIncidents = new List<VasttrafikIncident>();
             foreach (var trafficInfo in trafficInfos)
             {
                 var trafficNodes = trafficInfo.Elements();
                
-                vasttrafikTafficInfos.Add(new VasttrafikIncidents
+                vasttrafikTrafficIncidents.Add(new VasttrafikIncident
                                               {
                                                   Title = trafficNodes.ElementAt(0).Value,
                                                   Line = trafficNodes.ElementAt(3).Value,
@@ -69,7 +61,7 @@ namespace CarIn.BLL
                                                   TrafficChangesCoords = trafficNodes.ElementAt(16).Value
                                               });
             }
-            return vasttrafikTafficInfos;
+            return vasttrafikTrafficIncidents;
         }
     }
 }
