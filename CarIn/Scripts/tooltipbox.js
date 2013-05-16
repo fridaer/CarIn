@@ -2,22 +2,22 @@ $(document).ready(function () {
     $("#tooltipbox").hide();
 
     $("#olyckaBtn").click(function(){
-        var message = "Information om olyckor som orsakar trafikstörningar"
+        var message = "Information om olyckor som orsakar trafikstörningar";
         alertInTooltipbox(message);
         
     });
     $("#tullarBtn").click(function () {
-        var message = "Information om tullarna och kostnader"
+        var message = "Information om tullarna och kostnader";
         alertInTooltipbox(message);
 
     });
     $("#vaderBtn").click(function () {
-        var message = "Väderinformation"
+        var message = "Väderinformation";
         alertInTooltipbox(message);
 
     });
     $("#lokalBtn").click(function () {
-        var message = "Information om lokaltrafikstörningar"
+        var message = "Information om lokaltrafikstörningar";
         alertInTooltipbox(message);
 
     });
