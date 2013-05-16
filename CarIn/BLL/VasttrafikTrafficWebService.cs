@@ -58,10 +58,36 @@ namespace CarIn.BLL
                                                   DateFrom = trafficNodes.ElementAt(4).Value,
                                                   DateTo = trafficNodes.ElementAt(5).Value,
                                                   Priority = trafficNodes.ElementAt(6).Value,
-                                                  TrafficChangesCoords = trafficNodes.ElementAt(16).Value
+                                                  
+                                                  TrafficChangesCoords = SplitStringIntoLatLong(trafficNodes.ElementAt(16).Value)  
                                               });
             }
+            
             return vasttrafikTrafficIncidents;
+        }
+        //58,1759649997499,11,4035799936928;58,1759649997499,11,4035799936928
+        private string SplitStringIntoLatLong(string p)
+        {
+            var toSplitUpToCoordsObjects = p.ToCharArray();
+            int counter = 0;
+            Char[] toHoldNewChars = new char[toSplitUpToCoordsObjects.Length];
+            for (int i = 0; i < toSplitUpToCoordsObjects.Length; i++)
+            {
+                if (toSplitUpToCoordsObjects[i] == ',')
+                {
+                    counter++;
+                    if(counter % 2 == 0)
+                    {
+                        toSplitUpToCoordsObjects[i] = '.';
+                    }
+                }
+            }
+            
+            p.Split(';');
+
+            var tmp = new string(toSplitUpToCoordsObjects);
+
+            throw new NotImplementedException();
         }
     }
 }

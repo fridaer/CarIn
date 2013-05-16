@@ -23,6 +23,8 @@ namespace CarIn.Controllers
 
         public ActionResult Index()
         {
+            var tmp = new VasttrafikTrafficWebService();
+            tmp.MakeRequest();
             ViewBag.NameOfProject = "CarIn";
             // Checking Logged In Session
             try
