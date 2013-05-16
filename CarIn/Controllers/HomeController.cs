@@ -49,11 +49,10 @@ namespace CarIn.Controllers
             catch
             {
                 ViewBag.showChangePassLink = false;
-
                 ViewBag.loggedInMessage = "Inte inloggad";
             }
 
-            //User is not signed in and has no/no valid cookie
+            //User is not signed in and has no/not valid cookie
             ViewBag.AllUsers = _userRepo.FindAll().ToList(); 
             return View();
         }
