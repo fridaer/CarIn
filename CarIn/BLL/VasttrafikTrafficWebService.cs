@@ -5,13 +5,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Xml.Linq;
+using CarIn.Models.Entities;
 
 namespace CarIn.BLL
 {
     public class VasttrafikTrafficWebService
     {
 
-        public void MakeRequest()
+        public List<VasttrafikIncidents> MakeRequest()
         {
             try
             {
@@ -32,29 +33,35 @@ namespace CarIn.BLL
                         xElement = XElement.Load(sr);
                     }
                 }
-                GetResponse(xElement);
+                var vasttrafikIncidents = GetResponse(xElement);
+
+                foreach (var vasttrafikIncident in vasttrafikIncidents)
+                {
+                    if(vasttrafikIncident.GetType() != typeof(VasttrafikIncidents))
+                    {
+                        var tmp = "jag är fel";
+                    }
+                }
+
+                return vasttrafikIncidents;
             }
             catch (Exception e)
             {
-
+                return new List<VasttrafikIncidents>();
             }
         }
 
-        private List<object> GetResponse(XElement vasttrafikResponse)
+        private List<VasttrafikIncidents> GetResponse(XElement vasttrafikResponse)
         {
             var trafficInfos = vasttrafikResponse.Elements();
-            var trafficInfosNodes = vasttrafikResponse.Nodes();
-            //var trafficInfos =
-            //    vasttrafikResponse.Element("ArrayOfTrafficInformation").Elements("TrafficInformation");
-            var vasttrafikTafficInfos = new List<object>();
+            var vasttrafikTafficInfos = new List<VasttrafikIncidents>();
             foreach (var trafficInfo in trafficInfos)
             {
                 var trafficNodes = trafficInfo.Elements();
                
-                vasttrafikTafficInfos.Add(new
+                vasttrafikTafficInfos.Add(new VasttrafikIncidents
                                               {
                                                   Title = trafficNodes.ElementAt(0).Value,
-
                                                   Line = trafficNodes.ElementAt(3).Value,
                                                   DateFrom = trafficNodes.ElementAt(4).Value,
                                                   DateTo = trafficNodes.ElementAt(5).Value,
