@@ -18,10 +18,13 @@ namespace CarIn.Controllers
         public HomeController(IRepository<User> repo)
         {
             _userRepo = repo;
+
         }
 
         public ActionResult Index()
         {
+            var vasttrafik = new VasttrafikTrafficWebService();
+            vasttrafik.MakeRequest();
             ViewBag.NameOfProject = "CarIn";
             // Checking Logged In Session
             try
