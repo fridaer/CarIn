@@ -21,8 +21,7 @@ namespace CarIn
         protected void Application_Start()
         {
 
-            //Database.SetInitializer(new CarInDbInitializer());
-            Database.SetInitializer<CarInContext>(null);
+            Database.SetInitializer(new CarInDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());

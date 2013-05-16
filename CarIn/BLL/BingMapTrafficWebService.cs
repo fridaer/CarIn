@@ -91,7 +91,7 @@ namespace CarIn.BLL
                     IncidentId = (string)jArray[i]["incidentId"],
                     Description = (string)jArray[i]["description"],
                     Verified = (string)jArray[i]["verified"],
-                    Type = (string)jArray[i]["type"],
+                    IncidentType = (string)jArray[i]["type"],
                     End = (string)jArray[i]["end"],
                     LastModified = (string)jArray[i]["lastModified"],
                     RoadClosed = (string)jArray[i]["roadClosed"],
