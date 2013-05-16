@@ -167,7 +167,8 @@ header {
     -ms-border-radius: 0px;
     -o-border-radius: 0px;
     border-radius: 0px;
-    padding: 10px;
+    padding: 5px 10px;
+    padding-bottom: 7px;
   }
 }
 header .logo {
@@ -178,11 +179,23 @@ header .logo {
   color: #fff;
   text-shadow: -1px 2px 5px #333333;
 }
+@media (max-width: 767px) {
+  header .logo {
+    font-size: 20px;
+    line-height: 23px;
+    text-shadow: -1px 2px 3px #333333;
+  }
+}
 header .logo:hover {
   text-decoration: none;
 }
 header .viewbagmessage {
   display: inline;
+}
+@media (max-width: 767px) {
+  header .viewbagmessage {
+    font-size: 12px;
+  }
 }
 header .log-in-btn {
   margin-left: 10px;
@@ -201,6 +214,12 @@ header .log-in-btn {
   -moz-box-shadow: 0px 1px 3px #333333;
   box-shadow: 0px 1px 3px #333333;
 }
+@media (max-width: 767px) {
+  header .log-in-btn {
+    font-size: 11px;
+    line-height: 10px;
+  }
+}
 header .log-in-btn:hover {
   background: #FFF394;
   background-color: #fcf5c0;
@@ -209,6 +228,17 @@ header .log-in-btn:hover {
   background: -moz-linear-gradient(center bottom, #f1c40f 0%, #fcf5c0 100%);
   background: -o-linear-gradient(#fcf5c0, #f1c40f);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcf5c0', endColorstr='#f1c40f', GradientType=0);
+}
+.tooltipbox {
+  background: #666;
+  padding: 10px;
+  color: #fff;
+}
+@media (max-width: 767px) {
+  .tooltipbox {
+    font-size: 11px;
+    line-height: 10px;
+  }
 }
 .mainmenu {
   position: absolute;
@@ -286,11 +316,6 @@ header .log-in-btn:hover {
     padding: 10px;
   }
 }
-@media (max-width: 480px) {
-  .mainmenu ul li a {
-    padding: 10px;
-  }
-}
 .mainmenu ul li a:hover {
   background-color: #ffffff;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f5f5f5), color-stop(1, #ffffff));
@@ -302,6 +327,11 @@ header .log-in-btn:hover {
 }
 .mainmenu ul li a img {
   margin: 0px auto;
+}
+@media (max-width: 767px) {
+  .mainmenu ul li a img {
+    width: 50%;
+  }
 }
 .mainmenu ul li:first-child a {
   border: 0px;
