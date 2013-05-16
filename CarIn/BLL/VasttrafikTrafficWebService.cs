@@ -50,15 +50,16 @@ namespace CarIn.BLL
             foreach (var trafficInfo in trafficInfos)
             {
                 var trafficNodes = trafficInfo.Elements();
+               
                 vasttrafikTafficInfos.Add(new
                                               {
                                                   Title = trafficNodes.ElementAt(0).Value,
 
-                                                  Line = trafficInfo.Element("Line").Value,
-                                                  DateFrom = trafficInfo.Element("DateFrom").Value,
-                                                  DateTo = trafficInfo.Element("DateTo").Value,
-                                                  Priority = trafficInfo.Element("Priority").Value,
-                                                  TrafficChangesCoords = trafficInfo.Element("TrafficChangesCoords")
+                                                  Line = trafficNodes.ElementAt(3).Value,
+                                                  DateFrom = trafficNodes.ElementAt(4).Value,
+                                                  DateTo = trafficNodes.ElementAt(5).Value,
+                                                  Priority = trafficNodes.ElementAt(6).Value,
+                                                  TrafficChangesCoords = trafficNodes.ElementAt(16).Value
                                               });
             }
             return vasttrafikTafficInfos;
