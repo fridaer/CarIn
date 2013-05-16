@@ -20,6 +20,7 @@
         <!-- Javascripts -->
         <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
         <script src="/Scripts/bootstrap.min.js" type="text/javascript"></script>  
+        <script src="/Scripts/tooltipbox.js" type="text/javascript"></script>  
         <!-- <script src="/Scripts/bootstrap.js" type="text/javascript"></script> -->
         <script src="/Scripts/less.js" type="text/javascript"></script>
     </head>
@@ -78,7 +79,7 @@
             </div>
             <div class="row-fluid">
                 <div class="span12">
-                    <div class="tooltipbox">Tooltip Box</div>
+                    <div id="tooltipbox" class="tooltipbox">Tooltip Box</div>
                     <div class="map">
                         @RenderSection("featured", required: false)
                         <section class="content-wrapper main-content clear-fix">
@@ -87,11 +88,11 @@
                     </div>
                     <nav class="mainmenu">
                         <ul>
-                            <li><a href="#" class="olycka"><span class="hidden-phone">Olyckor</span><img src="Images/icon-varning.png" alt="Olycka" /></a><!-- @Html.ActionLink("Contact", "Contact", "Home")--></li>
-                            <li><a href="#" class="tullar"><span class="hidden-phone">Tullar</span><img src="Images/icon-tullar.png" alt="Tullar" /></a><!-- @Html.ActionLink("Väder", "About", "Home") --></li>
-                            <li><a href="#" class="vader"><span class="hidden-phone">Väder</span><img src="Images/icon-vader.png" alt="Väder" /></a><!-- @Html.ActionLink("Hem", "Index", "Home") --></li>
-                            <li><a href="#" class="lokaltrafik"><span class="hidden-phone">Lokaltrafik</span><img src="Images/icon-lokaltrafik.png" alt="Lokaltrafik" /></a></li>
-                            <li><a href="#" class="installningar"><span class="hidden-phone">Inställningar</span><img src="Images/icon-installningar.png" alt="Olycka" /></a></li>
+                            <li><a href="#" id="olyckaBtn" class="olycka"><span class="hidden-phone">Olyckor</span><img src="Images/icon-varning.png" alt="Olycka" /></a><!-- @Html.ActionLink("Contact", "Contact", "Home")--></li>
+                            <li><a href="#" id="tullarBtn" class="tullar"><span class="hidden-phone">Tullar</span><img src="Images/icon-tullar.png" alt="Tullar" /></a><!-- @Html.ActionLink("Väder", "About", "Home") --></li>
+                            <li><a href="#" id="vaderBtn" class="vader"><span class="hidden-phone">Väder</span><img src="Images/icon-vader.png" alt="Väder" /></a><!-- @Html.ActionLink("Hem", "Index", "Home") --></li>
+                            <li><a href="#" id="lokalBtn" class="lokaltrafik"><span class="hidden-phone">Lokaltrafik</span><img src="Images/icon-lokaltrafik.png" alt="Lokaltrafik" /></a></li>
+                            <li><a href="#" id="installningarBtn" class="installningar"><span class="hidden-phone">Inställningar</span><img src="Images/icon-installningar.png" alt="Olycka" /></a></li>
                         </ul>
                     </nav>
                 </div>
