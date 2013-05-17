@@ -52,6 +52,14 @@ namespace CarIn.DAL.DbInitializers
                 wheatherPeriods.ForEach(x => context.WheatherPeriods.Add(x));
             }
 
+            var vasttrafikTraffickWebService = new VasttrafikTrafficWebService();
+            var vasttrafikIncidents = vasttrafikTraffickWebService.MakeRequest();
+            if (vasttrafikIncidents.Any())
+            {
+                vasttrafikIncidents.ForEach(x => context.VasttrafikIncidents.Add(x));
+            }
+
+
             context.SaveChanges();
         }
     }

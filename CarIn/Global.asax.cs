@@ -1,4 +1,5 @@
 ﻿using CarIn.App_Start;
+using CarIn.DAL.Context;
 using CarIn.DAL.DbInitializers;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,8 @@ namespace CarIn
         protected void Application_Start()
         {
 
-            Database.SetInitializer(new CarInDbInitializer());
+            //Database.SetInitializer(new CarInDbInitializer());
+            Database.SetInitializer<CarInContext>(null);
 
             AreaRegistration.RegisterAllAreas();
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
