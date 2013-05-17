@@ -45,8 +45,8 @@
                 <header class="span12">
                     
                         <a href="/" class="logo">@ViewBag.NameOfProject</a>
-                    
-                        <p class="viewbagmessage">@ViewBag.loggedInMessage</p>
+
+                    <p class="viewbagmessage">@ViewBag.loggedInMessage</p>
                         @if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
                         {
                             @Html.ActionLink("Ändra lösenord", "ChangePassword", "Home")
