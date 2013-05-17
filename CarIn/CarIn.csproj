@@ -239,6 +239,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\fontello\css\animation.css" />
+    <Content Include="Content\fontello\css\fontello-codes.css" />
+    <Content Include="Content\fontello\css\fontello-embedded.css" />
+    <Content Include="Content\fontello\css\fontello-ie7-codes.css" />
+    <Content Include="Content\fontello\css\fontello-ie7.css" />
+    <Content Include="Content\fontello\css\fontello.css" />
+    <Content Include="Content\fontello\font\fontello.svg" />
+    <Content Include="Content\main.css" />
     <Content Include="Content\main.min.css" />
     <Content Include="Content\oldSite.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -299,6 +308,12 @@
     <Content Include="Global.asax" />
     <Content Include="Content\elements.less" />
     <Content Include="Content\main.less" />
+    <Content Include="Images\icon-installningar.png" />
+    <Content Include="Images\icon-lokaltrafik.png" />
+    <Content Include="Images\icon-tullar.png" />
+    <Content Include="Images\icon-vader.png" />
+    <Content Include="Images\icon-varning.png" />
+    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -351,24 +366,20 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Home\Kart_Demo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\fontello\font\fontello.eot" />
+    <Content Include="Content\fontello\font\fontello.ttf" />
+    <Content Include="Content\fontello\font\fontello.woff" />
+    <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
   </ItemGroup>
@@ -396,7 +407,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1305</DevelopmentServerPort>
+          <DevelopmentServerPort>6974</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1342/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

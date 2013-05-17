@@ -33,11 +33,11 @@ namespace CarIn.Controllers
             var tmpRepWheather = new Repository<WheatherPeriod>();
             var tmpRepVasttrafik = new Repository<VasttrafikIncident>();
             var mapInfoModel = new MapInfoVm
-                                   {
-                                       TrafficIncidents = _trafficRepository.FindAll().ToList(),
-                                       WheatherPeriods = tmpRepWheather.FindAll().ToList(),
-                                       VasttrafikIncidents = tmpRepVasttrafik.FindAll().ToList()
-                                   };
+            {
+                TrafficIncidents = _trafficRepository.FindAll().ToList(),
+                WheatherPeriods = tmpRepWheather.FindAll().ToList(),
+                VasttrafikIncidents = tmpRepVasttrafik.FindAll().ToList()
+            };
             return mapInfoModel;
         }
 

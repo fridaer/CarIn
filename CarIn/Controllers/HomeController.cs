@@ -40,8 +40,6 @@ namespace CarIn.Controllers
                 ViewBag.loggedInMessage = "Inte inloggad";
             }
 
-
-            ViewBag.AllUsers = _userRepo.FindAll().ToList(); 
             return View();
         }
 
