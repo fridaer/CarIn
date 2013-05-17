@@ -10,6 +10,7 @@ namespace CarIn.Models.ViewModels
     {
         public List<TrafficIncident> TrafficIncidents { get; set; }
         public List<WheatherPeriod> WheatherPeriods { get; set; }
+        public List<VasttrafikIncident> VasttrafikIncidents { get; set; }
  
     }
 }

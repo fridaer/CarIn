@@ -207,6 +207,7 @@
     <Compile Include="BLL\BingMapTrafficWebService.cs" />
     <Compile Include="BLL\CookieHelper.cs" />
     <Compile Include="BLL\PasswordHelper.cs" />
+    <Compile Include="BLL\VasttrafikTrafficWebService.cs" />
     <Compile Include="BLL\YrWeatherWebService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarInRESTfulController.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
     <Compile Include="Models\Entities\TrafficIncident.cs" />
     <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\Entities\VasttrafikIncident.cs" />
     <Compile Include="Models\Entities\WheaterPeriod.cs" />
     <Compile Include="Models\ViewModels\ChangePasswordVm.cs" />
     <Compile Include="Models\ViewModels\AccountStatus.cs" />
@@ -309,6 +311,7 @@
     <Content Include="Scripts\mapbox.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyMapboxScript.js" />
+    <Content Include="Scripts\tooltipbox.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Home\ChangePassword.cshtml" />
     <Content Include="Web.config">

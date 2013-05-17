@@ -18,6 +18,7 @@ namespace CarIn.Controllers
         public HomeController(IRepository<User> repo)
         {
             _userRepo = repo;
+
         }
 
         public ActionResult Index()
