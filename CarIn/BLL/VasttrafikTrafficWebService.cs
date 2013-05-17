@@ -59,10 +59,18 @@ namespace CarIn.BLL
                                                   DateTo = trafficNodes.ElementAt(5).Value,
                                                   Priority = trafficNodes.ElementAt(6).Value,
                                                   
-                                                  TrafficChangesCoords = SplitStringIntoLatLong(trafficNodes.ElementAt(16).Value)  
+                                                  TrafficChangesCoords = trafficNodes.ElementAt(16).Value  
                                               });
             }
-            
+            List<object> tmpLista;
+            foreach (var vasttrafikTrafficIncident in vasttrafikTrafficIncidents)
+            {
+                tmpLista = new List<object>
+                               {
+                                   new {tmpList = SplitStringIntoLatLong(vasttrafikTrafficIncident.TrafficChangesCoords) }
+                               };
+            }
+
             return vasttrafikTrafficIncidents;
         }
         //58,1759649997499,11,4035799936928;58,1759649997499,11,4035799936928
@@ -70,12 +78,18 @@ namespace CarIn.BLL
         {
             var toSplitUpToCoordsObjects = p.ToCharArray();
             int counter = 0;
-            Char[] toHoldNewChars = new char[toSplitUpToCoordsObjects.Length];
+            var latLongObjects = new List<object>();
             for (int i = 0; i < toSplitUpToCoordsObjects.Length; i++)
-            {
+            { 
+                //if(toSplitUpToCoordsObjects[i] == ';')
+                //{
+                //    counter--;
+                //}
+
                 if (toSplitUpToCoordsObjects[i] == ',')
                 {
                     counter++;
+                   
                     if(counter % 2 == 0)
                     {
                         toSplitUpToCoordsObjects[i] = '.';
