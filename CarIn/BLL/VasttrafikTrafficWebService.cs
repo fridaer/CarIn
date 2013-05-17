@@ -51,143 +51,78 @@ namespace CarIn.BLL
             foreach (var trafficInfo in trafficInfos)
             {
                 var trafficNodes = trafficInfo.Elements();
-               
-                vasttrafikTrafficIncidents.Add(new VasttrafikIncident
-                                              {
-                                                  Title = trafficNodes.ElementAt(0).Value,
-                                                  Line = trafficNodes.ElementAt(3).Value,
-                                                  DateFrom = trafficNodes.ElementAt(4).Value,
-                                                  DateTo = trafficNodes.ElementAt(5).Value,
-                                                  Priority = trafficNodes.ElementAt(6).Value                                                  
-                                                   
-                                              });
-                var tmpTraffiCoords = trafficNodes.ElementAt(16).Value;
-                if(!string.IsNullOrEmpty(tmpTraffiCoords))
+                if (!string.IsNullOrEmpty(trafficNodes.ElementAt(16).Value))
                 {
-                    trafficChangesCoords.Add(tmpTraffiCoords);                    
+                    vasttrafikTrafficIncidents.Add(new VasttrafikIncident
+                                                       {
+                                                           Title = trafficNodes.ElementAt(0).Value,
+                                                           Line = trafficNodes.ElementAt(3).Value,
+                                                           DateFrom = trafficNodes.ElementAt(4).Value,
+                                                           DateTo = trafficNodes.ElementAt(5).Value,
+                                                           Priority = trafficNodes.ElementAt(6).Value,
+                                                           TrafficChangesCoords =
+                                                               SplitStringIntoLatLong(trafficNodes.ElementAt(16).Value),
+
+                                                       });
                 }
             }
-            try
-            {
-                var latLongObjectsList = new List<object>();
-
-                foreach (var trafficChangesCoord in trafficChangesCoords)
-                {
-
-                    latLongObjectsList.Add(new
-                                        {
-                                            latLongObject = SplitStringIntoLatLong(trafficChangesCoord)
-                                        });
-                }
-                var tmp = latLongObjectsList;
-            }
-
-            catch(Exception e)
-            {
-                
-            }
-
 
             return vasttrafikTrafficIncidents;
         }
 
 
         //58,1759649997499,11,4035799936928;58,1759649997499,11,4035799936928
-        private IEnumerable<object> SplitStringIntoLatLong(string p)
+        private List<object> SplitStringIntoLatLong(string p)
         {
             try
             {
+                var coordsObjects = new List<object>();
+                String[] stringArrayForCoords;
 
-            
-            List<object> coordsObjects = new List<object>();
-            String[] stringArrayForCoords;
-
-            if(p.Contains(";"))
-            {
-                stringArrayForCoords = p.Split(';');
-            }
-            else
-            {
-                stringArrayForCoords = new string[1];
-                stringArrayForCoords[0] = p;
-            }
-
-
-            foreach (var coord in stringArrayForCoords)
-            {
-                var counterForColons = 0;
-                var tmpArray = coord.ToCharArray();
-
-                for (int i = 0; i < tmpArray.Length; i++)
+                if(p.Contains(";"))
                 {
-                    if (tmpArray[i] == ',')
-                    {
-                        counterForColons++;
-                        if (counterForColons == 2)
-                        {
-                            tmpArray[i] = '.';
-                        }
-                    }
+                    stringArrayForCoords = p.Split(';');
+                }
+                else
+                {
+                    stringArrayForCoords = new string[1];
+                    stringArrayForCoords[0] = p;
                 }
 
-                var coordsString = new string(tmpArray);
-                var latLongArray = coordsString.Split('.');
+                foreach (var coord in stringArrayForCoords)
+                {
+                    var counterForColons = 0;
+                    var tmpArray = coord.ToCharArray();
+
+                    for (int i = 0; i < tmpArray.Length; i++)
+                    {
+                        if (tmpArray[i] == ',')
+                        {
+                            counterForColons++;
+                            if (counterForColons == 2)
+                            {
+                                tmpArray[i] = '.';
+                            }
+                        }
+                    }
+
+                    var coordsString = new string(tmpArray);
+                    var latLongArray = coordsString.Split('.');
 
 
-                coordsObjects.Add(new
-                                {
-                                    latitude = latLongArray[0],
-                                    longitude = latLongArray[1]
-                                });
+                    coordsObjects.Add(new
+                                    {
+                                        latitude = latLongArray[0],
+                                        longitude = latLongArray[1]
+                                    });
         
-            }
+                }
             return coordsObjects;
             }
             catch (Exception e)
             {
-                var tmp = e;
                 return new List<object>();
             }
-            //var toSplitUpToCoordsObjects = p.ToCharArray();
-            //int counterForColons = 0, counterForSemiColons = 0, lastIndexForSplittingString = 0;
-            //var latLongObjects = new List<object>();
-            //for (int i = 0; i < toSplitUpToCoordsObjects.Length; i++)
-            //{
-            //    switch (toSplitUpToCoordsObjects[i])
-            //    {
-            //        case ';':
-            //            counterForColons--;
-            //            counterForSemiColons++;
-            //                latLongObjects.Add(new { coordinates = new string(toSplitUpToCoordsObjects, lastIndexForSplittingString, i) });
-            //                lastIndexForSplittingString = i;
-
-            //            break;
-            //        case ',':
-            //            counterForColons++;
-            //            if(counterForColons % 2 == 0)
-            //            {
-            //                toSplitUpToCoordsObjects[i] = '.';
-            //            }
-            //            break;
-            //    }
-            //}
-
-            //var tmp2 = latLongObjects.ToList();
-            //var manipulatedString = new string(toSplitUpToCoordsObjects);
-
-            //for (int i = 0; i < counterForSemiColons; i++)
-            //{
-            //    foreach (var character in manipulatedString)
-            //    {
-            //        if(character == ';')
-            //        {
-
-            //        }
-            //    //latLongObjects.Add(new object{ lat =  });
-                           
-            //    }
-            //}
-            //var tmp = new string(toSplitUpToCoordsObjects);
         }
     }
 }
