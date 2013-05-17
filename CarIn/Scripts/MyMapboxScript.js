@@ -58,6 +58,53 @@ $(document).ready(function () {
                         var myIcon = L.divIcon({ className: 'traffic-problem icon-attention'});
                         var popupContent =  '<p id="'+ id +'">'+ this.Description + '</p>';
                         var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+
+                        if (this.PointLong !== this.ToPointLong || this.PointLat !== this.ToPointLat) {
+
+                            var myIcon = L.divIcon({ className: 'traffic-problem icon-attention' });
+                            var popupContent = '<p id="' + id + '">' + this.Description + '</p>';
+                            var themarker = L.marker([this.ToPointLat, this.ToPointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+
+                            var i = 0;
+                            var points = new Array();
+                            var longlat = new Array();
+                            var url2 = "http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluub2du8n1%2C2g%3Do5-9u2xg4&=renderAdvancedNarrative&ambiguities=ignore&avoidTimedConditions=false&doReverseGeocode=false&outFormat=json&routeType=shortest&timeType=0&enhancedNarrative=false&shapeFormat=raw&generalize=0&locale=sv_SE&unit=m&from=" + this.PointLat + "," + this.PointLong + "&to= " + this.ToPointLat + "," + this.ToPointLong + "&drivingStyle=2&highwayEfficiency=21.0";
+                            $.ajax({
+                                type: 'GET',
+                                url: url2,
+                                async: true,
+                                dataType: 'jsonp',
+                                success: function (jsonPolyline) {
+                                    $.each(jsonPolyline.route.shape.shapePoints, function () {
+                                        var temp = this.toString();
+
+                                        var onepoint = parseFloat(temp);
+                                        points.push(onepoint);
+                                        console.log(onepoint);
+
+                                        if (i % 2 == !0) {
+                                            longlat.push(points);
+                                            points = [];
+                                        }
+                                        i++;
+                                    })
+
+                                    console.log(longlat);
+
+                                    var polyline_options = {
+                                        color: '#000'
+                                    };
+
+                                    var polyline = L.polyline(longlat, polyline_options).addTo(map);
+
+                                },
+                                error: function (e) {
+                                    console.log("Det gick åt apan :( ");
+                                }
+                            });
+                        }
+
+
                     });
 
                     $('.vader span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
@@ -65,48 +112,16 @@ $(document).ready(function () {
                 error: function (e) {
                     console.log("Det gick åt apan :( ");
                 }
-    });
+               });
 
             $("#olyckaKnapp").click(function () {
                 $(".traffic-problem").toggle();
+                $("path").toggle();
             });
-            var i = 0;
-            var points = new Array();
-            var longlat = new Array();
-            var url2 = "http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluub2du8n1%2C2g%3Do5-9u2xg4&=renderAdvancedNarrative&ambiguities=ignore&avoidTimedConditions=false&doReverseGeocode=false&outFormat=json&routeType=fastest&timeType=0&enhancedNarrative=false&shapeFormat=raw&generalize=1&locale=sv_SE&unit=k&from=57.69985,%2011.96114&to=%2057.70015,%2011.95216&drivingStyle=2&highwayEfficiency=21.0";
-            $.ajax({
-                type: 'GET',
-                url: url2,
-                async: true,
-                dataType: 'jsonp',
-                success: function (jsonPolyline) {
-                    $.each(jsonPolyline.route.shape.shapePoints, function () {
-                        var temp = this.toString();
-                        
-                        var onepoint = parseFloat(temp);
-                        points.push(onepoint);
-                        console.log(onepoint);
 
-                        if (i % 2 ==! 0) {
-                            longlat.push(points);
-                            points = [];
-                        }
-                        i++;
-                    })
-
-                    console.log(longlat);
-
-                    var polyline_options = {
-                        color: '#000'
-                    };
-
-                    var polyline = L.polyline(longlat, polyline_options).addTo(map);
-
-                },
-                error: function (e) {
-                    console.log("Det gick åt apan :( ");
-                }
-            });
+         
+            
+            
 
     });
 })
