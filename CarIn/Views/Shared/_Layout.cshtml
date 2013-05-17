@@ -45,7 +45,7 @@
                 <header class="span12">
                     
                         <a href="/" class="logo">@ViewBag.NameOfProject</a>
-                    
+                        @{Html.RenderAction("AccountStatus", "Account");}
                         <p class="viewbagmessage">@ViewBag.loggedInMessage</p>
                         @if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
                         {

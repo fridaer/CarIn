@@ -71,5 +71,26 @@ namespace CarIn.Controllers
             return RedirectToAction("Index","Home");
         }
 
+        public ActionResult AccountStatus()
+        {
+            var VM = new Models.ViewModels.AccountStatus();
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                VM.UserName = Request.Cookies["userInfo"]["userName"];
+                return PartialView("AccountStatus", VM);
+            }
+
+            var cookieHelper = new CookieHelper();
+            HttpCookie aCookie = Request.Cookies["userInfo"];
+            if (Request.Cookies["userInfo"] != null && cookieHelper.VerifyCookie(aCookie))
+            {
+
+                VM.UserName = Request.Cookies["userInfo"]["userName"];
+                FormsAuthentication.SetAuthCookie(VM.UserName, false);
+                return PartialView("AccountStatus", VM);
+            }
+            return PartialView("AccountStatus", VM);
+        }
+
     }
 }

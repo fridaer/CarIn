@@ -86,6 +86,8 @@ namespace CarIn.Controllers
 
         }
         [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordVm model)
         {
             var db = new DAL.Context.CarInContext();
