@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+ 
+.icon-attention:before { content: '\26a0'; } /* '⚠' */
+.icon-minus-circle:before { content: '\2796'; } /* '➖' */
+.icon-help-circle:before { content: '\e704'; } /* '' */
+.icon-info-circle:before { content: '\e705'; } /* '' */
+.icon-bell:before { content: '\f03f'; } /* '' */
+.icon-user:before { content: '👤'; } /* '\1f464' */

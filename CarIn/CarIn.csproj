@@ -220,6 +220,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201305161904410_InitialCreate.cs" />
+    <Compile Include="Migrations\201305161904410_InitialCreate.Designer.cs">
+      <DependentUpon>201305161904410_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201305171331253_ChangedCoordsInVasttrafikToListOfObj.cs" />
+    <Compile Include="Migrations\201305171331253_ChangedCoordsInVasttrafikToListOfObj.Designer.cs">
+      <DependentUpon>201305171331253_ChangedCoordsInVasttrafikToListOfObj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
     <Compile Include="Models\Entities\TrafficIncident.cs" />
     <Compile Include="Models\Entities\User.cs" />
@@ -232,6 +241,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\fontello\css\animation.css" />
+    <Content Include="Content\fontello\css\fontello-codes.css" />
+    <Content Include="Content\fontello\css\fontello-embedded.css" />
+    <Content Include="Content\fontello\css\fontello-ie7-codes.css" />
+    <Content Include="Content\fontello\css\fontello-ie7.css" />
+    <Content Include="Content\fontello\css\fontello.css" />
+    <Content Include="Content\fontello\font\fontello.svg" />
+    <Content Include="Content\main.css" />
     <Content Include="Content\main.min.css" />
     <Content Include="Content\oldSite.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -292,6 +310,12 @@
     <Content Include="Global.asax" />
     <Content Include="Content\elements.less" />
     <Content Include="Content\main.less" />
+    <Content Include="Images\icon-installningar.png" />
+    <Content Include="Images\icon-lokaltrafik.png" />
+    <Content Include="Images\icon-tullar.png" />
+    <Content Include="Images\icon-vader.png" />
+    <Content Include="Images\icon-varning.png" />
+    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -348,14 +372,27 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\fontello\font\fontello.eot" />
+    <Content Include="Content\fontello\font\fontello.ttf" />
+    <Content Include="Content\fontello\font\fontello.woff" />
+    <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Views\Account\AccountStatus.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201305161904410_InitialCreate.resx">
+      <DependentUpon>201305161904410_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305171331253_ChangedCoordsInVasttrafikToListOfObj.resx">
+      <DependentUpon>201305171331253_ChangedCoordsInVasttrafikToListOfObj.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -374,6 +411,7 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52844</DevelopmentServerPort>
+          <DevelopmentServerPort>6974</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1342/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

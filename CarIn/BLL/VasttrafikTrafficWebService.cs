@@ -47,21 +47,82 @@ namespace CarIn.BLL
         {
             var trafficInfos = vasttrafikResponse.Elements();
             var vasttrafikTrafficIncidents = new List<VasttrafikIncident>();
+            var trafficChangesCoords = new List<string>();
             foreach (var trafficInfo in trafficInfos)
             {
                 var trafficNodes = trafficInfo.Elements();
-               
-                vasttrafikTrafficIncidents.Add(new VasttrafikIncident
-                                              {
-                                                  Title = trafficNodes.ElementAt(0).Value,
-                                                  Line = trafficNodes.ElementAt(3).Value,
-                                                  DateFrom = trafficNodes.ElementAt(4).Value,
-                                                  DateTo = trafficNodes.ElementAt(5).Value,
-                                                  Priority = trafficNodes.ElementAt(6).Value,
-                                                  TrafficChangesCoords = trafficNodes.ElementAt(16).Value
-                                              });
+                if (!string.IsNullOrEmpty(trafficNodes.ElementAt(16).Value))
+                {
+                    vasttrafikTrafficIncidents.Add(new VasttrafikIncident
+                                                       {
+                                                           Title = trafficNodes.ElementAt(0).Value,
+                                                           Line = trafficNodes.ElementAt(3).Value,
+                                                           DateFrom = trafficNodes.ElementAt(4).Value,
+                                                           DateTo = trafficNodes.ElementAt(5).Value,
+                                                           Priority = trafficNodes.ElementAt(6).Value,
+                                                           TrafficChangesCoords =
+                                                               SplitStringIntoLatLong(trafficNodes.ElementAt(16).Value),
+
+                                                       });
+                }
             }
+
             return vasttrafikTrafficIncidents;
+        }
+
+
+        //58,1759649997499,11,4035799936928;58,1759649997499,11,4035799936928
+        private List<object> SplitStringIntoLatLong(string p)
+        {
+            try
+            {
+                var coordsObjects = new List<object>();
+                String[] stringArrayForCoords;
+
+                if(p.Contains(";"))
+                {
+                    stringArrayForCoords = p.Split(';');
+                }
+                else
+                {
+                    stringArrayForCoords = new string[1];
+                    stringArrayForCoords[0] = p;
+                }
+
+                foreach (var coord in stringArrayForCoords)
+                {
+                    var counterForColons = 0;
+                    var tmpArray = coord.ToCharArray();
+
+                    for (int i = 0; i < tmpArray.Length; i++)
+                    {
+                        if (tmpArray[i] == ',')
+                        {
+                            counterForColons++;
+                            if (counterForColons == 2)
+                            {
+                                tmpArray[i] = '.';
+                            }
+                        }
+                    }
+
+                    var coordsString = new string(tmpArray);
+                    var latLongArray = coordsString.Split('.');
+
+
+                    coordsObjects.Add(new
+                                    {
+                                        latitude = latLongArray[0],
+                                        longitude = latLongArray[1]
+                                    });
+        
+                }
+            return coordsObjects;
+            }
+            catch (Exception e)
+            {
+                return new List<object>();
+            }
         }
     }
 }

@@ -32,7 +32,7 @@ namespace CarIn.Models.Entities
 
         // 1: Accident 2: Congestion 3: DisabledVehicle 4: MassTransit 5: Miscellaneous 
         // 6: OtherNews 7: PlannedEvent 8: RoadHazard 9: Construction 10: Alert 11: Weather
-        public string Type { get; set; }
+        public string IncidentType { get; set; }
 
         //bool
         public string RoadClosed { get; set; }
