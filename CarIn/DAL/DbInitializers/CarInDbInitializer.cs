@@ -16,6 +16,7 @@ namespace CarIn.DAL.DbInitializers
         {
             var passHelper = new PasswordHelper();
             var Users = new List<User>
+            
             {
 
                 new User { Username = "Tobiasen" , Password = passHelper.HashPassword("delösersig", passHelper.GenerateSalt()), ShowAccidents = false, ShowPublicTransport = false, ShowTraffic = false, ShowWeather = true},
@@ -35,8 +36,25 @@ namespace CarIn.DAL.DbInitializers
                 new User { Username = "Alice" , Password = passHelper.HashPassword("delösersiginte", passHelper.GenerateSalt()), ShowAccidents = true, ShowPublicTransport = true, ShowTraffic = false, ShowWeather = true},
                 new User { Username = "Algott" , Password = passHelper.HashPassword("delösersiginte", passHelper.GenerateSalt()), ShowAccidents = false, ShowPublicTransport = false, ShowTraffic = false, ShowWeather = true},
             };
-
             Users.ForEach(s => context.Users.Add(s));
+
+            var TollLocations = new List<TollLocation>
+            {
+                new TollLocation { TrafikVID =  1, Name ="Fridkullagatan", Direction ="N", LaneNumbers =  1, PointLat ="57,682438", PointLong ="11,98774"},
+                new TollLocation { TrafikVID =  1, Name ="Fridkullagatan", Direction ="S", LaneNumbers =  1, PointLat ="57,682422", PointLong ="11,987501"},
+                new TollLocation { TrafikVID =  2, Name ="Gibraltargatan", Direction ="N", LaneNumbers =  1, PointLat ="57,683001", PointLong ="11,984609"},
+                new TollLocation { TrafikVID =  2, Name ="Gibraltargatan", Direction ="S", LaneNumbers =  1, PointLat ="57,682991", PointLong ="11,984311"},
+                new TollLocation { TrafikVID =  3, Name ="Doktor Allards gata ", Direction ="N", LaneNumbers =  1, PointLat ="57,681450", PointLong ="11,978789"},
+                new TollLocation { TrafikVID =  3, Name ="Doktor Allards gata", Direction ="S", LaneNumbers =  1, PointLat ="57,681466", PointLong ="11,97856"},
+                new TollLocation { TrafikVID =  4, Name ="Ehrenströmsgatan", Direction ="NW", LaneNumbers =  1, PointLat ="57,679239", PointLong ="11,96878"},
+                new TollLocation { TrafikVID =  4, Name ="Ehrenströmsgatan", Direction ="SE", LaneNumbers =  1, PointLat ="57,679139", PointLong ="11,968581"},
+                new TollLocation { TrafikVID =  5, Name ="Dag Hammarskjöldsleden", Direction ="NE", LaneNumbers =  2, PointLat ="57,677877", PointLong ="11,942431"},
+                new TollLocation { TrafikVID =  5, Name ="Dag Hammarskjöldsleden", Direction ="SW", LaneNumbers =  3, PointLat ="57,678093", PointLong ="11,941995"},
+                new TollLocation { TrafikVID =  6, Name ="Margaretebergsgatan", Direction ="E", LaneNumbers =  1, PointLat ="57,680722", PointLong ="11,94326"},
+                new TollLocation { TrafikVID =  6, Name ="Margaretebergsgatan", Direction ="W", LaneNumbers =  1, PointLat ="57,680933", PointLong ="11,943161"},
+                new TollLocation { TrafikVID =  7, Name ="Fjällgatan/Jungmansgatan", Direction ="SE", LaneNumbers =  1, PointLat ="57,696145", PointLong ="11,995908"},
+            };
+            TollLocations.ForEach(s => context.TollLocations.Add(s));
 
             var bingMapWebService = new BingMapTrafficWebService("AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj");
             var trafficIncidents = bingMapWebService.MakeRequest();
