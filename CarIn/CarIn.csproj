@@ -230,6 +230,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
+    <Compile Include="Models\Entities\TollLocation.cs" />
     <Compile Include="Models\Entities\TrafficIncident.cs" />
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Models\Entities\VasttrafikIncident.cs" />
@@ -372,7 +373,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -410,7 +410,6 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52844</DevelopmentServerPort>
           <DevelopmentServerPort>6974</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1342/</IISUrl>
