@@ -75,7 +75,8 @@ namespace CarIn.BLL
             {
                 if (ex.Status != WebExceptionStatus.ProtocolError)
                 {
-                    throw new NotImplementedException();
+                    LogEvents(HttpStatusCode.InternalServerError, "Exceptions is not ProtocolError");
+
                 }
                 else
                 {
@@ -86,7 +87,7 @@ namespace CarIn.BLL
                     }
                     else
                     {
-                        throw new NotImplementedException();
+                        LogEvents(HttpStatusCode.InternalServerError, "Response is null");
                     }
                 }
             }
@@ -131,8 +132,7 @@ namespace CarIn.BLL
 
         public void LogEvents(HttpStatusCode statusCode, string statusMessage)
         {
-
-            
+            LoggHelper.SetLogg("BingMapTrafficWebService", statusCode.ToString(), statusMessage);         
         }
     }
 }

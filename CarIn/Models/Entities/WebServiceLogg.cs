@@ -6,7 +6,7 @@ using CarIn.Models.Entities.Abstract;
 
 namespace CarIn.Models.Entities
 {
-    public class WebServiceLogger : IEntity
+    public class WebServiceLogg : IEntity
     {
         public int ID { get; set; }
         public DateTime LogginTime { get; set; }

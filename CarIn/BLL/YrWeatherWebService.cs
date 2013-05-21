@@ -47,7 +47,7 @@ namespace CarIn.BLL
             {
                 if (ex.Status != WebExceptionStatus.ProtocolError)
                 {
-                    throw new NotImplementedException();
+                    LogEvents(HttpStatusCode.InternalServerError, "Exceptions is not ProtocolError");
                 }
                 else
                 {
@@ -58,7 +58,7 @@ namespace CarIn.BLL
                     }
                     else
                     {
-                        throw new NotImplementedException();
+                        LogEvents(HttpStatusCode.InternalServerError, "Response is null");
                     }
                 }
             }
@@ -70,10 +70,9 @@ namespace CarIn.BLL
                 .Element("tabular")
                 .Elements("time")
                 .Take(4);
-            var wheatherPeriods = new List<WheatherPeriod>();
             foreach (var period in periodicalWheather)
             {
-                wheatherPeriods.Add(new WheatherPeriod
+                _wheatherPeriods.Add(new WheatherPeriod
                                         {
                                             PeriodNumber = period.Attribute("period").Value,
                                             SymbolName = period.Element("symbol").Attribute("name").Value,
@@ -91,7 +90,7 @@ namespace CarIn.BLL
 
         public void LogEvents(HttpStatusCode statusCode, string statusMessage)
         {
-            
+            LoggHelper.SetLogg("YrWheatherWebService", statusCode.ToString(), statusMessage);
         }
 
     }
