@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201305211543166_InitialCreate.Designer.cs">
       <DependentUpon>201305211543166_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201305211548526_AddedWebServiceLoggerModel.cs" />
+    <Compile Include="Migrations\201305211548526_AddedWebServiceLoggerModel.Designer.cs">
+      <DependentUpon>201305211548526_AddedWebServiceLoggerModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
     <Compile Include="Models\Entities\TollLocation.cs" />
@@ -387,6 +391,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201305211543166_InitialCreate.resx">
       <DependentUpon>201305211543166_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305211548526_AddedWebServiceLoggerModel.resx">
+      <DependentUpon>201305211548526_AddedWebServiceLoggerModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
