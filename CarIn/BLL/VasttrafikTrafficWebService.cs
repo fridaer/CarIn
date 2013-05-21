@@ -5,73 +5,111 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Xml.Linq;
+using CarIn.BLL.Abstract;
 using CarIn.Models.Entities;
 
 namespace CarIn.BLL
 {
-    public class VasttrafikTrafficWebService
+    public class VasttrafikTrafficWebService : IWebService<VasttrafikIncident>
     {
+        private readonly string _key;
 
-        public List<VasttrafikIncident> MakeRequest()
+        private List<VasttrafikIncident> _vasttrafikIncidents = new List<VasttrafikIncident>();  
+
+        public VasttrafikTrafficWebService(string vasstrafikKey)
+        {
+            _key = vasstrafikKey;
+        }
+
+        public void MakeRequest()
+        {
+
+            var vasttrafikRequestURL =
+                string.Format(
+                    "http://www.vasttrafik.se//external_services/TrafficInformation.asmx/GetTrafficInformationWithGeography?identifier={0}",
+                    _key);
+
+            var request = (HttpWebRequest) WebRequest.Create(vasttrafikRequestURL);
+            request.Method = WebRequestMethods.Http.Get;
+            request.Accept = "text/xml";
+            GetResponse(request);
+
+        }
+        public void GetResponse(HttpWebRequest request)
         {
             try
             {
-                var vasttrafikRequestURL =
-                    string.Format(
-                        "http://www.vasttrafik.se//external_services/TrafficInformation.asmx/GetTrafficInformationWithGeography?identifier={0}",
-                        "string");
-
-                var request = (HttpWebRequest) WebRequest.Create(vasttrafikRequestURL);
-                request.Method = WebRequestMethods.Http.Get;
-                request.Accept = "text/xml";
-
                 XElement xElement;
                 using (var response = (HttpWebResponse) request.GetResponse())
                 {
+                    LogEvents(response.StatusCode, response.StatusDescription);
+
                     using (var sr = new StreamReader(response.GetResponseStream()))
                     {
                         xElement = XElement.Load(sr);
                     }
                 }
-                var vasttrafikIncidents = GetResponse(xElement);
 
-                return vasttrafikIncidents;
+                ParseResponse(xElement);
             }
-            catch (Exception e)
+            catch (WebException ex)
             {
-                return new List<VasttrafikIncident>();
+                if (ex.Status != WebExceptionStatus.ProtocolError)
+                {
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    var response = ex.Response as HttpWebResponse;
+                    if (response != null)
+                    {
+                        LogEvents(response.StatusCode, ex.Message);
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
+                }
             }
         }
 
-        private List<VasttrafikIncident> GetResponse(XElement vasttrafikResponse)
+        private void ParseResponse(XElement vasttrafikResponse)
         {
             var trafficInfos = vasttrafikResponse.Elements();
-            var vasttrafikTrafficIncidents = new List<VasttrafikIncident>();
-            var trafficChangesCoords = new List<string>();
             foreach (var trafficInfo in trafficInfos)
             {
                 var trafficNodes = trafficInfo.Elements();
                 if (!string.IsNullOrEmpty(trafficNodes.ElementAt(16).Value))
                 {
-                    vasttrafikTrafficIncidents.Add(new VasttrafikIncident
-                                                       {
-                                                           Title = trafficNodes.ElementAt(0).Value,
-                                                           Line = trafficNodes.ElementAt(3).Value,
-                                                           DateFrom = trafficNodes.ElementAt(4).Value,
-                                                           DateTo = trafficNodes.ElementAt(5).Value,
-                                                           Priority = trafficNodes.ElementAt(6).Value,
-                                                           TrafficChangesCoords =
-                                                               SplitStringIntoLatLong(trafficNodes.ElementAt(16).Value),
+                    _vasttrafikIncidents.Add(new VasttrafikIncident
+                    {
+                        Title = trafficNodes.ElementAt(0).Value,
+                        Line = trafficNodes.ElementAt(3).Value,
+                        DateFrom = trafficNodes.ElementAt(4).Value,
+                        DateTo = trafficNodes.ElementAt(5).Value,
+                        Priority = trafficNodes.ElementAt(6).Value,
+                        TrafficChangesCoords =
+                            SplitStringIntoLatLong(trafficNodes.ElementAt(16).Value),
 
-                                                       });
+                    });
                 }
             }
 
-            return vasttrafikTrafficIncidents;
+        }
+
+        public List<VasttrafikIncident> GetParsedResponse()
+        {
+            return _vasttrafikIncidents;
+        }
+
+        public void LogEvents(HttpStatusCode statusCode, string statusMessage)
+        {
+            
         }
 
 
-        //58,1759649997499,11,4035799936928;58,1759649997499,11,4035799936928
+
+        //example param : "58,1759649997499,11,4035799936928;58,1759649997499,11,4035799936928"
         private List<object> SplitStringIntoLatLong(string coordsUnformated)
         {
             try
@@ -79,7 +117,7 @@ namespace CarIn.BLL
                 var coordsObjects = new List<object>();
                 String[] stringArrayForCoords;
 
-                if(coordsUnformated.Contains(";"))
+                if (coordsUnformated.Contains(";"))
                 {
                     stringArrayForCoords = coordsUnformated.Split(';');
                 }
@@ -111,18 +149,19 @@ namespace CarIn.BLL
 
 
                     coordsObjects.Add(new
-                                    {
-                                        latitude = latLongArray[0],
-                                        longitude = latLongArray[1]
-                                    });
-        
+                    {
+                        latitude = latLongArray[0],
+                        longitude = latLongArray[1]
+                    });
+
                 }
-            return coordsObjects;
+                return coordsObjects;
             }
             catch (Exception e)
             {
                 return new List<object>();
             }
         }
+
     }
 }

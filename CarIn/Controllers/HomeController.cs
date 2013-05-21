@@ -23,10 +23,6 @@ namespace CarIn.Controllers
 
         public ActionResult Index()
         {
-            var bing = new BingMapTrafficWebService("AoWk0xixw7Xr16xE6Tne-Ö3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj");
-            bing.MakeRequest();
-            var response =  bing.GetParsedResponse();
-            
             // Checking Logged In Session
             try
             {

@@ -9,7 +9,7 @@ using CarIn.BLL;
 
 namespace CarIn.DAL.DbInitializers
 {
-    public class CarInDbInitializer : DropCreateDatabaseIfModelChanges<CarInContext>
+    public class CarInDbInitializer : DropCreateDatabaseAlways<CarInContext>
     {
 
         protected override void Seed(CarInContext context)
@@ -127,22 +127,25 @@ namespace CarIn.DAL.DbInitializers
             };
             TollLocations.ForEach(s => context.TollLocations.Add(s));
 
-            //var bingMapWebService = new BingMapTrafficWebService("AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj");
-            //var trafficIncidents = bingMapWebService.MakeRequest();
-            //if(trafficIncidents.Any())
-            //{
-            //    trafficIncidents.ForEach(x => context.TrafficIncidents.Add(x));
-            //}
+            var bingMapWebService = new BingMapTrafficWebService("AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj");
+            bingMapWebService.MakeRequest();
+            var trafficIncidents = bingMapWebService.GetParsedResponse();
+            if (trafficIncidents.Any())
+            {
+                trafficIncidents.ForEach(x => context.TrafficIncidents.Add(x));
+            }
 
             var yrWheatherService = new YrWeatherWebService();
-            var wheatherPeriods = yrWheatherService.MakeRequest();
+            yrWheatherService.MakeRequest();
+            var wheatherPeriods = yrWheatherService.GetParsedResponse();
             if(wheatherPeriods.Any())
             {
                 wheatherPeriods.ForEach(x => context.WheatherPeriods.Add(x));
             }
 
-            var vasttrafikTraffickWebService = new VasttrafikTrafficWebService();
-            var vasttrafikIncidents = vasttrafikTraffickWebService.MakeRequest();
+            var vasttrafikTraffickWebService = new VasttrafikTrafficWebService("myKey");
+            vasttrafikTraffickWebService.MakeRequest();
+            var vasttrafikIncidents = vasttrafikTraffickWebService.GetParsedResponse();
             if (vasttrafikIncidents.Any())
             {
                 vasttrafikIncidents.ForEach(x => context.VasttrafikIncidents.Add(x));

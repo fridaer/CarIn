@@ -11,7 +11,7 @@ namespace CarIn.BLL.Abstract
     {
         void MakeRequest();
 
-        //void GetResponse(HttpWebRequest request);
+        void GetResponse(HttpWebRequest request);
 
         //void ParseResponse(object response);
 
@@ -19,4 +19,5 @@ namespace CarIn.BLL.Abstract
 
         void LogEvents(HttpStatusCode statusCode, string statusMessage);
     }
+
 }
