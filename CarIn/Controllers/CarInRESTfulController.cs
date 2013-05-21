@@ -25,40 +25,93 @@ namespace CarIn.Controllers
             _wheaterRepository = wheaterRepository;
             _vasttrafikRepository = vasttrafikRepository;
         }
-        public Object GetAllInfo()
-        {
-            //var trafficIncidents = _repository.FindAll();
-            //return trafficIncidents;
 
-            var tmpRepWheather = new Repository<WheatherPeriod>();
-            var tmpRepVasttrafik = new Repository<VasttrafikIncident>();
+        // GET api/v1/carinrestful/GetAllInfo
+        public HttpResponseMessage GetAllInfo()
+        {
             var mapInfoModel = new MapInfoVm
             {
                 TrafficIncidents = _trafficRepository.FindAll().ToList(),
-                WheatherPeriods = tmpRepWheather.FindAll().ToList(),
-                VasttrafikIncidents = tmpRepVasttrafik.FindAll().ToList()
+                WheatherPeriods = _wheaterRepository.FindAll().ToList(),
+                VasttrafikIncidents = _vasttrafikRepository.FindAll().ToList()
             };
-            return mapInfoModel;
+            
+            var response = Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
+            return response;
         }
 
-        // GET api/carinrestful/5
-        public Object GetInfoFromParams(string paramFoo, string paramBar)
+        // GET api/v1/CarInRESTful/GetInfoFromParams?traffic=all&wheather=all&localTraffic=all
+        public HttpResponseMessage GetInfoFromParams(string traffic, string wheather, string localTraffic)
         {
-            return new { foo = paramFoo, bar = paramBar };
+            var mapInfoModel = new MapInfoVm();
+            if (string.IsNullOrWhiteSpace(traffic))
+            {
+                mapInfoModel.TrafficIncidents = null;
+            }
+            else
+            {
+                switch (traffic.ToLower())
+                {
+                    case "all":
+                        mapInfoModel.TrafficIncidents = _trafficRepository.FindAll().ToList();
+                        break;
+                    case "serious":
+                        mapInfoModel.TrafficIncidents = _trafficRepository.FindAll(x => int.Parse(x.Severity) == 4).ToList();
+                        break;
+                    default:
+                        mapInfoModel.TrafficIncidents = null;
+                        break;
+                }
+            }
+
+
+            if (string.IsNullOrWhiteSpace(wheather))
+            {
+                mapInfoModel.WheatherPeriods = null;
+            }
+            else
+            {
+                mapInfoModel.WheatherPeriods = wheather.ToLower() == "all" ? _wheaterRepository.FindAll().ToList() : null;
+            }
+
+
+            if (string.IsNullOrWhiteSpace(localTraffic))
+            {
+                mapInfoModel.VasttrafikIncidents = null;   
+            }
+            else
+            {
+                if (localTraffic.ToLower() == "all")
+                {
+                    mapInfoModel.VasttrafikIncidents = _vasttrafikRepository.FindAll().ToList();
+                }
+                else if (localTraffic.ToLower() == "serious")
+                {
+                    mapInfoModel.VasttrafikIncidents = _vasttrafikRepository.FindAll(x => int.Parse(x.Priority) == 1).ToList();
+                }
+                else
+                {
+                    mapInfoModel.VasttrafikIncidents = null;
+                }
+            }
+            var response = Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
+            return response;
         }
 
-        // POST api/carinrestful
+
+
+        // POST api/v1/carinrestful
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/carinrestful/5
+        // PUT api/v1/carinrestful/5
         public void Put(int id, [FromBody]string value)
         {
 
         }
 
-        // DELETE api/carinrestful/5
+        // DELETE api/v1/carinrestful/5
         public void Delete(int id)
         {
 
