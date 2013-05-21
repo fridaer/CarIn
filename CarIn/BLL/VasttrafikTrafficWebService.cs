@@ -72,21 +72,21 @@ namespace CarIn.BLL
 
 
         //58,1759649997499,11,4035799936928;58,1759649997499,11,4035799936928
-        private List<object> SplitStringIntoLatLong(string p)
+        private List<object> SplitStringIntoLatLong(string coordsUnformated)
         {
             try
             {
                 var coordsObjects = new List<object>();
                 String[] stringArrayForCoords;
 
-                if(p.Contains(";"))
+                if(coordsUnformated.Contains(";"))
                 {
-                    stringArrayForCoords = p.Split(';');
+                    stringArrayForCoords = coordsUnformated.Split(';');
                 }
                 else
                 {
                     stringArrayForCoords = new string[1];
-                    stringArrayForCoords[0] = p;
+                    stringArrayForCoords[0] = coordsUnformated;
                 }
 
                 foreach (var coord in stringArrayForCoords)

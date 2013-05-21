@@ -5,13 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using CarIn.BLL.Abstract;
 using CarIn.DAL.Repositories;
 using CarIn.Models.Entities;
 using Newtonsoft.Json.Linq;
 
 namespace CarIn.BLL
 {
-    public class BingMapTrafficWebService
+    public class BingMapTrafficWebService : IWebService
     {
         private readonly string _key;
         private readonly string _southLat;
@@ -35,7 +36,7 @@ namespace CarIn.BLL
         }
 
 
-        public List<TrafficIncident> MakeRequest()
+        public void MakeRequest()
         {
             try
             {
@@ -78,6 +79,12 @@ namespace CarIn.BLL
                 return new List<TrafficIncident>();
             }
         }
+
+        public void HandleResponse(Type response)
+        {
+            throw new NotImplementedException();
+        }
+
         private List<TrafficIncident> GetResponse(JObject resourcesSets)
         {
             var totalResources = (int)resourcesSets["resourceSets"][0]["estimatedTotal"];
@@ -109,5 +116,7 @@ namespace CarIn.BLL
 
             return trafficIncidents;
         }
+
+       
     }
 }
