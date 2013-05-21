@@ -203,6 +203,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\Abstract\IPasswordHelper.cs" />
+    <Compile Include="BLL\Abstract\IWebService.cs" />
     <Compile Include="BLL\BCrypt.cs" />
     <Compile Include="BLL\BingMapTrafficWebService.cs" />
     <Compile Include="BLL\CookieHelper.cs" />

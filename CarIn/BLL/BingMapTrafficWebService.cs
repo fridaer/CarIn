@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CarIn.BLL
 {
-    public class BingMapTrafficWebService : IWebService
+    public class BingMapTrafficWebService : IWebService<TrafficIncident>
     {
         private readonly string _key;
         private readonly string _southLat;
@@ -20,6 +20,9 @@ namespace CarIn.BLL
         private readonly string _northLat;
         private readonly string _eastLong;
         
+        private List<TrafficIncident> _trafficIncidents;  
+
+
          //"http://dev.virtualearth.net/REST/v1/Traffic/Incidents/57.497813,11.602687,57.885356,12.406062?key=AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj";
         public BingMapTrafficWebService(string bingKey)
             : this(bingKey, 57.497813, 11.602687, 57.885356, 12.406062)
@@ -38,8 +41,8 @@ namespace CarIn.BLL
 
         public void MakeRequest()
         {
-            try
-            {
+            //try
+            //{
                 var trafficRequestURL =
                     string.Format("http://dev.virtualearth.net/REST/v1/Traffic/Incidents/{0},{1},{2},{3}?key={4}",
                                   _southLat, _westLong, _northLat, _eastLong, _key);
@@ -55,35 +58,116 @@ namespace CarIn.BLL
 
                 request.Accept = "application/json";
 
-                using (var response = (HttpWebResponse)request.GetResponse())
+            GetResponse(request);
+            //    using (var response = (HttpWebResponse)request.GetResponse())
+            //    {
+
+            //        using (var sr = new StreamReader(response.GetResponseStream()))
+            //        {
+            //            jObject = JObject.Parse(sr.ReadLine());
+            //        }
+            //    }
+
+
+            //    var trafficIncidents = GetResponse(jObject);
+
+            //    return trafficIncidents;
+            //}
+            //catch (WebException ex)
+            //{
+
+            //    return new List<TrafficIncident>();
+            //}
+            //catch (Exception e)
+            //{
+            //    return new List<TrafficIncident>();
+            //}
+        }
+
+        private void GetResponse(HttpWebRequest request)
+        {
+            JObject jObject;
+            try
+            {
+
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                LogEvents(response.StatusCode, response.StatusDescription);
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
                 {
-
-                    using (var sr = new StreamReader(response.GetResponseStream()))
-                    {
-                        jObject = JObject.Parse(sr.ReadLine());
-                    }
+                    jObject = JObject.Parse(sr.ReadLine());
                 }
+            }
+            ParseResponse(jObject);
 
-
-                var trafficIncidents = GetResponse(jObject);
-                
-                return trafficIncidents;
             }
             catch (WebException ex)
             {
-
-                return new List<TrafficIncident>();
-            }
-            catch (Exception e)
-            {
-                return new List<TrafficIncident>();
+                if (ex.Status != WebExceptionStatus.ProtocolError)
+                {
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    var response = ex.Response as HttpWebResponse;
+                    if (response != null)
+                    {
+                        LogEvents(response.StatusCode, ex.Message);
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
+                }
             }
         }
 
-        public void HandleResponse(Type response)
+        private void ParseResponse(JObject response)
         {
+
+            var totalResources = (int)response["resourceSets"][0]["estimatedTotal"];
+            var jArray = (JArray)response["resourceSets"][0]["resources"];
+
+            _trafficIncidents = new List<TrafficIncident>();
+            for (var i = 0; i < totalResources; i++)
+            {
+                var trafficIncident = new TrafficIncident()
+                {
+                    IncidentId = (string)jArray[i]["incidentId"],
+                    Description = (string)jArray[i]["description"],
+                    Verified = (string)jArray[i]["verified"],
+                    IncidentType = (string)jArray[i]["type"],
+                    End = (string)jArray[i]["end"],
+                    LastModified = (string)jArray[i]["lastModified"],
+                    RoadClosed = (string)jArray[i]["roadClosed"],
+                    Severity = (string)jArray[i]["severity"],
+                    Lane = (string)jArray[i]["lane"],
+                    Start = (string)jArray[i]["start"],
+                    PointLat = (string)jArray[i]["point"]["coordinates"][0],
+                    PointLong = (string)jArray[i]["point"]["coordinates"][1],
+                    ToPointLat = (string)jArray[i]["toPoint"]["coordinates"][0],
+                    ToPointLong = (string)jArray[i]["toPoint"]["coordinates"][1]
+                };
+
+                _trafficIncidents.Add(trafficIncident);
+            }
+
+        }
+
+        public List<TrafficIncident> GetParsedResponse()
+        {
+            return _trafficIncidents;
+        }
+
+
+        public void LogEvents(HttpStatusCode statusCode, string statusMessage)
+        {
+
             throw new NotImplementedException();
         }
+
+
 
         private List<TrafficIncident> GetResponse(JObject resourcesSets)
         {

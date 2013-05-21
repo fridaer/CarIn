@@ -127,12 +127,12 @@ namespace CarIn.DAL.DbInitializers
             };
             TollLocations.ForEach(s => context.TollLocations.Add(s));
 
-            var bingMapWebService = new BingMapTrafficWebService("AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj");
-            var trafficIncidents = bingMapWebService.MakeRequest();
-            if(trafficIncidents.Any())
-            {
-                trafficIncidents.ForEach(x => context.TrafficIncidents.Add(x));
-            }
+            //var bingMapWebService = new BingMapTrafficWebService("AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj");
+            //var trafficIncidents = bingMapWebService.MakeRequest();
+            //if(trafficIncidents.Any())
+            //{
+            //    trafficIncidents.ForEach(x => context.TrafficIncidents.Add(x));
+            //}
 
             var yrWheatherService = new YrWeatherWebService();
             var wheatherPeriods = yrWheatherService.MakeRequest();
