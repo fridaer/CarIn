@@ -9,7 +9,10 @@ namespace CarIn.Models.Entities
     public class MapQuestDirection : IEntity
     {
         public int ID { get; set; }
-        public Array PolylineDots { get; set; }
-
+        public Array shapePoints { get; set; }
+        public string PointLat { get; set; }
+        public string PointLong { get; set; }
+        public string ToPointLat { get; set; }
+        public string ToPointLong { get; set; }
     }
 }
