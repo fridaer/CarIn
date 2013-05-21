@@ -221,12 +221,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201305211543166_InitialCreate.cs" />
+    <Compile Include="Migrations\201305211543166_InitialCreate.Designer.cs">
+      <DependentUpon>201305211543166_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
     <Compile Include="Models\Entities\TollLocation.cs" />
     <Compile Include="Models\Entities\TrafficIncident.cs" />
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Models\Entities\VasttrafikIncident.cs" />
+    <Compile Include="Models\Entities\WebServiceLogger.cs" />
     <Compile Include="Models\Entities\WheaterPeriod.cs" />
     <Compile Include="Models\ViewModels\ChangePasswordVm.cs" />
     <Compile Include="Models\ViewModels\AccountStatus.cs" />
@@ -378,6 +383,11 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Views\Account\AccountStatus.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201305211543166_InitialCreate.resx">
+      <DependentUpon>201305211543166_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
