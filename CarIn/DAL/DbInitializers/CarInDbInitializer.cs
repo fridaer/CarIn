@@ -9,7 +9,7 @@ using CarIn.BLL;
 
 namespace CarIn.DAL.DbInitializers
 {
-    public class CarInDbInitializer : DropCreateDatabaseIfModelChanges<CarInContext>
+    public class CarInDbInitializer : DropCreateDatabaseAlways<CarInContext>
     {
 
         protected override void Seed(CarInContext context)

@@ -56,7 +56,7 @@ namespace CarIn.BLL
             {
                 if (ex.Status != WebExceptionStatus.ProtocolError)
                 {
-                    throw new NotImplementedException();
+                    //throw new NotImplementedException();
                 }
                 else
                 {
@@ -89,7 +89,7 @@ namespace CarIn.BLL
                         DateTo = trafficNodes.ElementAt(5).Value,
                         Priority = trafficNodes.ElementAt(6).Value,
                         TrafficChangesCoords =
-                            SplitStringIntoLatLong(trafficNodes.ElementAt(16).Value),
+                        ReplaceDotWithColonToSeparetCoords(trafficNodes.ElementAt(16).Value),
 
                     });
                 }
@@ -110,11 +110,12 @@ namespace CarIn.BLL
 
 
         //example param : "58,1759649997499,11,4035799936928;58,1759649997499,11,4035799936928"
-        private List<object> SplitStringIntoLatLong(string coordsUnformated)
+        private string ReplaceDotWithColonToSeparetCoords(string coordsUnformated)
         {
             try
             {
-                var coordsObjects = new List<object>();
+
+                string coordsObjects = "";
                 String[] stringArrayForCoords;
 
                 if (coordsUnformated.Contains(";"))
@@ -145,21 +146,15 @@ namespace CarIn.BLL
                     }
 
                     var coordsString = new string(tmpArray);
-                    var latLongArray = coordsString.Split('.');
-
-
-                    coordsObjects.Add(new
-                    {
-                        latitude = latLongArray[0],
-                        longitude = latLongArray[1]
-                    });
+                    coordsObjects += new string(tmpArray);
+                    coordsObjects += ";";
 
                 }
                 return coordsObjects;
             }
             catch (Exception e)
             {
-                return new List<object>();
+                return "";
             }
         }
 

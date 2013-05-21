@@ -221,14 +221,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201305161904410_InitialCreate.cs" />
-    <Compile Include="Migrations\201305161904410_InitialCreate.Designer.cs">
-      <DependentUpon>201305161904410_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201305171331253_ChangedCoordsInVasttrafikToListOfObj.cs" />
-    <Compile Include="Migrations\201305171331253_ChangedCoordsInVasttrafikToListOfObj.Designer.cs">
-      <DependentUpon>201305171331253_ChangedCoordsInVasttrafikToListOfObj.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
     <Compile Include="Models\Entities\TollLocation.cs" />
@@ -386,14 +378,6 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Views\Account\AccountStatus.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201305161904410_InitialCreate.resx">
-      <DependentUpon>201305161904410_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201305171331253_ChangedCoordsInVasttrafikToListOfObj.resx">
-      <DependentUpon>201305171331253_ChangedCoordsInVasttrafikToListOfObj.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
