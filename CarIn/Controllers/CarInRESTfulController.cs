@@ -16,44 +16,38 @@ namespace CarIn.Controllers
 {
     public class CarInRESTfulController : ApiController
     {
-        //private readonly IRepository<TrafficIncident> _trafficRepository;
-        //private readonly IRepository<WheatherPeriod> _wheaterRepository;
-        //private readonly IRepository<VasttrafikIncident> _vasttrafikRepository;
         private ProccessReqFromWebService _proccessReqFromWebService;
 
         public CarInRESTfulController(IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, IRepository<VasttrafikIncident> vasttrafikRepository)
         {
             _proccessReqFromWebService = new ProccessReqFromWebService(trafficRepository, wheaterRepository, vasttrafikRepository);
-            //_trafficRepository = trafficRepository;
-            //_wheaterRepository = wheaterRepository;
-            //_vasttrafikRepository = vasttrafikRepository;
         }
 
         // GET api/v1/carinrestful/GetAllInfo
         public HttpResponseMessage GetAllInfo()
         {
-            //var mapInfoModel = new MapInfoVm
-            //{
-            //    TrafficIncidents = _trafficRepository.FindAll().ToList(),
-            //    WheatherPeriods = _wheaterRepository.FindAll().ToList(),
-            //    VasttrafikIncidents = _vasttrafikRepository.FindAll().ToList()
-            //};
+            var mapInfoModel = _proccessReqFromWebService.ProccesReqGetAll();
 
-            var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams("all", "all", "all");
-            var response = Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
-            return response;
+            if(mapInfoModel == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Proccess of request failed");
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
         }
 
         // GET api/v1/CarInRESTful/GetInfoFromParams?traffic=all&wheather=all&localTraffic=all
-
         public HttpResponseMessage GetInfoFromParams(string traffic, string wheather, string localTraffic)
         {
             var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams(traffic, wheather, localTraffic);
+            if (mapInfoModel == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Proccess of request failed");
+            }
 
-            var response = Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
-
-            return response;
+            return Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
         }
+
 
         //private MapInfoVm ProccesReqFromParams(string traffic, string wheather, string localTraffic)
         //{

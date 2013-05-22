@@ -114,11 +114,10 @@ $(document).ready(function () {
                 }
                });
 
-            $("#olyckaKnapp").click(function () {
+            $("#olyckaBtn").click(function () {
                 $(".traffic-problem").toggle();
                 $("path").toggle();
             });
-
          
             
             
