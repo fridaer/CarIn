@@ -17,7 +17,5 @@ namespace CarIn.Models.Entities
         public bool ShowTraffic { get; set; }
         public bool ShowPublicTransport { get; set; }
 
-
-
     }
 }
