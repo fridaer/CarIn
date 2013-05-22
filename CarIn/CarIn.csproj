@@ -209,6 +209,7 @@
     <Compile Include="BLL\CookieHelper.cs" />
     <Compile Include="BLL\LoggHelper.cs" />
     <Compile Include="BLL\PasswordHelper.cs" />
+    <Compile Include="BLL\ProccessReqFromWebService.cs" />
     <Compile Include="BLL\VasttrafikTrafficWebService.cs" />
     <Compile Include="BLL\YrWeatherWebService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
