@@ -22,7 +22,7 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
         <script src="@Url.Content("/Scripts/bootstrap.min.js")" type="text/javascript"></script>
         <script src="@Url.Content("/Scripts/less.js")" type="text/javascript"></script>
-        <script src="@Url.Content("/Scripts/tooltipbox.js") type="text/javascript"></script>  
+        <script src="@Url.Content("/Scripts/tooltipbox.js")" type="text/javascript"></script>  
     </head>
     <body>
         <div class="fridas-media" >
@@ -45,12 +45,12 @@
                 <header class="span12">
                     
                         <a href="/" class="logo">@ViewBag.NameOfProject</a>
-
-                    <p class="viewbagmessage">@ViewBag.loggedInMessage</p>
+                        @{Html.RenderAction("AccountStatus", "Account");}
+                        <p class="viewbagmessage">@ViewBag.loggedInMessage</p>
                         @if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
                         {
                             @Html.ActionLink("Ändra lösenord", "ChangePassword", "Home")
-                            @Html.ActionLink("Logga Ut", "SignOut", "Home")
+                            @Html.ActionLink("Logga Ut", "SignOut", "Account")
                         }
                         else {
                             <!-- Button to trigger modal-LogIn -->
@@ -88,11 +88,11 @@
                     </div>
                     <nav class="mainmenu">
                         <ul>
-                            <li id="olyckaKnapp"><a href="#" class="olycka"><span class="hidden-phone">Olyckor</span><img src="@Url.Content("/Images/icon-varning.png")" alt="Olycka" /></a><!-- @Html.ActionLink("Contact", "Contact", "Home")--></li>
-                            <li><a href="#" class="tullar"><span class="hidden-phone">Tullar</span><img src="@Url.Content("/Images/icon-tullar.png")" alt="Tullar" /></a><!-- @Html.ActionLink("Väder", "About", "Home") --></li>
-                            <li><a href="#" class="vader"><span class="hidden-phone">Väder</span><img src="@Url.Content("/Images/icon-vader.png")" alt="Väder" /></a><!-- @Html.ActionLink("Hem", "Index", "Home") --></li>
-                            <li><a href="#" class="lokaltrafik"><span class="hidden-phone">Lokaltrafik</span><img src="@Url.Content("/Images/icon-lokaltrafik.png")" alt="Lokaltrafik" /></a></li>
-                            <li><a href="#" class="installningar"><span class="hidden-phone">Inställningar</span><img src="@Url.Content("/Images/icon-installningar.png")" alt="Inställningar" /></a></li>
+                            <li><a href="#" id="olyckaBtn" class="olycka"><span class="hidden-phone">Olyckor</span><img src="@Url.Content("/Images/icon-varning.png")" alt="Olycka" /></a></li>
+                            <li><a href="#" id="tullarBtn"  class="tullar"><span class="hidden-phone">Tullar</span><img src="@Url.Content("/Images/icon-tullar.png")" alt="Tullar" /></a></li>
+                            <li><a href="#" id="vaderBtn" class="vader"><span class="hidden-phone">Väder</span><img src="@Url.Content("/Images/icon-vader.png")" alt="Väder" /></a></li>
+                            <li><a href="#" id="lokalBtn" class="lokaltrafik"><span class="hidden-phone">Lokaltrafik</span><img src="@Url.Content("/Images/icon-lokaltrafik.png")" alt="Lokaltrafik" /></a></li>
+                            <li><a href="#" id="installningarBtn" class="installningar"><span class="hidden-phone">Inställningar</span><img src="@Url.Content("/Images/icon-installningar.png")" alt="Inställningar" /></a></li>
                         </ul>
                     </nav>
                 </div>

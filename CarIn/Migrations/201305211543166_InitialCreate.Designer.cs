@@ -11,7 +11,7 @@ namespace CarIn.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201305161904410_InitialCreate"; }
+            get { return "201305211543166_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

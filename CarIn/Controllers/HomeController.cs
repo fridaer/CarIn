@@ -30,19 +30,34 @@ namespace CarIn.Controllers
             // Checking Logged In Session
             try
             {
-                if ((bool)Session["IsLoggedIn"] == true)
+                if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated) //User is logged in via membership provider
                 {
-                    ViewBag.loggedInMessage = "Inloggad";
+                    ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
                     ViewBag.showChangePassLink = true;
+                    return View();
+                }
+                if (Request.Cookies["userInfo"] != null) //User is not logged in but has a cookie
+                {
+
+                    var cookieHelper = new CookieHelper();
+                    HttpCookie aCookie = Request.Cookies["userInfo"];
+
+                    if (cookieHelper.SignInByCookie(aCookie))
+                    {
+                        ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
+                        ViewBag.showChangePassLink = true;
+                        return View();
+                    }
                 }
             }
             catch
             {
                 ViewBag.showChangePassLink = false;
-
                 ViewBag.loggedInMessage = "Inte inloggad";
             }
 
+            //User is not signed in and has no/not valid cookie
+            ViewBag.AllUsers = _userRepo.FindAll().ToList(); 
             return View();
         }
 
@@ -75,6 +90,8 @@ namespace CarIn.Controllers
 
         }
         [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordVm model)
         {
             var db = new DAL.Context.CarInContext();
@@ -98,11 +115,6 @@ namespace CarIn.Controllers
 
         }
 
-        public ActionResult SignOut()
-        {
-            Session["IsLoggedIn"] = null;
-            return RedirectToAction("Index");
-        }
 
         public ActionResult Contact()
         {
@@ -110,25 +122,6 @@ namespace CarIn.Controllers
             return View();
         }
 
-        /*private void btnLogin_Click(object sender, EventArgs e)
-        {
-            if (txtUsername.Text == "user")
-            {
-                if (txtPassword.Text == "password")
-                {
-                    new Form2().Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Error: invalid password or usernam");
-                }
-            }
-            else 
-            { 
-                MessageBox.Show("Error: invalid password or usernam"); 
-            }
-        }*/
         public ActionResult Kart_Demo()
         {
             return View();

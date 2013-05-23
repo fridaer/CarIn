@@ -22,6 +22,20 @@ namespace CarIn.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
+                "dbo.TollLocations",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        TrafikVID = c.Int(nullable: false),
+                        Name = c.String(),
+                        Direction = c.String(),
+                        LaneNumbers = c.Int(nullable: false),
+                        PointLong = c.String(),
+                        PointLat = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
                 "dbo.TrafficIncidents",
                 c => new
                     {
@@ -77,6 +91,7 @@ namespace CarIn.Migrations
             DropTable("dbo.VasttrafikIncidents");
             DropTable("dbo.WheatherPeriods");
             DropTable("dbo.TrafficIncidents");
+            DropTable("dbo.TollLocations");
             DropTable("dbo.Users");
         }
     }

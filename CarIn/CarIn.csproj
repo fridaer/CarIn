@@ -203,9 +203,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\Abstract\IPasswordHelper.cs" />
+    <Compile Include="BLL\Abstract\IWebService.cs" />
     <Compile Include="BLL\BCrypt.cs" />
     <Compile Include="BLL\BingMapTrafficWebService.cs" />
     <Compile Include="BLL\MapQuestDirectionsWebService.cs" />
+    <Compile Include="BLL\CookieHelper.cs" />
+    <Compile Include="BLL\LoggHelper.cs" />
     <Compile Include="BLL\PasswordHelper.cs" />
     <Compile Include="BLL\VasttrafikTrafficWebService.cs" />
     <Compile Include="BLL\YrWeatherWebService.cs" />
@@ -220,22 +223,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201305161904410_InitialCreate.cs" />
-    <Compile Include="Migrations\201305161904410_InitialCreate.Designer.cs">
-      <DependentUpon>201305161904410_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201305211543166_InitialCreate.cs" />
+    <Compile Include="Migrations\201305211543166_InitialCreate.Designer.cs">
+      <DependentUpon>201305211543166_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201305171331253_ChangedCoordsInVasttrafikToListOfObj.cs" />
-    <Compile Include="Migrations\201305171331253_ChangedCoordsInVasttrafikToListOfObj.Designer.cs">
-      <DependentUpon>201305171331253_ChangedCoordsInVasttrafikToListOfObj.cs</DependentUpon>
+    <Compile Include="Migrations\201305211548526_AddedWebServiceLoggerModel.cs" />
+    <Compile Include="Migrations\201305211548526_AddedWebServiceLoggerModel.Designer.cs">
+      <DependentUpon>201305211548526_AddedWebServiceLoggerModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
     <Compile Include="Models\Entities\MapQuestDirection.cs" />
+    <Compile Include="Models\Entities\TollLocation.cs" />
     <Compile Include="Models\Entities\TrafficIncident.cs" />
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Models\Entities\VasttrafikIncident.cs" />
+    <Compile Include="Models\Entities\WebServiceLogg.cs" />
     <Compile Include="Models\Entities\WheaterPeriod.cs" />
     <Compile Include="Models\ViewModels\ChangePasswordVm.cs" />
+    <Compile Include="Models\ViewModels\AccountStatus.cs" />
     <Compile Include="Models\ViewModels\MapInfoVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -372,7 +378,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -384,13 +389,14 @@
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Views\Account\AccountStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201305161904410_InitialCreate.resx">
-      <DependentUpon>201305161904410_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201305211543166_InitialCreate.resx">
+      <DependentUpon>201305211543166_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201305171331253_ChangedCoordsInVasttrafikToListOfObj.resx">
-      <DependentUpon>201305171331253_ChangedCoordsInVasttrafikToListOfObj.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201305211548526_AddedWebServiceLoggerModel.resx">
+      <DependentUpon>201305211548526_AddedWebServiceLoggerModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -6,55 +6,73 @@ using System.Net;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
+using CarIn.BLL.Abstract;
 using CarIn.Models.Entities;
 using Newtonsoft.Json.Linq;
 
 namespace CarIn.BLL
 {
-    public class YrWeatherWebService
+    public class YrWeatherWebService : IWebService<WheatherPeriod>
     {
-        public List<WheatherPeriod> MakeRequest()
+        private List<WheatherPeriod> _wheatherPeriods = new List<WheatherPeriod>(); 
+        public void MakeRequest()
+        {
+
+            var yrWheatherRequestURL =
+                string.Format("http://www.yr.no/place/Sweden/V%C3%A4stra_G%C3%B6taland/Gothenburg/forecast.xml");
+
+            var request = (HttpWebRequest)WebRequest.Create(yrWheatherRequestURL);
+            request.Method = WebRequestMethods.Http.Get;
+            request.Accept = "text/xml";
+            GetResponse(request);
+        }
+
+        public void GetResponse(HttpWebRequest request)
         {
             try
             {
-                var yrWheatherRequestURL =
-                    string.Format("http://www.yr.no/place/Sweden/V%C3%A4stra_G%C3%B6taland/Gothenburg/forecast.xml");
-
-                var request = (HttpWebRequest)WebRequest.Create(yrWheatherRequestURL);
-                request.Method = WebRequestMethods.Http.Get;
-                request.Accept = "text/xml";
-
                 XDocument xDocument;
                 using (var response = (HttpWebResponse)request.GetResponse())
                 {
+                    LogEvents(response.StatusCode, response.StatusDescription);
+
                     using (var sr = new StreamReader(response.GetResponseStream()))
-                    {                      
+                    {
                         xDocument = XDocument.Load(sr);
                     }
                 }
-
-                return GetResponse(xDocument);
+                ParseRespone(xDocument);
             }
             catch (WebException ex)
             {
-
-                return new List<WheatherPeriod>();
-            }
-            catch (Exception e)
-            {
-                return new List<WheatherPeriod>();
+                if (ex.Status != WebExceptionStatus.ProtocolError)
+                {
+                    LogEvents(HttpStatusCode.InternalServerError, "Exceptions is not ProtocolError");
+                }
+                else
+                {
+                    var response = ex.Response as HttpWebResponse;
+                    if (response != null)
+                    {
+                        LogEvents(response.StatusCode, ex.Message);
+                    }
+                    else
+                    {
+                        LogEvents(HttpStatusCode.InternalServerError, "Response is null");
+                    }
+                }
             }
         }
-        private List<WheatherPeriod> GetResponse(XDocument YrWheatherResponse)
+
+        private void ParseRespone(XDocument YrWheatherResponse)
         {
-           var periodicalWheather = YrWheatherResponse.Root.Element("forecast")
-                                                          .Element("tabular")
-                                                          .Elements("time")
-                                                          .Take(4);
-            var wheatherPeriods = new List<WheatherPeriod>();
+            var periodicalWheather = YrWheatherResponse.Root.Element("forecast")
+                .Element("tabular")
+                .Elements("time")
+                .Take(4);
             foreach (var period in periodicalWheather)
             {
-                wheatherPeriods.Add(new WheatherPeriod
+                _wheatherPeriods.Add(new WheatherPeriod
                                         {
                                             PeriodNumber = period.Attribute("period").Value,
                                             SymbolName = period.Element("symbol").Attribute("name").Value,
@@ -63,7 +81,17 @@ namespace CarIn.BLL
                                             TemperatureCelsius = period.Element("temperature").Attribute("value").Value
                                         });
             }
-            return wheatherPeriods;
         }
+
+        public List<WheatherPeriod> GetParsedResponse()
+        {
+            return _wheatherPeriods;
+        }
+
+        public void LogEvents(HttpStatusCode statusCode, string statusMessage)
+        {
+            LoggHelper.SetLogg("YrWheatherWebService", statusCode.ToString(), statusMessage);
+        }
+
     }
 }

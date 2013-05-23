@@ -14,6 +14,6 @@ namespace CarIn.Models.Entities
         public string DateFrom { get; set; }
         public string DateTo { get; set; }
         public string Priority { get; set; }
-        public List<object> TrafficChangesCoords { get; set; }
+        public string TrafficChangesCoords { get; set; }
     }
 }

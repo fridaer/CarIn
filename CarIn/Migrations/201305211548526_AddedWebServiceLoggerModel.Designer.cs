@@ -5,13 +5,13 @@ namespace CarIn.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class ChangedCoordsInVasttrafikToListOfObj : IMigrationMetadata
+    public sealed partial class AddedWebServiceLoggerModel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangedCoordsInVasttrafikToListOfObj));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedWebServiceLoggerModel));
         
         string IMigrationMetadata.Id
         {
-            get { return "201305171331253_ChangedCoordsInVasttrafikToListOfObj"; }
+            get { return "201305211548526_AddedWebServiceLoggerModel"; }
         }
         
         string IMigrationMetadata.Source

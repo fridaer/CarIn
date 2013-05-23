@@ -1,0 +1,10 @@
+﻿@model CarIn.Models.ViewModels.AccountStatus
+@{
+    if (!string.IsNullOrEmpty(Model.UserName))
+    {
+        <small>@Model.UserName</small>  
+    }else{
+        <small>No user</small>
+    }
+}
+    

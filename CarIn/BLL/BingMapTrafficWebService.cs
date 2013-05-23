@@ -5,13 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using CarIn.BLL.Abstract;
 using CarIn.DAL.Repositories;
 using CarIn.Models.Entities;
 using Newtonsoft.Json.Linq;
 
 namespace CarIn.BLL
 {
-    public class BingMapTrafficWebService
+    public class BingMapTrafficWebService : IWebService<TrafficIncident>
     {
         private readonly string _key;
         private readonly string _southLat;
@@ -19,12 +20,14 @@ namespace CarIn.BLL
         private readonly string _northLat;
         private readonly string _eastLong;
         
-         //"http://dev.virtualearth.net/REST/v1/Traffic/Incidents/57.497813,11.602687,57.885356,12.406062?key=AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj";
-        public BingMapTrafficWebService(string bingKey)
-            : this(bingKey, 57.497813, 11.602687, 57.885356, 12.406062)
-        {
+        private List<TrafficIncident> _trafficIncidents = new List<TrafficIncident>();  
 
-        }
+
+         //"http://dev.virtualearth.net/REST/v1/Traffic/Incidents/57.497813,11.602687,57.885356,12.406062?key=AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj";
+        
+        public BingMapTrafficWebService(string bingKey)
+            : this(bingKey, 57.497813, 11.602687, 57.885356, 12.406062){}
+
         public BingMapTrafficWebService(string bingKey, double southLat, double westLong, double northLat, double eastLong)
         {
             _key = bingKey;
@@ -35,18 +38,12 @@ namespace CarIn.BLL
         }
 
 
-        public List<TrafficIncident> MakeRequest()
+        public void MakeRequest()
         {
-            try
-            {
+
                 var trafficRequestURL =
                     string.Format("http://dev.virtualearth.net/REST/v1/Traffic/Incidents/{0},{1},{2},{3}?key={4}",
                                   _southLat, _westLong, _northLat, _eastLong, _key);
-
-                //string URL =
-                //"http://dev.virtualearth.net/REST/v1/Traffic/Incidents/57.497813,11.602687,57.885356,12.406062?key=AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj";
-
-                JObject jObject;
 
                 var request = (HttpWebRequest)WebRequest.Create(trafficRequestURL);
 
@@ -54,8 +51,17 @@ namespace CarIn.BLL
 
                 request.Accept = "application/json";
 
+            GetResponse(request);
+        }
+
+        public void GetResponse(HttpWebRequest request)
+        {
+            JObject jObject;
+            try
+            {
                 using (var response = (HttpWebResponse)request.GetResponse())
                 {
+                    LogEvents(response.StatusCode, response.StatusDescription);
 
                     using (var sr = new StreamReader(response.GetResponseStream()))
                     {
@@ -63,27 +69,37 @@ namespace CarIn.BLL
                     }
                 }
 
-
-                var trafficIncidents = GetResponse(jObject);
-                
-                return trafficIncidents;
+                ParseResponse(jObject);
             }
             catch (WebException ex)
             {
+                if (ex.Status != WebExceptionStatus.ProtocolError)
+                {
+                    LogEvents(HttpStatusCode.InternalServerError, "Exceptions is not ProtocolError");
 
-                return new List<TrafficIncident>();
-            }
-            catch (Exception e)
-            {
-                return new List<TrafficIncident>();
+                }
+                else
+                {
+                    var response = ex.Response as HttpWebResponse;
+                    if (response != null)
+                    {
+                        LogEvents(response.StatusCode, ex.Message);
+                    }
+                    else
+                    {
+                        LogEvents(HttpStatusCode.InternalServerError, "Response is null");
+                    }
+                }
             }
         }
-        private List<TrafficIncident> GetResponse(JObject resourcesSets)
-        {
-            var totalResources = (int)resourcesSets["resourceSets"][0]["estimatedTotal"];
-            var jArray = (JArray)resourcesSets["resourceSets"][0]["resources"];
 
-            var trafficIncidents = new List<TrafficIncident>();
+        private void ParseResponse(JObject response)
+        {
+
+            var totalResources = (int)response["resourceSets"][0]["estimatedTotal"];
+            var jArray = (JArray)response["resourceSets"][0]["resources"];
+
+            _trafficIncidents = new List<TrafficIncident>();
             for (var i = 0; i < totalResources; i++)
             {
                 var trafficIncident = new TrafficIncident()
@@ -104,10 +120,19 @@ namespace CarIn.BLL
                     ToPointLong = (string)jArray[i]["toPoint"]["coordinates"][1]
                 };
 
-                trafficIncidents.Add(trafficIncident);
+                _trafficIncidents.Add(trafficIncident);
             }
 
-            return trafficIncidents;
+        }
+
+        public List<TrafficIncident> GetParsedResponse()
+        {
+            return _trafficIncidents;
+        }
+
+        public void LogEvents(HttpStatusCode statusCode, string statusMessage)
+        {
+            LoggHelper.SetLogg("BingMapTrafficWebService", statusCode.ToString(), statusMessage);         
         }
     }
 }
