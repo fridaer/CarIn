@@ -1,80 +1,49 @@
-﻿/* GRADIENT */
+﻿@import url("clear-fix.css");
+/* GRADIENT */
 /* ROUNDED CORNERS */
 /* BOX SHADOW */
-/* Fridas responsiv-top-bar */
-.fridas-media .margin {
-  height: 25px;
-}
-.fridas-media .fixed {
-  z-index: 100;
-  font-family: arial;
-  font-size: 11px;
-  line-height: 25px;
-  overflow: hidden;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  background: #000;
-  color: #FFF;
-  margin: 0px auto;
-}
-.fridas-media .fixed .show_at_1200px {
-  display: none;
-}
-@media (min-width: 1201px) {
-  .fridas-media .fixed .show_at_1200px {
-    display: inline;
-  }
-}
-.fridas-media .fixed .show_at_980px {
-  display: none;
-}
-@media (max-width: 1200px) {
-  .fridas-media .fixed .show_at_980px {
-    display: inline;
-  }
-}
-@media (max-width: 767px) {
-  .fridas-media .fixed .show_at_980px {
-    display: none;
-  }
-}
-.fridas-media .fixed .show_at_767px {
-  display: none;
-}
-@media (max-width: 767px) {
-  .fridas-media .fixed .show_at_767px {
-    display: inline;
-  }
-}
-@media (max-width: 480px) {
-  .fridas-media .fixed .show_at_767px {
-    display: none;
-  }
-}
-.fridas-media .fixed .show_at_480px {
-  display: none;
-}
-@media (max-width: 480px) {
-  .fridas-media .fixed .show_at_480px {
-    display: inline;
-  }
-}
-@media (max-width: 320px) {
-  .fridas-media .fixed .show_at_480px {
-    display: none;
-  }
-}
-.fridas-media .fixed .show_at_320px {
-  display: none;
-}
-@media (max-width: 320px) {
-  .fridas-media .fixed .show_at_320px {
-    display: inline;
-  }
-}
-/* Fridas responsive-top-bar *//* RESET */
+/* Fridas responsiv-top-bar 
+	.fridas-media {
+		.margin {height: 25px;}
+		.fixed {
+			z-index: 100;
+			font-family: arial;
+			font-size: 11px;
+			line-height: 25px;
+			overflow: hidden;
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%; 
+			background: #000; 
+			color: #FFF; 
+			margin: 0px auto;
+			.show_at_1200px { 
+				display: none;
+				@media (min-width: 1201px){ display: inline; }
+			}
+			.show_at_980px {
+				display: none;
+				@media (max-width: 1200px){ display: inline; }
+				@media (max-width: 767px){ display: none; }
+			}
+			.show_at_767px {
+				display: none;
+				@media (max-width: 767px){ display: inline; }
+				@media (max-width: 480px){ display: none; }
+			}
+			.show_at_480px { 
+				display: none;
+				@media (max-width: 480px){ display: inline; }
+				@media (max-width: 320px){ display: none; }
+			}
+			.show_at_320px { 
+				display: none;
+				@media (max-width: 320px){ display: inline;} 
+			}
+		}
+	}
+	 Fridas responsive-top-bar *//* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -355,9 +324,6 @@ header .log-in-btn:hover {
   background: -o-linear-gradient(#01b5e2, #18d0fe);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#01b5e2', endColorstr='#18d0fe', GradientType=0);
   color: #fff;
-}
-.map {
-  height: 70%;
 }
 .content {
   margin-right: 20px;
