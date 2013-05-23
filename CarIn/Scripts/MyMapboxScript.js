@@ -1,11 +1,26 @@
 ﻿/// <reference path="mapbox.js" />
 $(document).ready(function () {
 
-    var layer = L.mapbox.tileLayer('tobohr.map-n6vjouf7');
+    var layer = L.mapbox.tileLayer('tobohr.map-n6vjouf7', {
+        detectRetina: true,
+        retinaVersion: 'tobohr.map-fkbh0rtn'
+    });
     layer.on('ready', function () {
         // the layer has been fully loaded now, and you can
         // call .getTileJSON and investigate its properties
-        var map = L.mapbox.map('map', 'tobohr.map-n6vjouf7').setView([57.75, 11.974749], 11);
+        /*        
+                var map = L.mapbox.map('map', 'tobohr.map-n6vjouf7', {   
+                detectRetina: true,
+                retinaVersion: 'tobohr.map-fkbh0rtn'
+                }).setView([57.75, 11.974749], 11);
+        
+        */
+        var map = L.map('map')
+        .setView([57.75, 11.974749], 11)
+        .addLayer(L.mapbox.tileLayer('tobohr.map-n6vjouf7', {
+            detectRetina: true,
+            retinaVersion: 'tobohr.map-fkbh0rtn'
+        }));
 
         var updateEvery2sec = setInterval(function () {
             var zoomlevel = map.getZoom();

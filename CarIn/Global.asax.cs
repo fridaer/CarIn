@@ -20,8 +20,8 @@ namespace CarIn
     {
         protected void Application_Start()
         {
-
-            Database.SetInitializer(new CarInDbInitializer());
+            //TODO Behövs inte då vi använder migrations
+            //Database.SetInitializer(new CarInDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());

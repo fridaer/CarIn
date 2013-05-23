@@ -84,10 +84,23 @@ namespace CarIn.Migrations
                     })
                 .PrimaryKey(t => t.ID);
             
+            CreateTable(
+                "dbo.WebServiceLoggs",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        LogginTime = c.DateTime(nullable: false),
+                        ClassName = c.String(),
+                        StatusCode = c.String(),
+                        StatusMessag = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
         }
         
         public override void Down()
         {
+            DropTable("dbo.WebServiceLoggs");
             DropTable("dbo.VasttrafikIncidents");
             DropTable("dbo.WheatherPeriods");
             DropTable("dbo.TrafficIncidents");
