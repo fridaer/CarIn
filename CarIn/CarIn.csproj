@@ -222,13 +222,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201305211543166_InitialCreate.cs" />
-    <Compile Include="Migrations\201305211543166_InitialCreate.Designer.cs">
-      <DependentUpon>201305211543166_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201305211548526_AddedWebServiceLoggerModel.cs" />
-    <Compile Include="Migrations\201305211548526_AddedWebServiceLoggerModel.Designer.cs">
-      <DependentUpon>201305211548526_AddedWebServiceLoggerModel.cs</DependentUpon>
+    <Compile Include="Migrations\201305230826012_InitialCreate.cs" />
+    <Compile Include="Migrations\201305230826012_InitialCreate.Designer.cs">
+      <DependentUpon>201305230826012_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
@@ -390,11 +386,8 @@
     <Content Include="Views\Account\AccountStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201305211543166_InitialCreate.resx">
-      <DependentUpon>201305211543166_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201305211548526_AddedWebServiceLoggerModel.resx">
-      <DependentUpon>201305211548526_AddedWebServiceLoggerModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201305230826012_InitialCreate.resx">
+      <DependentUpon>201305230826012_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
