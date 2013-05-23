@@ -24,6 +24,7 @@ namespace CarIn.Migrations
             context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.WheatherPeriods");
             context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.VasttrafikIncidents");
             context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.WebServiceLoggs");
+            context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.MapQuestDirections");
 
             var passHelper = new PasswordHelper();
             var Users = new List<User>
