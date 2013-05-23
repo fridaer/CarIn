@@ -156,6 +156,15 @@ namespace CarIn.Migrations
             }
 
 
+            var mapQuestDirectionsWebService = new MapQuestDirectionsWebService();
+            var mapQuestDirections = mapQuestDirectionsWebService.MakeRequest(trafficIncidents);
+            if (mapQuestDirections.Any())
+            {
+                mapQuestDirections.ForEach(x => context.MapQuestDirections.AddOrUpdate(x));
+            }
+
+
+
             context.SaveChanges();
             //  This method will be called after migrating to the latest version.
 

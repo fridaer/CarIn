@@ -18,12 +18,14 @@ namespace CarIn.Controllers
         private readonly IRepository<TrafficIncident> _trafficRepository;
         private readonly IRepository<WheatherPeriod> _wheaterRepository;
         private readonly IRepository<VasttrafikIncident> _vasttrafikRepository;
+        private readonly IRepository<MapQuestDirection> _directionsRepository;
 
-        public CarInRESTfulController(IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, IRepository<VasttrafikIncident> vasttrafikRepository)
+        public CarInRESTfulController (IRepository<MapQuestDirection> directionsRepository, IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, IRepository<VasttrafikIncident> vasttrafikRepository)
         {
             _trafficRepository = trafficRepository;
             _wheaterRepository = wheaterRepository;
             _vasttrafikRepository = vasttrafikRepository;
+            _directionsRepository = directionsRepository;
         }
 
         // GET api/v1/carinrestful/GetAllInfo
@@ -33,7 +35,8 @@ namespace CarIn.Controllers
             {
                 TrafficIncidents = _trafficRepository.FindAll().ToList(),
                 WheatherPeriods = _wheaterRepository.FindAll().ToList(),
-                VasttrafikIncidents = _vasttrafikRepository.FindAll().ToList()
+                VasttrafikIncidents = _vasttrafikRepository.FindAll().ToList(),
+                MapQuestDirections = _directionsRepository.FindAll().ToList()
             };
             
             var response = Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);

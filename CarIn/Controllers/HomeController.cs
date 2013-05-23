@@ -24,9 +24,6 @@ namespace CarIn.Controllers
         public ActionResult Index()
         {
 
-            var MapQuestDirectionsWebService = new MapQuestDirectionsWebService();
-            var mapquestDirections = MapQuestDirectionsWebService.MakeRequest();
-
             // Checking Logged In Session
             try
             {

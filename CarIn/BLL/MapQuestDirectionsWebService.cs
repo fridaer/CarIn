@@ -37,7 +37,7 @@ namespace CarIn.BLL
             return MapQuestRequestURL;
         }
 
-        public List<MapQuestDirection> ForeachIncedent(List<TrafficIncident> TrafficIncidents)
+        public List<MapQuestDirection> MakeRequestForeachIncedent(List<TrafficIncident> TrafficIncidents)
         {
             List<MapQuestDirection> MapQuestDirections = new List<MapQuestDirection>();
             foreach(TrafficIncident item in TrafficIncidents){
@@ -69,11 +69,11 @@ namespace CarIn.BLL
             return json;
         }
 
-        public List<MapQuestDirection> MakeRequest()
+        public List<MapQuestDirection> MakeRequest(List<TrafficIncident> TrafficIncidents)
         {
 
-            var TrafficIncedentsWithEndPoints = GetTrafficIncedentsWithEndPoints();
-            var Directions = ForeachIncedent(TrafficIncedentsWithEndPoints);
+            var TrafficIncedentsWithEndPoints = FindTrafficIncedentsWithEndPoints(TrafficIncidents);
+            var Directions = MakeRequestForeachIncedent(TrafficIncedentsWithEndPoints);
             return Directions;
         }
 
@@ -94,11 +94,9 @@ namespace CarIn.BLL
             return StringOfLatlong;
         }
 
-        public List<TrafficIncident> GetTrafficIncedentsWithEndPoints()
+        public List<TrafficIncident> FindTrafficIncedentsWithEndPoints(List<TrafficIncident> trafficIncidents)
         {
 
-            var bingMapWebService = new BingMapTrafficWebService("AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj");
-            List<TrafficIncident> trafficIncidents = bingMapWebService.MakeRequest();
 
             List<TrafficIncident> TrafficIncedentsWithEndPoints = new List<TrafficIncident>();
 

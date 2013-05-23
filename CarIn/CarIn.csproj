@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201305230826012_InitialCreate.Designer.cs">
       <DependentUpon>201305230826012_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201305230946406_Added MapQuestDirections.cs" />
+    <Compile Include="Migrations\201305230946406_Added MapQuestDirections.Designer.cs">
+      <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
     <Compile Include="Models\Entities\MapQuestDirection.cs" />
@@ -390,6 +394,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201305230826012_InitialCreate.resx">
       <DependentUpon>201305230826012_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305230946406_Added MapQuestDirections.resx">
+      <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
