@@ -5,14 +5,12 @@
         var deviceHight = $('#map').height($(window).height());
         var mapHight = deviceHight - navMenuHight;
         $('#map').height(mapHight);
-        window.setTimeout(moveMapNavArrows, 100)
+
+
+    }
+    window.setTimeout(moveMapNavArrows, 100)
+    function moveMapNavArrows() {
         $('.leaflet-left').removeClass('leaflet-left').addClass('leaflet-right');
-
-
-        function moveMapNavArrows (){
-            $('.leaflet-left').removeClass('leaflet-left').addClass('leaflet-right');
-        }
-
     }
 
 
