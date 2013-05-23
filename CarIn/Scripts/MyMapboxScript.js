@@ -64,10 +64,10 @@ $(document).ready(function () {
                             //TemperatureCelsius: "15"
                             //WindCode: "S"
                             //WindSpeedMps: "6.8"
-                    console.log(json);
+                    //console.log(json);
                     var id = 0; 
                     $.each(json.TrafficIncidents, function () {
-                        console.log(this);
+                        //console.log(this);
                         id++;
 
                         var myIcon = L.divIcon({ className: 'traffic-problem icon-attention'});
@@ -95,7 +95,7 @@ $(document).ready(function () {
 
                                         var onepoint = parseFloat(temp);
                                         points.push(onepoint);
-                                        console.log(onepoint);
+                                        //console.log(onepoint);
 
                                         if (i % 2 == !0) {
                                             longlat.push(points);
@@ -104,7 +104,7 @@ $(document).ready(function () {
                                         i++;
                                     })
 
-                                    console.log(longlat);
+                                    //console.log(longlat);
 
                                     var polyline_options = {
                                         color: '#000'
@@ -114,7 +114,7 @@ $(document).ready(function () {
 
                                 },
                                 error: function (e) {
-                                    console.log("Det gick åt apan :( ");
+                                    //console.log("Det gick åt apan :( ");
                                 }
                             });
                         }
@@ -125,7 +125,7 @@ $(document).ready(function () {
                     $('.vader span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
                 },
                 error: function (e) {
-                    console.log("Det gick åt apan :( ");
+                    //console.log("Det gick åt apan :( ");
                 }
                });
 
