@@ -52,7 +52,6 @@ namespace CarIn.BLL
         }
         public routeObj GetResponse(String URL) {
 
-            MakeUrl("57.7036", "11.8602", "57.71796", "11.81875");
             HttpWebRequest Request = (HttpWebRequest)WebRequest.Create(URL);
             Request.Method = WebRequestMethods.Http.Get;
             Request.Accept = "application/json";
