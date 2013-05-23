@@ -49,7 +49,7 @@ namespace CarIn.Migrations
             };
 
 
-            //Users.ForEach(s => context.Users.AddOrUpdate(s));
+            Users.ForEach(s => context.Users.AddOrUpdate(s));
 
             var TollLocations = new List<TollLocation>
             {
