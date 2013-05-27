@@ -70,9 +70,26 @@ $(document).ready(function () {
                             color: '#000'
                         };
                         var polyline = L.polyline(LatlongArrayen, polyline_options).addTo(map);
-                        });
+                    });
 
-                   
+                    $.each(json.TollLocations, function () {
+                        id++;
+
+                        var myIcon = L.icon({
+                            iconUrl: '../images/trangselskatt.png',
+                            iconRetinaUrl: '../images/trangselskatt.png',
+                            iconSize:     [15, 15], // size of the icon
+                            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+                            popupAnchor:  [0, -25]  // point from which the popup should open relative to the iconAnchor 
+                        })
+                        //var myIcon = L.divIcon({
+                            
+                        //});
+
+                        var popupContent = '<p id="' + id + '">' + this.Name + '</p>';
+                        var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+                    });
+          
 
                     $('.vader span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
                 },
