@@ -18,23 +18,16 @@ namespace CarIn.Controllers
     {
 
         private readonly ProccessReqFromWebService _proccessReqFromWebService;
-        private readonly IRepository<TrafficIncident> _trafficRepository;
-        private readonly IRepository<WheatherPeriod> _wheaterRepository;
-        private readonly IRepository<VasttrafikIncident> _vasttrafikRepository;
-        private readonly IRepository<MapQuestDirection> _directionsRepository;
 
         public CarInRESTfulController (IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, IRepository<VasttrafikIncident> vasttrafikRepository, IRepository<MapQuestDirection> directionsRepository)
         {
             _proccessReqFromWebService = new ProccessReqFromWebService(trafficRepository, wheaterRepository, vasttrafikRepository, directionsRepository);
-            _trafficRepository = trafficRepository;
-            _wheaterRepository = wheaterRepository;
-            _vasttrafikRepository = vasttrafikRepository;
-            _directionsRepository = directionsRepository;
         }
 
         // GET api/v1/carinrestful/GetAllInfo
         public HttpResponseMessage GetAllInfo()
         {
+            //TODO Lägga till felhanteringen och skicka med felkoder
             var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams("all", "all", "all", "all");
             var response = Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
 
@@ -50,64 +43,6 @@ namespace CarIn.Controllers
 
             return response;
         }
-
-        //private MapInfoVm ProccesReqFromParams(string traffic, string wheather, string localTraffic)
-        //{
-        //    var mapInfoModel = new MapInfoVm();
-
-        //    if (string.IsNullOrWhiteSpace(traffic))
-        //    {
-        //        mapInfoModel.TrafficIncidents = null;
-        //    }
-        //    else
-        //    {
-        //        switch (traffic.ToLower())
-        //        {
-        //            case "all":
-        //                mapInfoModel.TrafficIncidents = _trafficRepository.FindAll().ToList();
-        //                break;
-        //            case "serious":
-        //                mapInfoModel.TrafficIncidents = _trafficRepository.FindAll(x => int.Parse(x.Severity) == 4).ToList();
-        //                break;
-        //            default:
-        //                mapInfoModel.TrafficIncidents = null;
-        //                break;
-        //        }
-        //    }
-
-
-        //    if (string.IsNullOrWhiteSpace(wheather))
-        //    {
-        //        mapInfoModel.WheatherPeriods = null;
-        //    }
-        //    else
-        //    {
-        //        mapInfoModel.WheatherPeriods = wheather.ToLower() == "all" ? _wheaterRepository.FindAll().ToList() : null;
-        //    }
-
-
-        //    if (string.IsNullOrWhiteSpace(localTraffic))
-        //    {
-        //        mapInfoModel.VasttrafikIncidents = null;
-        //    }
-        //    else
-        //    {
-        //        if (localTraffic.ToLower() == "all")
-        //        {
-        //            mapInfoModel.VasttrafikIncidents = _vasttrafikRepository.FindAll().ToList();
-        //        }
-        //        else if (localTraffic.ToLower() == "serious")
-        //        {
-        //            mapInfoModel.VasttrafikIncidents = _vasttrafikRepository.FindAll(x => int.Parse(x.Priority) == 1).ToList();
-        //        }
-        //        else
-        //        {
-        //            mapInfoModel.VasttrafikIncidents = null;
-        //        }
-        //    }
-        //    return mapInfoModel;
-        //}
-
 
         // POST api/v1/carinrestful
         public void Post([FromBody]string value)
