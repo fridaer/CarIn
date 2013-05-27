@@ -116,7 +116,6 @@ namespace CarIn.BLL
         {
             try
             {
-
                 string coordsObjects = "";
                 String[] stringArrayForCoords;
 
