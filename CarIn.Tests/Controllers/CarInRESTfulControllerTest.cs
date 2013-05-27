@@ -35,7 +35,7 @@ namespace CarIn.Tests.Controllers
             var vasttrafikFakeRepo = new FakeRepository<VasttrafikIncident>();
             
             
-            _carInRESTfulController = new CarInRESTfulController(trafficFakeRepo, wheatherFakeRepo, vasttrafikFakeRepo);
+           // _carInRESTfulController = new CarInRESTfulController(trafficFakeRepo, wheatherFakeRepo, vasttrafikFakeRepo);
         }
         [Test]
         [Category("WebApiTest")]

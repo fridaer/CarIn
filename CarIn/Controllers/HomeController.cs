@@ -123,5 +123,11 @@ namespace CarIn.Controllers
         {
             return View();
         }
+
+        public ActionResult iOS_Install() 
+        { 
+        
+            return View();
+        }
     }
 }
