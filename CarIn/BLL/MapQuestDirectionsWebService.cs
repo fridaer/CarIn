@@ -82,14 +82,17 @@ namespace CarIn.BLL
 
             //Formatted as 58,1759649997499.11.4035799936928;
             var StringOfLatlong = "";
-            var i = 0;
+            var latindexer=0;
+            var longindexer=1;
             do
             {
-                StringOfLatlong += json.route.shape.shapePoints[i].ToString() + ".";
-                StringOfLatlong += json.route.shape.shapePoints[i + 1].ToString() + ";";
-                i++;
+                StringOfLatlong += json.route.shape.shapePoints[latindexer].ToString() + ".";
+                StringOfLatlong += json.route.shape.shapePoints[longindexer].ToString() + ";";
+                latindexer=  latindexer + 2;
+                longindexer = longindexer + 2;
+
             }
-            while (json.route.shape.shapePoints.Count - 1 > i);
+            while (json.route.shape.shapePoints.Count - 1 > longindexer);
 
             return StringOfLatlong;
         }

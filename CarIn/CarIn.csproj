@@ -232,10 +232,6 @@
     <Compile Include="Migrations\201305230946406_Added MapQuestDirections.Designer.cs">
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201305270933421_ItJustWontWork.cs" />
-    <Compile Include="Migrations\201305270933421_ItJustWontWork.Designer.cs">
-      <DependentUpon>201305270933421_ItJustWontWork.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
     <Compile Include="Models\Entities\MapQuestDirection.cs" />
@@ -253,6 +249,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\clear-fix.css" />
     <Content Include="Content\fontello\css\animation.css" />
     <Content Include="Content\fontello\css\fontello-codes.css" />
     <Content Include="Content\fontello\css\fontello-embedded.css" />
@@ -346,6 +343,7 @@
     <Content Include="Scripts\mapbox.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyMapboxScript.js" />
+    <Content Include="Scripts\scripts.js" />
     <Content Include="Scripts\tooltipbox.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Home\ChangePassword.cshtml" />
@@ -402,9 +400,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201305230946406_Added MapQuestDirections.resx">
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201305270933421_ItJustWontWork.resx">
-      <DependentUpon>201305270933421_ItJustWontWork.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
