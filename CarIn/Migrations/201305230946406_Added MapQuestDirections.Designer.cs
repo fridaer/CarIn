@@ -5,13 +5,13 @@ namespace CarIn.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class AddedMapQuestDirections : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedMapQuestDirections));
         
         string IMigrationMetadata.Id
         {
-            get { return "201305211543166_InitialCreate"; }
+            get { return "201305230946406_Added MapQuestDirections"; }
         }
         
         string IMigrationMetadata.Source

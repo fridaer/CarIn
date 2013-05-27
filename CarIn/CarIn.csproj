@@ -206,6 +206,7 @@
     <Compile Include="BLL\Abstract\IWebService.cs" />
     <Compile Include="BLL\BCrypt.cs" />
     <Compile Include="BLL\BingMapTrafficWebService.cs" />
+    <Compile Include="BLL\MapQuestDirectionsWebService.cs" />
     <Compile Include="BLL\CookieHelper.cs" />
     <Compile Include="BLL\LoggHelper.cs" />
     <Compile Include="BLL\PasswordHelper.cs" />
@@ -223,16 +224,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201305211543166_InitialCreate.cs" />
-    <Compile Include="Migrations\201305211543166_InitialCreate.Designer.cs">
-      <DependentUpon>201305211543166_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201305230826012_InitialCreate.cs" />
+    <Compile Include="Migrations\201305230826012_InitialCreate.Designer.cs">
+      <DependentUpon>201305230826012_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201305211548526_AddedWebServiceLoggerModel.cs" />
-    <Compile Include="Migrations\201305211548526_AddedWebServiceLoggerModel.Designer.cs">
-      <DependentUpon>201305211548526_AddedWebServiceLoggerModel.cs</DependentUpon>
+    <Compile Include="Migrations\201305230946406_Added MapQuestDirections.cs" />
+    <Compile Include="Migrations\201305230946406_Added MapQuestDirections.Designer.cs">
+      <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201305270933421_ItJustWontWork.cs" />
+    <Compile Include="Migrations\201305270933421_ItJustWontWork.Designer.cs">
+      <DependentUpon>201305270933421_ItJustWontWork.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
+    <Compile Include="Models\Entities\MapQuestDirection.cs" />
     <Compile Include="Models\Entities\TollLocation.cs" />
     <Compile Include="Models\Entities\TrafficIncident.cs" />
     <Compile Include="Models\Entities\User.cs" />
@@ -391,11 +397,14 @@
     <Content Include="Views\Account\AccountStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201305211543166_InitialCreate.resx">
-      <DependentUpon>201305211543166_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201305230826012_InitialCreate.resx">
+      <DependentUpon>201305230826012_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201305211548526_AddedWebServiceLoggerModel.resx">
-      <DependentUpon>201305211548526_AddedWebServiceLoggerModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201305230946406_Added MapQuestDirections.resx">
+      <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305270933421_ItJustWontWork.resx">
+      <DependentUpon>201305270933421_ItJustWontWork.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

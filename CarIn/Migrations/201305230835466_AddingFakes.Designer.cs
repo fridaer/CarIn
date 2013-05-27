@@ -5,13 +5,13 @@ namespace CarIn.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class AddedWebServiceLoggerModel : IMigrationMetadata
+    public sealed partial class AddingFakes : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedWebServiceLoggerModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddingFakes));
         
         string IMigrationMetadata.Id
         {
-            get { return "201305211548526_AddedWebServiceLoggerModel"; }
+            get { return "201305230835466_AddingFakes"; }
         }
         
         string IMigrationMetadata.Source

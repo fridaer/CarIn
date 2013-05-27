@@ -14,9 +14,8 @@ namespace CarIn.DAL.Context
         public DbSet<TrafficIncident> TrafficIncidents { get; set; }
         public DbSet<WheatherPeriod> WheatherPeriods { get; set; }
         public DbSet<VasttrafikIncident> VasttrafikIncidents { get; set; }
-        public DbSet<WebServiceLogg> WebServiceLoggs { get; set; } 
- 
- 
+        public DbSet<WebServiceLogg> WebServiceLoggs { get; set; }
+        public DbSet<MapQuestDirection> MapQuestDirections { get; set; } 
         
 
     }

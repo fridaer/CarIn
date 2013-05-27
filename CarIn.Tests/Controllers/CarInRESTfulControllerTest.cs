@@ -31,13 +31,13 @@ namespace CarIn.Tests.Controllers
         public void Setup()
         {
 
-            var trafficFakeRepo= new FakeRepository<TrafficIncident>();
-            var wheatherFakeRepo = new FakeRepository<WheatherPeriod>();
-            var vasttrafikFakeRepo = new FakeRepository<VasttrafikIncident>();
+            //var trafficFakeRepo= new FakeRepository<TrafficIncident>();
+            //var wheatherFakeRepo = new FakeRepository<WheatherPeriod>();
+            //var vasttrafikFakeRepo = new FakeRepository<VasttrafikIncident>();
+            //var directionFakeRepo = new FakeRepository<MapQuestDirection>();
 
 
-
-            _carInRESTfulController = new CarInRESTfulController(trafficFakeRepo, wheatherFakeRepo, vasttrafikFakeRepo);
+            //_carInRESTfulController = new CarInRESTfulController(trafficFakeRepo, wheatherFakeRepo, vasttrafikFakeRepo, directionFakeRepo);
         }
         [Test]
         [Category("WebApiTest")]

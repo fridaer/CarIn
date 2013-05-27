@@ -13,16 +13,18 @@ namespace CarIn.BLL
         private readonly IRepository<TrafficIncident> _trafficRepository;
         private readonly IRepository<WheatherPeriod> _wheaterRepository;
         private readonly IRepository<VasttrafikIncident> _vasttrafikRepository;
+        private readonly IRepository<MapQuestDirection> _mapQuestRepository;
 
 
-        public ProccessReqFromWebService(IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, IRepository<VasttrafikIncident> vasttrafikRepository)
+        public ProccessReqFromWebService(IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, IRepository<VasttrafikIncident> vasttrafikRepository, IRepository<MapQuestDirection> mapQuestRepository)
         {
             _trafficRepository = trafficRepository;
             _wheaterRepository = wheaterRepository;
             _vasttrafikRepository = vasttrafikRepository;
+            _mapQuestRepository = mapQuestRepository;
         }
 
-        public MapInfoVm ProccesReqFromParams(string traffic, string wheather, string localTraffic)
+        public MapInfoVm ProccesReqFromParams(string traffic, string wheather, string localTraffic, string mapQuest)
         {
             var mapInfoModel = new MapInfoVm();
 
@@ -74,6 +76,21 @@ namespace CarIn.BLL
                 else
                 {
                     mapInfoModel.VasttrafikIncidents = null;
+                }
+            }
+            if (string.IsNullOrWhiteSpace(mapQuest))
+            {
+                mapInfoModel.MapQuestDirections = null;
+            }
+            else
+            {
+                if (localTraffic.ToLower() == "all")
+                {
+                    mapInfoModel.MapQuestDirections = _mapQuestRepository.FindAll().ToList();
+                }
+                else
+                {
+                    mapInfoModel.MapQuestDirections = null;
                 }
             }
             return mapInfoModel;

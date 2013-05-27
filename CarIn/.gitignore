@@ -2,3 +2,4 @@ bin/*
 bin/
 App_Data/CarIn.DAL.Context.CarInContext_log.ldf
 App_Data/CarIn.DAL.Context.CarInContext.mdf
+DAL/Repositories/Filters

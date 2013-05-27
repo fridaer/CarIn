@@ -16,40 +16,36 @@ namespace CarIn.Controllers
 {
     public class CarInRESTfulController : ApiController
     {
-        //private readonly IRepository<TrafficIncident> _trafficRepository;
-        //private readonly IRepository<WheatherPeriod> _wheaterRepository;
-        //private readonly IRepository<VasttrafikIncident> _vasttrafikRepository;
-        private ProccessReqFromWebService _proccessReqFromWebService;
 
-        public CarInRESTfulController(IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, IRepository<VasttrafikIncident> vasttrafikRepository)
+        private readonly ProccessReqFromWebService _proccessReqFromWebService;
+        private readonly IRepository<TrafficIncident> _trafficRepository;
+        private readonly IRepository<WheatherPeriod> _wheaterRepository;
+        private readonly IRepository<VasttrafikIncident> _vasttrafikRepository;
+        private readonly IRepository<MapQuestDirection> _directionsRepository;
+
+        public CarInRESTfulController (IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, IRepository<VasttrafikIncident> vasttrafikRepository, IRepository<MapQuestDirection> directionsRepository)
         {
-            _proccessReqFromWebService = new ProccessReqFromWebService(trafficRepository, wheaterRepository, vasttrafikRepository);
-            //_trafficRepository = trafficRepository;
-            //_wheaterRepository = wheaterRepository;
-            //_vasttrafikRepository = vasttrafikRepository;
+            _proccessReqFromWebService = new ProccessReqFromWebService(trafficRepository, wheaterRepository, vasttrafikRepository, directionsRepository);
+            _trafficRepository = trafficRepository;
+            _wheaterRepository = wheaterRepository;
+            _vasttrafikRepository = vasttrafikRepository;
+            _directionsRepository = directionsRepository;
         }
 
         // GET api/v1/carinrestful/GetAllInfo
         public HttpResponseMessage GetAllInfo()
         {
-            //var mapInfoModel = new MapInfoVm
-            //{
-            //    TrafficIncidents = _trafficRepository.FindAll().ToList(),
-            //    WheatherPeriods = _wheaterRepository.FindAll().ToList(),
-            //    VasttrafikIncidents = _vasttrafikRepository.FindAll().ToList()
-            //};
-
-            var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams("all", "all", "all");
+            var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams("all", "all", "all", "all");
             var response = Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
+
             return response;
         }
 
-        // GET api/v1/CarInRESTful/GetInfoFromParams?traffic=all&wheather=all&localTraffic=all
+        // GET api/v1/CarInRESTful/GetInfoFromParams?traffic=all&wheather=all&localTraffic=all&directions=all
 
-        public HttpResponseMessage GetInfoFromParams(string traffic, string wheather, string localTraffic)
+        public HttpResponseMessage GetInfoFromParams(string traffic, string wheather, string localTraffic, string directions)
         {
-            var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams(traffic, wheather, localTraffic);
-
+            var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams(traffic, wheather, localTraffic, directions);
             var response = Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
 
             return response;
