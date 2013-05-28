@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Script.Serialization;
+using CarIn.BLL.Abstract;
 
 namespace CarIn.BLL
 {
@@ -28,8 +29,17 @@ namespace CarIn.BLL
         public List<float> shapePoints { get; set; }
     }
 
-    public class MapQuestDirectionsWebService
+
+    public class MapQuestDirectionsWebService : IWebService<MapQuestDirection>
     {
+
+        private List<MapQuestDirection> _mapQuestDirections = new List<MapQuestDirection>();
+        private List<TrafficIncident> _trafficIncidents = new List<TrafficIncident>();
+
+        public void TakeTrafficIncident(List<TrafficIncident> TrafficIncidents)
+        {
+            _trafficIncidents = TrafficIncidents;
+        }
 
         public String MakeUrl(string PointLat, string PointLong, string ToPointLat, string ToPointLong)
         {
@@ -37,44 +47,76 @@ namespace CarIn.BLL
             return MapQuestRequestURL;
         }
 
-        public List<MapQuestDirection> MakeRequestForeachIncedent(List<TrafficIncident> TrafficIncidents)
+        public void MakeRequest()
         {
-            List<MapQuestDirection> MapQuestDirections = new List<MapQuestDirection>();
-            foreach(TrafficIncident item in TrafficIncidents){
-                var MapQuestRequestURL = MakeUrl(item.PointLat, item.PointLong, item.ToPointLat, item.ToPointLong);
-                var json = GetResponse(MapQuestRequestURL);
-                MapQuestDirection direction = new MapQuestDirection();
-                direction.shapePoints = ShapePointsToString(json);
-                MapQuestDirections.Add(direction);
-            }
+                
+            var TrafficIncedentsWithEndPoints = FindTrafficIncedentsWithEndPoints(_trafficIncidents);
 
-            return MapQuestDirections;
+                foreach (TrafficIncident item in TrafficIncedentsWithEndPoints)
+                {
+                    var MapQuestRequestURL = MakeUrl(item.PointLat, item.PointLong, item.ToPointLat, item.ToPointLong);
+
+                    var request = (HttpWebRequest)WebRequest.Create(MapQuestRequestURL);
+                    request.Method = WebRequestMethods.Http.Get;
+                    request.Accept = "text/xml";
+                    GetResponse(request);
+                }
         }
-        public routeObj GetResponse(String URL) {
 
-            HttpWebRequest Request = (HttpWebRequest)WebRequest.Create(URL);
-            Request.Method = WebRequestMethods.Http.Get;
-            Request.Accept = "application/json";
-            string text;
-            routeObj json;
-            var response = (HttpWebResponse)Request.GetResponse();
+        public List<MapQuestDirection> GetParsedResponse() { 
+        
+            return _mapQuestDirections;
+        }
 
-            using (var sr = new StreamReader(response.GetResponseStream()))
+        public void LogEvents(HttpStatusCode statusCode, string statusMessage)
+        {
+            LoggHelper.SetLogg("MapQuestDirectionsWebService", statusCode.ToString(), statusMessage);
+        }
+
+        public void GetResponse(HttpWebRequest request)
+        {
+            try
             {
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                text = sr.ReadToEnd();
-                json = (routeObj)js.Deserialize(text, typeof(routeObj));
+                request.Method = WebRequestMethods.Http.Get;
+                request.Accept = "application/json";
+                string text;
+                routeObj json;
+                var response = (HttpWebResponse)request.GetResponse();
+
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    LogEvents(response.StatusCode, response.StatusDescription);
+
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    text = sr.ReadToEnd();
+                    json = (routeObj)js.Deserialize(text, typeof(routeObj));
+                }
+                ShapePointsToString(json);
+
+                MapQuestDirection direction = new MapQuestDirection();
+
+                direction.shapePoints = ShapePointsToString(json);
+                _mapQuestDirections.Add(direction);
             }
-
-            return json;
-        }
-
-        public List<MapQuestDirection> MakeRequest(List<TrafficIncident> TrafficIncidents)
-        {
-
-            var TrafficIncedentsWithEndPoints = FindTrafficIncedentsWithEndPoints(TrafficIncidents);
-            var Directions = MakeRequestForeachIncedent(TrafficIncedentsWithEndPoints);
-            return Directions;
+            catch (WebException ex)
+            {
+                if (ex.Status != WebExceptionStatus.ProtocolError)
+                {
+                    LogEvents(HttpStatusCode.InternalServerError, "Exceptions is not ProtocolError");
+                }
+                else
+                {
+                    var response = ex.Response as HttpWebResponse;
+                    if (response != null)
+                    {
+                        LogEvents(response.StatusCode, ex.Message);
+                    }
+                    else
+                    {
+                        LogEvents(HttpStatusCode.InternalServerError, "Response is null");
+                    }
+                }
+            }
         }
 
         public string ShapePointsToString(routeObj json)
@@ -99,8 +141,6 @@ namespace CarIn.BLL
 
         public List<TrafficIncident> FindTrafficIncedentsWithEndPoints(List<TrafficIncident> trafficIncidents)
         {
-
-
             List<TrafficIncident> TrafficIncedentsWithEndPoints = new List<TrafficIncident>();
 
             foreach (TrafficIncident item in trafficIncidents)
