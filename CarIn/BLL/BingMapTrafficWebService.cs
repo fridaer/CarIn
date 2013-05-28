@@ -56,9 +56,9 @@ namespace CarIn.BLL
 
         public void GetResponse(HttpWebRequest request)
         {
-            JObject jObject;
             try
             {
+                JObject jObject;
                 using (var response = (HttpWebResponse)request.GetResponse())
                 {
                     LogEvents(response.StatusCode, response.StatusDescription);
