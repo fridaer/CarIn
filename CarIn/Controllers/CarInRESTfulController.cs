@@ -18,21 +18,17 @@ namespace CarIn.Controllers
     {
 
         private readonly ProccessReqFromWebService _proccessReqFromWebService;
-        private readonly IRepository<TollLocation> _tollLocationRepository;
 
         public CarInRESTfulController (IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, IRepository<VasttrafikIncident> vasttrafikRepository, IRepository<MapQuestDirection> directionsRepository, IRepository<TollLocation> tollLocationRepository)
         {
-            _proccessReqFromWebService = new ProccessReqFromWebService(trafficRepository, wheaterRepository, vasttrafikRepository, directionsRepository);
-            _tollLocationRepository = tollLocationRepository;
+            _proccessReqFromWebService = new ProccessReqFromWebService(trafficRepository, wheaterRepository, vasttrafikRepository, directionsRepository, tollLocationRepository);
         }
 
         // GET api/v1/carinrestful/GetAllInfo
         public HttpResponseMessage GetAllInfo()
         {
             //TODO Lägga till felhanteringen och skicka med felkoder
-            var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams("all", "all", "all", "all");
-
-            mapInfoModel.TollLocations = _tollLocationRepository.FindAll().ToList();
+            var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams("all", "all", "all", "all", "all");
 
             var response = Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
 
@@ -41,9 +37,9 @@ namespace CarIn.Controllers
 
         // GET api/v1/CarInRESTful/GetInfoFromParams?traffic=all&wheather=all&localTraffic=all&directions=all
 
-        public HttpResponseMessage GetInfoFromParams(string traffic, string wheather, string localTraffic, string directions)
+        public HttpResponseMessage GetInfoFromParams(string traffic, string wheather, string localTraffic, string directions, string tolls)
         {
-            var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams(traffic, wheather, localTraffic, directions);
+            var mapInfoModel = _proccessReqFromWebService.ProccesReqFromParams(traffic, wheather, localTraffic, directions, tolls);
             var response = Request.CreateResponse(HttpStatusCode.OK, mapInfoModel);
 
             return response;

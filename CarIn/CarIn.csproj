@@ -326,6 +326,7 @@
     <Content Include="Images\icon-vader.png" />
     <Content Include="Images\icon-varning.png" />
     <Content Include="Images\trangselskatt.png" />
+    <Content Include="Images\trangselskatt2.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />

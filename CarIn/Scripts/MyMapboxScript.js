@@ -42,23 +42,25 @@ $(document).ready(function () {
                 async: true,
                 success: function (json) {
                     console.log(json);
-                    var id = 0; 
                     $.each(json.TrafficIncidents, function () {
                         if (this.PointLong !== this.ToPointLong || this.PointLat !== this.ToPointLat) {
 
-                            id++;
-                            var myIcon = L.divIcon({ className: 'traffic-problem icon-attention' });
-                            var popupContent = '<p id="' + id + '">' + this.Description + '</p>';
+                            var myIcon = L.divIcon({
+                                className: 'traffic-problem icon-attention',
+                                iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+                                popupAnchor: [8, -10]  // point from which the popup should open relative to the iconAnchor 
+                            });
+                            var popupContent = this.Description;
                             var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
 
                             var myIcon = L.divIcon({ className: 'traffic-problem icon-attention' });
-                            var popupContent = '<p id="' + id + '">' + this.Description + '</p>';
+                            var popupContent = this.Description;
                             var themarker = L.marker([this.ToPointLat, this.ToPointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
                         }
                         else {
-                            id++;
                             var myIcon = L.divIcon({ className: 'traffic-problem2 icon-attention' });
-                            var popupContent = '<p id="' + id + '">' + this.Description + '</p>';
+                            var popupContent = this.Description;
+
                             var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
                         }
                     });
@@ -73,20 +75,17 @@ $(document).ready(function () {
                     });
 
                     $.each(json.TollLocations, function () {
-                        id++;
 
                         var myIcon = L.icon({
-                            iconUrl: '../images/trangselskatt.png',
-                            iconRetinaUrl: '../images/trangselskatt.png',
-                            iconSize:     [15, 15], // size of the icon
-                            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
-                            popupAnchor:  [0, -25]  // point from which the popup should open relative to the iconAnchor 
+                            iconUrl: '../images/trangselskatt2.png',
+                            iconRetinaUrl: '../images/trangselskatt2.png',
+                            iconSize:     [25, 25], // size of the icon
+                            iconAnchor:   [0,0], // point of the icon which will correspond to marker's location
+                            popupAnchor: [13, -10],  // point from which the popup should open relative to the iconAnchor
+                            className: 'TollsMarker'
                         })
-                        //var myIcon = L.divIcon({
-                            
-                        //});
 
-                        var popupContent = '<p id="' + id + '">' + this.Name + '</p>';
+                        var popupContent = this.Name;
                         var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
                     });
           
@@ -96,7 +95,16 @@ $(document).ready(function () {
                 error: function (e) {
                     console.log("Det gick åt apan :( ingen data via apit! ");
                 }
-        });
+            });
+           
+            map.on('popupopen', function (e) {
+                var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+                if (width < 767) {
+                    $(".leaflet-popup").hide();
+                    var marker = e.popup._source;
+                    alertInTooltipbox(marker._popup._content);
+                }
+            });
         
 
             function StringToLatLongArray(StringWithLatlong) {
