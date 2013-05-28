@@ -11,6 +11,7 @@ $(document).ready(function () {
     });
     $("#tullarBtn").click(function () {
         var message = "Information om tullarna och kostnader";
+        $(".TollsMarker").toggle();
         alertInTooltipbox(message);
 
     });
@@ -29,11 +30,12 @@ $(document).ready(function () {
 
     });
 
-    function alertInTooltipbox(message) {
-        $("#tooltipbox").html(message);
-        $("#tooltipbox").show(200);
-    }
 });
+
+function alertInTooltipbox(message) {
+    $("#tooltipbox").html(message);
+    $("#tooltipbox").show(200);
+}
 
 
 

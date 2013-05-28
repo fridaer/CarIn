@@ -14,26 +14,29 @@ namespace CarIn.BLL
         private readonly IRepository<WheatherPeriod> _wheaterRepository;
         private readonly IRepository<VasttrafikIncident> _vasttrafikRepository;
         private readonly IRepository<MapQuestDirection> _mapQuestRepository;
+        private readonly IRepository<TollLocation> _tollLocationRepository;
 
-        public ProccessReqFromWebService(IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository, 
-                                         IRepository<VasttrafikIncident> vasttrafikRepository, IRepository<MapQuestDirection> mapQuestRepository)
+
+        public ProccessReqFromWebService(IRepository<TrafficIncident> trafficRepository, IRepository<WheatherPeriod> wheaterRepository,
+                                         IRepository<VasttrafikIncident> vasttrafikRepository, IRepository<MapQuestDirection> mapQuestRepository, IRepository<TollLocation> tollLocationRepository)
         {
             _trafficRepository = trafficRepository;
             _wheaterRepository = wheaterRepository;
             _vasttrafikRepository = vasttrafikRepository;
             _mapQuestRepository = mapQuestRepository;
+            _tollLocationRepository = tollLocationRepository;
         }
 
-        public MapInfoVm ProccesReqFromParams(string traffic, string wheather, string localTraffic, string mapQuest)
+        public MapInfoVm ProccesReqFromParams(string traffic, string wheather, string localTraffic, string mapQuest, string tolls)
         {
             var mapInfoModel = new MapInfoVm
                                    {
                                        TrafficIncidents = GetTrafficInfo(traffic),
                                        WheatherPeriods = GetWheatherInfo(wheather),
                                        VasttrafikIncidents = GetLocalTraffic(localTraffic),
-                                       MapQuestDirections = GetMapQuestDirection(mapQuest)
+                                       MapQuestDirections = GetMapQuestDirection(mapQuest),
+                                       TollLocations = GetTolls(tolls)
                                    };
-
 
             
             return mapInfoModel;
@@ -95,6 +98,20 @@ namespace CarIn.BLL
             {
                 case "all":
                     return _mapQuestRepository.FindAll().ToList();
+                default:
+                    return null;
+            }
+        }
+        private List<TollLocation> GetTolls(string tolls)
+        {
+            if (string.IsNullOrWhiteSpace(tolls))
+            {
+                return null;
+            }
+            switch (tolls.ToLower())
+            {
+                case "all":
+                    return _tollLocationRepository.FindAll().ToList();
                 default:
                     return null;
             }
