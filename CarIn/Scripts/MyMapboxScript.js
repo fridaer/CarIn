@@ -50,16 +50,16 @@ $(document).ready(function () {
                                 iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
                                 popupAnchor: [8, -10]  // point from which the popup should open relative to the iconAnchor 
                             });
-                            var popupContent = this.Description;
+                            var popupContent = this.Description + "  - Beräknat klart " + this.End;
                             var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
 
                             var myIcon = L.divIcon({ className: 'traffic-problem icon-attention' });
-                            var popupContent = this.Description;
+                            var popupContent = this.Description + "  - Beräknat klart " + this.End;
                             var themarker = L.marker([this.ToPointLat, this.ToPointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
                         }
                         else {
                             var myIcon = L.divIcon({ className: 'traffic-problem2 icon-attention' });
-                            var popupContent = this.Description;
+                            var popupContent = this.Description +  "  - Beräknat klart " + this.End;
 
                             var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
                         }
@@ -87,6 +87,37 @@ $(document).ready(function () {
 
                         var popupContent = this.Name;
                         var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+                    });
+
+                    $.each(json.VasttrafikIncidents, function () {
+
+                        //VasttrafikIncidents: Array[102]
+                        //DateFrom: "2013-05-28T14:02:00"
+                        //DateTo: "2013-05-28T14:30:00"
+                        //ID: 1
+                        //Line: ""
+                        //Priority: "3"
+                        //Title: "Linje 7, förseningar Gamlestadstorget mot Komettorget."
+                        //TrafficChangesCoords: "57,7277270041909.12,0052370015729;57,7292460015351.12,0135969965802;"
+
+                        var myIcon = L.icon({
+                            iconUrl: '../images/icon-lokaltrafik.png',
+                            iconRetinaUrl: '../images/icon-lokaltrafik.png',
+                            iconSize: [25, 25], // size of the icon
+                            iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+                            popupAnchor: [13, -10],  // point from which the popup should open relative to the iconAnchor
+                            className: 'VasttrafikIncidentsMarker'
+                        })
+                        var LatLongArray = StringToLatLongArray(this.TrafficChangesCoords);
+
+                       
+
+                        var popupContent = this.Title;
+                        var themarker = L.marker([LatLongArray[0][0], LatLongArray[0][1]], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+
+                        if (typeof LatLongArray[1] !== 'undefined' && LatLongArray[1] !== null) {
+                            var themarker = L.marker([LatLongArray[1][0], LatLongArray[1][1]], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+                        }
                     });
           
 
