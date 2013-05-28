@@ -23,8 +23,6 @@ namespace CarIn.Controllers
 
         public ActionResult Index()
         {
-            var test = new HandlerForWebServiceCalls();
-            test.BeginTimers();
             // Checking Logged In Session
             try
             {
