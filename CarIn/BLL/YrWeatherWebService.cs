@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
@@ -15,7 +16,7 @@ namespace CarIn.BLL
     public class YrWeatherWebService : IWebService<WheatherPeriod>
     {
         private List<WheatherPeriod> _wheatherPeriods = new List<WheatherPeriod>(); 
-        public void MakeRequest()
+        public bool MakeRequest()
         {
 
             var yrWheatherRequestURL =
@@ -24,10 +25,10 @@ namespace CarIn.BLL
             var request = (HttpWebRequest)WebRequest.Create(yrWheatherRequestURL);
             request.Method = WebRequestMethods.Http.Get;
             request.Accept = "text/xml";
-            GetResponse(request);
+            return GetResponse(request);
         }
 
-        public void GetResponse(HttpWebRequest request)
+        public bool GetResponse(HttpWebRequest request)
         {
             try
             {
@@ -42,6 +43,7 @@ namespace CarIn.BLL
                     }
                 }
                 ParseRespone(xDocument);
+                return true;
             }
             catch (WebException ex)
             {
@@ -61,6 +63,7 @@ namespace CarIn.BLL
                         LogEvents(HttpStatusCode.InternalServerError, "Response is null");
                     }
                 }
+                return false;
             }
         }
 

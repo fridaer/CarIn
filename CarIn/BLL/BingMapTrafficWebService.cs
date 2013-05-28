@@ -38,7 +38,7 @@ namespace CarIn.BLL
         }
 
 
-        public void MakeRequest()
+        public bool MakeRequest()
         {
 
                 var trafficRequestURL =
@@ -51,10 +51,10 @@ namespace CarIn.BLL
 
                 request.Accept = "application/json";
 
-            GetResponse(request);
+            return GetResponse(request);
         }
 
-        public void GetResponse(HttpWebRequest request)
+        public bool GetResponse(HttpWebRequest request)
         {
             try
             {
@@ -70,6 +70,7 @@ namespace CarIn.BLL
                 }
 
                 ParseResponse(jObject);
+                return true;
             }
             catch (WebException ex)
             {
@@ -90,6 +91,7 @@ namespace CarIn.BLL
                         LogEvents(HttpStatusCode.InternalServerError, "Response is null");
                     }
                 }
+                return false;
             }
         }
 

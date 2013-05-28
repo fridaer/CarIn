@@ -1,4 +1,5 @@
-﻿using CarIn.DAL.Context;
+﻿using System.Diagnostics;
+using CarIn.DAL.Context;
 using CarIn.DAL.Repositories.Abstract;
 using CarIn.Models.Entities;
 using System;
@@ -65,7 +66,6 @@ namespace CarIn.BLL
                 text = sr.ReadToEnd();
                 json = (routeObj)js.Deserialize(text, typeof(routeObj));
             }
-
             return json;
         }
 

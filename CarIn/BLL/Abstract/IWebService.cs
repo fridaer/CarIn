@@ -9,9 +9,9 @@ namespace CarIn.BLL.Abstract
 {
     interface IWebService<T> where T : class 
     {
-        void MakeRequest();
+        bool MakeRequest();
 
-        void GetResponse(HttpWebRequest request);
+        bool GetResponse(HttpWebRequest request);
 
         //void ParseResponse(object response);
 

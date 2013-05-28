@@ -21,7 +21,7 @@ namespace CarIn.BLL
             _key = vasstrafikKey;
         }
 
-        public void MakeRequest()
+        public bool MakeRequest()
         {
 
             var vasttrafikRequestURL =
@@ -32,10 +32,10 @@ namespace CarIn.BLL
             var request = (HttpWebRequest) WebRequest.Create(vasttrafikRequestURL);
             request.Method = WebRequestMethods.Http.Get;
             request.Accept = "text/xml";
-            GetResponse(request);
+            return GetResponse(request);
 
         }
-        public void GetResponse(HttpWebRequest request)
+        public bool GetResponse(HttpWebRequest request)
         {
             try
             {
@@ -51,6 +51,7 @@ namespace CarIn.BLL
                 }
 
                 ParseResponse(xElement);
+                return true;
             }
             catch (WebException ex)
             {
@@ -71,6 +72,7 @@ namespace CarIn.BLL
                         LogEvents(HttpStatusCode.InternalServerError, "Response is null");
                     }
                 }
+                return false;
             }
         }
 
