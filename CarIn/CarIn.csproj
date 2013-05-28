@@ -206,6 +206,7 @@
     <Compile Include="BLL\Abstract\IWebService.cs" />
     <Compile Include="BLL\BCrypt.cs" />
     <Compile Include="BLL\BingMapTrafficWebService.cs" />
+    <Compile Include="BLL\HandlerForWebServiceCalls.cs" />
     <Compile Include="BLL\MapQuestDirectionsWebService.cs" />
     <Compile Include="BLL\CookieHelper.cs" />
     <Compile Include="BLL\LoggHelper.cs" />

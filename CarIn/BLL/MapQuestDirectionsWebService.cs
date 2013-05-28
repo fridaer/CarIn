@@ -47,10 +47,12 @@ namespace CarIn.BLL
             return MapQuestRequestURL;
         }
 
-        public void MakeRequest()
+        public bool MakeRequest()
         {
-                
-            var TrafficIncedentsWithEndPoints = FindTrafficIncedentsWithEndPoints(_trafficIncidents);
+
+            try
+            {
+                var TrafficIncedentsWithEndPoints = FindTrafficIncedentsWithEndPoints(_trafficIncidents);
 
                 foreach (TrafficIncident item in TrafficIncedentsWithEndPoints)
                 {
@@ -61,10 +63,17 @@ namespace CarIn.BLL
                     request.Accept = "text/xml";
                     GetResponse(request);
                 }
+                return true;
+            }
+            catch {
+                return false;
+            }
+            
         }
 
-        public List<MapQuestDirection> GetParsedResponse() { 
-        
+        public List<MapQuestDirection> GetParsedResponse()
+        {
+
             return _mapQuestDirections;
         }
 
@@ -73,7 +82,7 @@ namespace CarIn.BLL
             LoggHelper.SetLogg("MapQuestDirectionsWebService", statusCode.ToString(), statusMessage);
         }
 
-        public void GetResponse(HttpWebRequest request)
+        public bool GetResponse(HttpWebRequest request)
         {
             try
             {
@@ -97,6 +106,7 @@ namespace CarIn.BLL
 
                 direction.shapePoints = ShapePointsToString(json);
                 _mapQuestDirections.Add(direction);
+                return true;
             }
             catch (WebException ex)
             {
@@ -116,6 +126,7 @@ namespace CarIn.BLL
                         LogEvents(HttpStatusCode.InternalServerError, "Response is null");
                     }
                 }
+                return false;
             }
         }
 
@@ -124,13 +135,13 @@ namespace CarIn.BLL
 
             //Formatted as 58,1759649997499.11.4035799936928;
             var StringOfLatlong = "";
-            var latindexer=0;
-            var longindexer=1;
+            var latindexer = 0;
+            var longindexer = 1;
             do
             {
                 StringOfLatlong += json.route.shape.shapePoints[latindexer].ToString() + ".";
                 StringOfLatlong += json.route.shape.shapePoints[longindexer].ToString() + ";";
-                latindexer=  latindexer + 2;
+                latindexer = latindexer + 2;
                 longindexer = longindexer + 2;
 
             }
@@ -148,7 +159,7 @@ namespace CarIn.BLL
 
                 if (item.PointLat != item.ToPointLat || item.PointLong != item.ToPointLong)
                 {
-                    TrafficIncedentsWithEndPoints.Add(item);   
+                    TrafficIncedentsWithEndPoints.Add(item);
                 }
             }
 
