@@ -344,6 +344,18 @@ header .log-in-btn:hover {
     width: 220px;
   }
 }
+#appStartLoading {
+  top: 101px;
+  left: 50%;
+  background-color: rgba(243, 243, 243, 0.701961);
+  position: absolute;
+  z-index: 3;
+  display: block;
+  width: 200px;
+  margin-left: -100px;
+  display: none;
+  padding-top: 30px;
+}
 #appStartLoading .ball {
   background-color: rgba(0, 0, 0, 0);
   border: 5px solid orange;
@@ -371,8 +383,24 @@ header .log-in-btn:hover {
   margin: 0 auto;
   position: relative;
   top: -50px;
-  -moz-animation: spinoff .5s infinite linear;
-  -webkit-animation: spinoff .5s infinite linear;
+  -moz-animation: spinoff 1s infinite linear;
+  -webkit-animation: spinoff 1s infinite linear;
+}
+@-webkit-keyframes spinoff {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(359deg);
+  }
+  to {
+    -webkit-transform: rotate(0deg);
+  }
 }
 footer {
   background: #f0f0f0;
@@ -392,3 +420,28 @@ footer p {
     display: none;
   }
 }
+/*#iOSInstallPromt {
+    background-image:url("/Images/iOS/bg.png");
+    background-size: cover;
+    div {
+        width: auto;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-top: 30px;
+        }
+    #logo img {
+        width: 161px;
+    }
+    #text img {
+        width: 216px;
+    }
+    #arrow img {
+        width: 48px;
+    }
+    .bottom {
+        position:absolute; 
+        bottom:0;
+        width: 100%;
+    }
+}*/

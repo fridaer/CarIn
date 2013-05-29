@@ -37,6 +37,16 @@
     </style>
   </head>
   <body>
+      <script>
+          if (window.navigator.standalone) {
+              window.location.replace("/");
+              //$("#container").remove();
+              //$.get('home/iOS_Install', function (data) {
+              //    $('body').html(data);
+              //    alert('Load was performed.');
+              //});
+          }
+      </script>
       <div id="logo"><img src="@Url.Content("/Images/iOS/logo.png")" /></div>
       <div id="text"><img src="@Url.Content("/Images/iOS/text.png")" /></div>
       <div id="arrow" class="bottom"><img src="@Url.Content("/Images/iOS/arrow.png")" /></div>
