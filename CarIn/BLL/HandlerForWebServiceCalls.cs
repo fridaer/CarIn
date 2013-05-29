@@ -29,11 +29,11 @@ namespace CarIn.BLL
         }
         public void BeginTimers()
         {
-            _timerForBing = new Timer(x => MakeReqForBing(), null, 500, Timeout.Infinite);
-            _timerForYr = new Timer(x => MakeReqForYr(), null, 1000, Timeout.Infinite);
-            _timerForVasttrafik = new Timer(x => MakeReqForVasttrafik(), null, 2000, Timeout.Infinite);
+            _timerForBing = new Timer(x => MakeReqForBing(), null, 0, Timeout.Infinite);
+            _timerForYr = new Timer(x => MakeReqForYr(), null, 0, Timeout.Infinite);
+            _timerForVasttrafik = new Timer(x => MakeReqForVasttrafik(), null, 0, Timeout.Infinite);
         }
-        //TODO Om contextet redan används så kommer det uppstå ett exception, finns möjligheter till krockar här.
+        //TODO Om contextet redan används så kommer det uppstå ett exception, finns möjligheter till krockar här, spårat till loggern.
         private void MakeReqForBing()
         {
             if(_bingMapTrafficWebService.MakeRequest())
