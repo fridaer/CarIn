@@ -33,7 +33,7 @@ namespace CarIn.BLL
             _timerForYr = new Timer(x => MakeReqForYr(), null, 0, Timeout.Infinite);
             _timerForVasttrafik = new Timer(x => MakeReqForVasttrafik(), null, 0, Timeout.Infinite);
         }
-        //TODO Om contextet redan används så kommer det uppstå ett exception, finns möjligheter till krockar här, spårat till loggern.
+        //TODO Lägga in en felhantering som kollar antalet fel requests
         private void MakeReqForBing()
         {
             if(_bingMapTrafficWebService.MakeRequest())
