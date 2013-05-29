@@ -119,9 +119,10 @@ $(document).ready(function () {
                             var themarker = L.marker([LatLongArray[1][0], LatLongArray[1][1]], { icon: myIcon }).addTo(map).bindPopup(popupContent);
                         }
                     });
-          
 
-                    $('.vader span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
+                    var $WheatherDiv = $('#vaderBtn');
+                    $WheatherDiv.children('span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
+                    $WheatherDiv.children('img').attr('src', getUrlForSymbolName(json.WheatherPeriods[0].SymbolName));
                 },
                 error: function (e) {
                     console.log("Det gick åt apan :( ingen data via apit! ");
@@ -162,4 +163,42 @@ $(document).ready(function () {
 
 
     });
+    function getUrlForSymbolName(symbolname)
+    {
+        console.log(symbolname);
+        switch (symbolname) {
+            case "Sun":
+                return "/Images/Wheather_Icons/sun.png";
+            case "clear sky":
+                return "/Images/Wheather_Icons/sun.png";
+            case "Fair":
+                return "/Images/Wheather_Icons/Fair.png";
+            case "Partly cloudy":
+                return "/Images/Wheather_Icons/Partly_cloudy.png";
+            case "Cloudy":
+                return "/Images/Wheather_Icons/Cloudy.png";
+            case "Rain showers":
+                return "/Images/Wheather_Icons/Rain_showers.png";
+            case "Rain showers with thunder":
+                return "/Images/Wheather_Icons/Rain_and_thunder.png";
+            case "Sleet showers":
+                return "/Images/Wheather_Icons/Sleet.png";
+            case "Snow showers":
+                return "/Images/Wheather_Icons/Snow.png";
+            case "Rain":
+                return "/Images/Wheather_Icons/Rain.png";
+            case "Heavy rain":
+                return "/Images/Wheather_Icons/Heavy_rain.png";
+            case "Rain and thunder":
+                return "/Images/Wheather_Icons/Rain_and_thunder.png";
+            case "Sleet":
+                return "/Images/Wheather_Icons/Sleet.png";
+            case "Snow":
+                return "/Images/Wheather_Icons/Snow.png";
+            case "Fog":
+                return "/Images/Wheather_Icons/Fog.png";
+            default :
+                return "/Images/Wheather_Icons/Fair.png";
+        }
+    }
 })

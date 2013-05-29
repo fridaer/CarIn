@@ -305,6 +305,11 @@ header .log-in-btn:hover {
 .mainmenu ul li:first-child a {
   border: 0px;
 }
+@media (min-width: 768px) {
+  .mainmenu ul li .vader img {
+    width: 40px;
+  }
+}
 .mainmenu ul .active {
   background-color: #01b5e2;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #18d0fe), color-stop(1, #01b5e2));
