@@ -31,7 +31,7 @@ namespace CarIn
             {
                 if (serviceType == typeof(CarInRESTfulController))
                 {
-                    return new CarInRESTfulController(directionsRepository, trafficRespository, wheatherRespository, vasttrafikRespository);
+                    return new CarInRESTfulController(trafficRespository, wheatherRespository, vasttrafikRespository,directionsRepository );
                 }
                     return null;
             }

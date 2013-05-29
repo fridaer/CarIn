@@ -21,6 +21,7 @@ using NUnit.Framework;
 namespace CarIn.Tests.Controllers
 {   
     [TestFixture]
+    [Category("WebApiTest")]
     class CarInRESTfulControllerTest
     {
         //TODO Skriva om eller dumpa testen då metoderna retunerar HttpResponseMessage för mer kontroll så kommer Det bli problem med att det inte skickas med ett giltligt request till kontrollern
@@ -30,12 +31,13 @@ namespace CarIn.Tests.Controllers
         public void Setup()
         {
 
-            var trafficFakeRepo= new FakeRepository<TrafficIncident>();
-            var wheatherFakeRepo = new FakeRepository<WheatherPeriod>();
-            var vasttrafikFakeRepo = new FakeRepository<VasttrafikIncident>();
-            
-            
-           // _carInRESTfulController = new CarInRESTfulController(trafficFakeRepo, wheatherFakeRepo, vasttrafikFakeRepo);
+            //var trafficFakeRepo= new FakeRepository<TrafficIncident>();
+            //var wheatherFakeRepo = new FakeRepository<WheatherPeriod>();
+            //var vasttrafikFakeRepo = new FakeRepository<VasttrafikIncident>();
+            //var directionFakeRepo = new FakeRepository<MapQuestDirection>();
+
+
+            //_carInRESTfulController = new CarInRESTfulController(trafficFakeRepo, wheatherFakeRepo, vasttrafikFakeRepo, directionFakeRepo);
         }
         [Test]
         [Category("WebApiTest")]

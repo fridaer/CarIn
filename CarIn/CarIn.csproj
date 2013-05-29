@@ -210,6 +210,7 @@
     <Compile Include="BLL\CookieHelper.cs" />
     <Compile Include="BLL\LoggHelper.cs" />
     <Compile Include="BLL\PasswordHelper.cs" />
+    <Compile Include="BLL\ProccessReqFromWebService.cs" />
     <Compile Include="BLL\VasttrafikTrafficWebService.cs" />
     <Compile Include="BLL\YrWeatherWebService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -230,6 +231,10 @@
     <Compile Include="Migrations\201305230946406_Added MapQuestDirections.cs" />
     <Compile Include="Migrations\201305230946406_Added MapQuestDirections.Designer.cs">
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201305270933421_ItJustWontWork.cs" />
+    <Compile Include="Migrations\201305270933421_ItJustWontWork.Designer.cs">
+      <DependentUpon>201305270933421_ItJustWontWork.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
@@ -400,6 +405,9 @@
     <EmbeddedResource Include="Migrations\201305230946406_Added MapQuestDirections.resx">
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305270933421_ItJustWontWork.resx">
+      <DependentUpon>201305270933421_ItJustWontWork.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -417,7 +425,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>6974</DevelopmentServerPort>
+          <DevelopmentServerPort>58195</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1342/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
