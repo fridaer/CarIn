@@ -12,6 +12,7 @@ namespace CarIn.Models.ViewModels
         public List<WheatherPeriod> WheatherPeriods { get; set; }
         public List<VasttrafikIncident> VasttrafikIncidents { get; set; }
         public List<MapQuestDirection> MapQuestDirections { get; set; }
+        public List<TollLocation> TollLocations { get; set; }
  
     }
 }

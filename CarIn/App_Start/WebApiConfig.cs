@@ -19,7 +19,7 @@ namespace CarIn
             static readonly IRepository<WheatherPeriod> wheatherRespository = new Repository<WheatherPeriod>();
             static readonly IRepository<VasttrafikIncident> vasttrafikRespository = new Repository<VasttrafikIncident>();
             static readonly IRepository<MapQuestDirection> directionsRepository = new Repository<MapQuestDirection>();
-
+            static readonly IRepository<TollLocation> tollLocationsRepository = new Repository<TollLocation>();
 
             public IDependencyScope BeginScope()
             {
@@ -31,7 +31,7 @@ namespace CarIn
             {
                 if (serviceType == typeof(CarInRESTfulController))
                 {
-                    return new CarInRESTfulController(trafficRespository, wheatherRespository, vasttrafikRespository,directionsRepository );
+                    return new CarInRESTfulController(trafficRespository, wheatherRespository, vasttrafikRespository, directionsRepository, tollLocationsRepository);
                 }
                     return null;
             }

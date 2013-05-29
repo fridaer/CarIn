@@ -38,7 +38,9 @@ namespace CarIn.BLL
         {
             if(_bingMapTrafficWebService.MakeRequest())
             {
-                var result = _mapQuestDirectionsWebService.MakeRequest(_bingMapTrafficWebService.GetParsedResponse());
+
+                _mapQuestDirectionsWebService.TakeTrafficIncident(_bingMapTrafficWebService.GetParsedResponse().ToList());
+                var result = _mapQuestDirectionsWebService.GetParsedResponse();
 
                 _timerForBing.Change(5000, Timeout.Infinite);
                 Debug.WriteLine(string.Format("{0} called starting over with 5sec", "bing"));
