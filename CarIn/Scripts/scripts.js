@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
    
     if (Modernizr.mq('only all and (max-width: 767px)')) { //480px
-        if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || true) {
+        if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
             if (!window.navigator.standalone){
                 window.location.replace("home/iOS_Install");
                 //$("#container").remove();
