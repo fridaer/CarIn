@@ -23,7 +23,6 @@ namespace CarIn.Controllers
 
         public ActionResult Index()
         {
-
             // Checking Logged In Session
             try
             {

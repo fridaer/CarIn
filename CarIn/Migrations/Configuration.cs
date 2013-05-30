@@ -167,7 +167,9 @@ namespace CarIn.Migrations
             
 
             var mapQuestDirectionsWebService = new MapQuestDirectionsWebService();
-            var mapQuestDirections = mapQuestDirectionsWebService.MakeRequest(trafficIncidents);
+            mapQuestDirectionsWebService.TakeTrafficIncident(trafficIncidents);
+            mapQuestDirectionsWebService.MakeRequest();
+            var mapQuestDirections = mapQuestDirectionsWebService.GetParsedResponse();
             if (mapQuestDirections.Any())
             {
                 mapQuestDirections.ForEach(x => context.MapQuestDirections.AddOrUpdate(x));

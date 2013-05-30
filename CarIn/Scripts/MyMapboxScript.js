@@ -1,4 +1,5 @@
 ﻿/// <reference path="mapbox.js" />
+"use strict";
 $(document).ready(function () {
 
     var layer = L.mapbox.tileLayer('tobohr.map-n6vjouf7', {
@@ -40,102 +41,164 @@ $(document).ready(function () {
                 url: url,
                 async: true,
                 success: function (json) {
-                    //json[0] = 
-                        //TrafficIncidents
-                            //Description: "mellan Pinan och Färjeled till Hönö - Vägarbete."
-                            //End: "06/28/2013 21:00:00"
-                            //ID: 1
-                            //IncidentId: "403657022"
-                            //Lane: null
-                            //LastModified: "05/07/2013 06:01:26"
-                            //PointLat: "57.70863"
-                            //PointLong: "11.703"
-                            //RoadClosed: "False"
-                            //Severity: "1"
-                            //Start: "04/30/2013 23:00:00"
-                            //ToPointLat: "57.70742"
-                            //ToPointLong: "11.69865"
-                            //Type: "9"
-                            //Verified: "True"
-                        //WheatherPeriods
-                            //ID: 1
-                            //PeriodNumber: "3"
-                            //SymbolName: "Fair"
-                            //TemperatureCelsius: "15"
-                            //WindCode: "S"
-                            //WindSpeedMps: "6.8"
-                    //console.log(json);
-                    var id = 0; 
+                    console.log(json);
                     $.each(json.TrafficIncidents, function () {
-                        //console.log(this);
-                        id++;
-
-                        var myIcon = L.divIcon({ className: 'traffic-problem icon-attention'});
-                        var popupContent =  '<p id="'+ id +'">'+ this.Description + '</p>';
-                        var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
-
                         if (this.PointLong !== this.ToPointLong || this.PointLat !== this.ToPointLat) {
 
-                            var myIcon = L.divIcon({ className: 'traffic-problem icon-attention' });
-                            var popupContent = '<p id="' + id + '">' + this.Description + '</p>';
-                            var themarker = L.marker([this.ToPointLat, this.ToPointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
-
-                            var i = 0;
-                            var points = new Array();
-                            var longlat = new Array();
-                            var url2 = "http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluub2du8n1%2C2g%3Do5-9u2xg4&=renderAdvancedNarrative&ambiguities=ignore&avoidTimedConditions=false&doReverseGeocode=false&outFormat=json&routeType=shortest&timeType=0&enhancedNarrative=false&shapeFormat=raw&generalize=0&locale=sv_SE&unit=m&from=" + this.PointLat + "," + this.PointLong + "&to= " + this.ToPointLat + "," + this.ToPointLong + "&drivingStyle=2&highwayEfficiency=21.0";
-                            $.ajax({
-                                type: 'GET',
-                                url: url2,
-                                async: true,
-                                dataType: 'jsonp',
-                                success: function (jsonPolyline) {
-                                    $.each(jsonPolyline.route.shape.shapePoints, function () {
-                                        var temp = this.toString();
-
-                                        var onepoint = parseFloat(temp);
-                                        points.push(onepoint);
-                                        //console.log(onepoint);
-
-                                        if (i % 2 == !0) {
-                                            longlat.push(points);
-                                            points = [];
-                                        }
-                                        i++;
-                                    })
-
-                                    //console.log(longlat);
-
-                                    var polyline_options = {
-                                        color: '#000'
-                                    };
-
-                                    var polyline = L.polyline(longlat, polyline_options).addTo(map);
-
-                                },
-                                error: function (e) {
-                                    //console.log("Det gick åt apan :( ");
-                                }
+                            var myIcon = L.divIcon({
+                                className: 'traffic-problem icon-attention',
+                                iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+                                popupAnchor: [8, -10]  // point from which the popup should open relative to the iconAnchor 
                             });
+                            var popupContent = this.Description + "  - Beräknat klart " + this.End;
+                            var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+
+                            var myIcon = L.divIcon({ className: 'traffic-problem icon-attention' });
+                            var popupContent = this.Description + "  - Beräknat klart " + this.End;
+                            var themarker = L.marker([this.ToPointLat, this.ToPointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
                         }
+                        else {
+                            var myIcon = L.divIcon({ className: 'traffic-problem2 icon-attention' });
+                            var popupContent = this.Description +  "  - Beräknat klart " + this.End;
 
+                            var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+                        }
+                    });
+                    var i = 0;
+                    $.each(json.MapQuestDirections, function () {
 
+                        var LatlongArrayen = StringToLatLongArray(this.shapePoints);
+                        var polyline_options = {
+                            color: '#000'
+                        };
+                        var polyline = L.polyline(LatlongArrayen, polyline_options).addTo(map);
                     });
 
-                    $('.vader span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
+                    $.each(json.TollLocations, function () {
+
+                        var myIcon = L.icon({
+                            iconUrl: '../images/trangselskatt2.png',
+                            iconRetinaUrl: '../images/trangselskatt2.png',
+                            iconSize:     [25, 25], // size of the icon
+                            iconAnchor:   [0,0], // point of the icon which will correspond to marker's location
+                            popupAnchor: [13, -10],  // point from which the popup should open relative to the iconAnchor
+                            className: 'TollsMarker'
+                        })
+
+                        var popupContent = this.Name;
+                        var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+                    });
+
+                    $.each(json.VasttrafikIncidents, function () {
+
+                        //VasttrafikIncidents: Array[102]
+                        //DateFrom: "2013-05-28T14:02:00"
+                        //DateTo: "2013-05-28T14:30:00"
+                        //ID: 1
+                        //Line: ""
+                        //Priority: "3"
+                        //Title: "Linje 7, förseningar Gamlestadstorget mot Komettorget."
+                        //TrafficChangesCoords: "57,7277270041909.12,0052370015729;57,7292460015351.12,0135969965802;"
+
+                        var myIcon = L.icon({
+                            iconUrl: '../images/icon-lokaltrafik.png',
+                            iconRetinaUrl: '../images/icon-lokaltrafik.png',
+                            iconSize: [25, 25], // size of the icon
+                            iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+                            popupAnchor: [13, -10],  // point from which the popup should open relative to the iconAnchor
+                            className: 'VasttrafikIncidentsMarker'
+                        })
+                        var LatLongArray = StringToLatLongArray(this.TrafficChangesCoords);
+
+                       
+
+                        var popupContent = this.Title;
+                        var themarker = L.marker([LatLongArray[0][0], LatLongArray[0][1]], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+
+                        if (typeof LatLongArray[1] !== 'undefined' && LatLongArray[1] !== null) {
+                            var themarker = L.marker([LatLongArray[1][0], LatLongArray[1][1]], { icon: myIcon }).addTo(map).bindPopup(popupContent);
+                        }
+                    });
+
+                    var $WheatherDiv = $('#vaderBtn');
+                    $WheatherDiv.children('span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
+                    $WheatherDiv.children('img').attr('src', getUrlForSymbolName(json.WheatherPeriods[0].SymbolName));
                 },
                 error: function (e) {
-                    //console.log("Det gick åt apan :( ");
+                    console.log("Det gick åt apan :( ingen data via apit! ");
                 }
-               });
-
-            $("#olyckaBtn").click(function () {
-                $(".traffic-problem").toggle();
-                $("path").toggle();
             });
-         
-            
-            
+           
+            map.on('popupopen', function (e) {
+                var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+                if (width < 767) {
+                    $(".leaflet-popup").hide();
+                    var marker = e.popup._source;
+                    alertInTooltipbox(marker._popup._content);
+                }
+            });
+        
+
+            function StringToLatLongArray(StringWithLatlong) {
+
+                var LongLatArrayInArray = new Array();
+                var LatLongStringArray = StringWithLatlong.split(";");
+                //console.log(LatLongStringArray);
+                LatLongStringArray.splice(LatLongStringArray.length-1, 1);
+                      
+                //console.log(LatLongStringArray);
+
+                $.each(LatLongStringArray, function () {
+
+                    var point = this.split(".");
+                    point[0] = point[0].replace(",", ".");
+                    point[1] = point[1].replace(",", ".");
+                    point[0] = parseFloat(point[0]);
+                    point[1] = parseFloat(point[1]);
+                    LongLatArrayInArray.push(point);
+                });
+                                
+                return LongLatArrayInArray
+            }
+
 
     });
+    function getUrlForSymbolName(symbolname)
+    {
+        console.log(symbolname);
+        switch (symbolname) {
+            case "Sun":
+                return "/Images/Wheather_Icons/sun.png";
+            case "clear sky":
+                return "/Images/Wheather_Icons/sun.png";
+            case "Fair":
+                return "/Images/Wheather_Icons/Fair.png";
+            case "Partly cloudy":
+                return "/Images/Wheather_Icons/Partly_cloudy.png";
+            case "Cloudy":
+                return "/Images/Wheather_Icons/Cloudy.png";
+            case "Rain showers":
+                return "/Images/Wheather_Icons/Rain_showers.png";
+            case "Rain showers with thunder":
+                return "/Images/Wheather_Icons/Rain_and_thunder.png";
+            case "Sleet showers":
+                return "/Images/Wheather_Icons/Sleet.png";
+            case "Snow showers":
+                return "/Images/Wheather_Icons/Snow.png";
+            case "Rain":
+                return "/Images/Wheather_Icons/Rain.png";
+            case "Heavy rain":
+                return "/Images/Wheather_Icons/Heavy_rain.png";
+            case "Rain and thunder":
+                return "/Images/Wheather_Icons/Rain_and_thunder.png";
+            case "Sleet":
+                return "/Images/Wheather_Icons/Sleet.png";
+            case "Snow":
+                return "/Images/Wheather_Icons/Snow.png";
+            case "Fog":
+                return "/Images/Wheather_Icons/Fog.png";
+            default :
+                return "/Images/Wheather_Icons/Fair.png";
+        }
+    }
 })

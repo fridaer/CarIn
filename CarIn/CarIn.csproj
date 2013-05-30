@@ -206,6 +206,7 @@
     <Compile Include="BLL\Abstract\IWebService.cs" />
     <Compile Include="BLL\BCrypt.cs" />
     <Compile Include="BLL\BingMapTrafficWebService.cs" />
+    <Compile Include="BLL\HandlerForWebServiceCalls.cs" />
     <Compile Include="BLL\MapQuestDirectionsWebService.cs" />
     <Compile Include="BLL\CookieHelper.cs" />
     <Compile Include="BLL\LoggHelper.cs" />
@@ -232,10 +233,6 @@
     <Compile Include="Migrations\201305230946406_Added MapQuestDirections.Designer.cs">
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201305270933421_ItJustWontWork.cs" />
-    <Compile Include="Migrations\201305270933421_ItJustWontWork.Designer.cs">
-      <DependentUpon>201305270933421_ItJustWontWork.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
     <Compile Include="Models\Entities\MapQuestDirection.cs" />
@@ -253,6 +250,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\clear-fix.css" />
     <Content Include="Content\fontello\css\animation.css" />
     <Content Include="Content\fontello\css\fontello-codes.css" />
     <Content Include="Content\fontello\css\fontello-embedded.css" />
@@ -321,11 +319,26 @@
     <Content Include="Global.asax" />
     <Content Include="Content\elements.less" />
     <Content Include="Content\main.less" />
+    <Content Include="Images\glyphicons-halflings-white.png" />
+    <Content Include="Images\glyphicons-halflings.png" />
     <Content Include="Images\icon-installningar.png" />
     <Content Include="Images\icon-lokaltrafik.png" />
     <Content Include="Images\icon-tullar.png" />
     <Content Include="Images\icon-vader.png" />
     <Content Include="Images\icon-varning.png" />
+    <Content Include="Images\trangselskatt.png" />
+    <Content Include="Images\trangselskatt2.png" />
+    <Content Include="Images\Wheather_Icons\Cloudy.png" />
+    <Content Include="Images\Wheather_Icons\Fair.png" />
+    <Content Include="Images\Wheather_Icons\Fog.png" />
+    <Content Include="Images\Wheather_Icons\Heavy_rain.png" />
+    <Content Include="Images\Wheather_Icons\Partly_cloudy.png" />
+    <Content Include="Images\Wheather_Icons\Rain.png" />
+    <Content Include="Images\Wheather_Icons\Rain_and_thunder.png" />
+    <Content Include="Images\Wheather_Icons\Rain_showers.png" />
+    <Content Include="Images\Wheather_Icons\Sleet.png" />
+    <Content Include="Images\Wheather_Icons\Snow.png" />
+    <Content Include="Images\Wheather_Icons\sun.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -347,6 +360,7 @@
     <Content Include="Scripts\mapbox.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyMapboxScript.js" />
+    <Content Include="Scripts\scripts.js" />
     <Content Include="Scripts\tooltipbox.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Home\ChangePassword.cshtml" />
@@ -359,19 +373,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\orderedList0.png" />
-    <Content Include="Images\orderedList1.png" />
-    <Content Include="Images\orderedList2.png" />
-    <Content Include="Images\orderedList3.png" />
-    <Content Include="Images\orderedList4.png" />
-    <Content Include="Images\orderedList5.png" />
-    <Content Include="Images\orderedList6.png" />
-    <Content Include="Images\orderedList7.png" />
-    <Content Include="Images\orderedList8.png" />
-    <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -404,9 +405,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201305230946406_Added MapQuestDirections.resx">
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201305270933421_ItJustWontWork.resx">
-      <DependentUpon>201305270933421_ItJustWontWork.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
