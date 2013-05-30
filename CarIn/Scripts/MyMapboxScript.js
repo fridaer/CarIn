@@ -77,8 +77,8 @@ $(document).ready(function () {
                     $.each(json.TollLocations, function () {
 
                         var myIcon = L.icon({
-                            iconUrl: '../images/trangselskatt2.png',
-                            iconRetinaUrl: '../images/trangselskatt2.png',
+                            iconUrl: '../images/trangselskatt25x25.png',
+                            iconRetinaUrl: '../images/trangselskatt50x50.png',
                             iconSize:     [25, 25], // size of the icon
                             iconAnchor:   [0,0], // point of the icon which will correspond to marker's location
                             popupAnchor: [13, -10],  // point from which the popup should open relative to the iconAnchor

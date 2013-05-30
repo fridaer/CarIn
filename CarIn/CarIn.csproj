@@ -326,6 +326,10 @@
     <Content Include="Images\icon-tullar.png" />
     <Content Include="Images\icon-vader.png" />
     <Content Include="Images\icon-varning.png" />
+    <Content Include="Images\iOS\arrow.png" />
+    <Content Include="Images\iOS\bg.png" />
+    <Content Include="Images\iOS\logo.png" />
+    <Content Include="Images\iOS\text.png" />
     <Content Include="Images\trangselskatt.png" />
     <Content Include="Images\trangselskatt2.png" />
     <Content Include="Images\Wheather_Icons\Cloudy.png" />
