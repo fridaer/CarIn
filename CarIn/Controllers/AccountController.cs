@@ -76,8 +76,17 @@ namespace CarIn.Controllers
             var VM = new Models.ViewModels.AccountStatus();
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                VM.UserName = Request.Cookies["userInfo"]["userName"];
-                return PartialView("AccountStatus", VM);
+                try 
+                {
+                    VM.UserName = Request.Cookies["userInfo"]["userName"];
+                    return PartialView("AccountStatus", VM);
+                }
+                catch 
+                {
+                    RedirectToAction("SignOut", "Home");
+                }
+
+
             }
 
             var cookieHelper = new CookieHelper();

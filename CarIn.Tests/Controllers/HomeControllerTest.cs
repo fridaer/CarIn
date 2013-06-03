@@ -20,7 +20,7 @@ namespace CarIn.Tests.Controllers
         private HomeController _homeController;
         [SetUp]
         public void Setup()
-        {
+        { 
             var mock = new Mock<IRepository<User>>();
             mock.Setup(x => x.Add(new User()));
             _homeController = new HomeController(mock.Object);

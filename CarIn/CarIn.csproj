@@ -336,6 +336,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\elements.less" />
     <Content Include="Content\main.less" />
+    <Content Include="Images\apple-startup-iPhone-RETINA.png" />
+    <Content Include="Images\apple-startup-iPhone-Tall-RETINA.png" />
+    <Content Include="Images\CarInIcon2x.png" />
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
     <Content Include="Images\icon-installningar.png" />
@@ -343,14 +346,32 @@
     <Content Include="Images\icon-tullar.png" />
     <Content Include="Images\icon-vader.png" />
     <Content Include="Images\icon-varning.png" />
+    <Content Include="Images\iOS\arrow.png" />
+    <Content Include="Images\iOS\bg.png" />
+    <Content Include="Images\iOS\logo.png" />
+    <Content Include="Images\iOS\text.png" />
     <Content Include="Images\trangselskatt.png" />
     <Content Include="Images\trangselskatt2.png" />
+    <Content Include="Images\trangselskatt25x25.png" />
+    <Content Include="Images\trangselskatt50x50.png" />
+    <Content Include="Images\Wheather_Icons\Cloudy.png" />
+    <Content Include="Images\Wheather_Icons\Fair.png" />
+    <Content Include="Images\Wheather_Icons\Fog.png" />
+    <Content Include="Images\Wheather_Icons\Heavy_rain.png" />
+    <Content Include="Images\Wheather_Icons\Partly_cloudy.png" />
+    <Content Include="Images\Wheather_Icons\Rain.png" />
+    <Content Include="Images\Wheather_Icons\Rain_and_thunder.png" />
+    <Content Include="Images\Wheather_Icons\Rain_showers.png" />
+    <Content Include="Images\Wheather_Icons\Sleet.png" />
+    <Content Include="Images\Wheather_Icons\Snow.png" />
+    <Content Include="Images\Wheather_Icons\sun.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.imagesloaded.min.js" />
     <Content Include="Scripts\jquery.signalR-1.0.0.js" />
     <Content Include="Scripts\jquery.signalR-1.0.0.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -378,19 +399,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\orderedList0.png" />
-    <Content Include="Images\orderedList1.png" />
-    <Content Include="Images\orderedList2.png" />
-    <Content Include="Images\orderedList3.png" />
-    <Content Include="Images\orderedList4.png" />
-    <Content Include="Images\orderedList5.png" />
-    <Content Include="Images\orderedList6.png" />
-    <Content Include="Images\orderedList7.png" />
-    <Content Include="Images\orderedList8.png" />
-    <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -415,6 +423,7 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Views\Account\AccountStatus.cshtml" />
+    <Content Include="Views\Home\iOS_Install.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201305230826012_InitialCreate.resx">
@@ -440,7 +449,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>6974</DevelopmentServerPort>
+          <DevelopmentServerPort>58195</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1342/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

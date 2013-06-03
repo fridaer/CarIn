@@ -305,6 +305,11 @@ header .log-in-btn:hover {
 .mainmenu ul li:first-child a {
   border: 0px;
 }
+@media (min-width: 768px) {
+  .mainmenu ul li .vader img {
+    width: 40px;
+  }
+}
 .mainmenu ul .active {
   background-color: #01b5e2;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #18d0fe), color-stop(1, #01b5e2));
@@ -328,6 +333,102 @@ header .log-in-btn:hover {
 .content {
   margin-right: 20px;
 }
+#formContainer {
+  padding: 20px;
+  background-color: #FFF;
+}
+#formContainer .field-validation-error {
+  color: red;
+}
+@media (max-width: 767px) {
+  #formContainer input {
+    width: 90%;
+    height: 30px;
+  }
+  #formContainer input[type=submit] {
+    width: 220px;
+  }
+}
+#appStartLoading {
+  border: solid 1px black;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-color: white;
+  z-index: 100;
+  height: 400px;
+  margin-top: -200px;
+  width: 600px;
+  margin-left: -300px;
+  text-align: center;
+  display: none;
+  /*top: 101px; 
+    left: 50%; 
+    background-color: rgba(243, 243, 243, 0.701961); 
+    position: absolute; 
+    z-index: 3; 
+    display: block; 
+    width: 200px; 
+    margin-left: -100px;
+    display:none;
+    padding-top: 30px;*/
+
+}
+#appStartLoading #balls {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 180px;
+  height: 180px;
+  margin-left: -90px;
+  margin-top: -90px;
+}
+#appStartLoading #balls .ball {
+  background-color: rgba(0, 0, 0, 0);
+  border: 5px solid orange;
+  opacity: .9;
+  border-top: 5px solid rgba(0, 0, 0, 0);
+  border-left: 5px solid rgba(0, 0, 0, 0);
+  border-radius: 150px;
+  box-shadow: 0 0 60px orange;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  -moz-animation: spin .5s infinite linear;
+  -webkit-animation: spin .5s infinite linear;
+}
+#appStartLoading #balls .ball1 {
+  background-color: rgba(0, 0, 0, 0);
+  border: 5px solid rgba(255, 204, 0, 0.9);
+  opacity: .9;
+  border-top: 5px solid rgba(0, 0, 0, 0);
+  border-left: 5px solid rgba(0, 0, 0, 0);
+  border-radius: 150px;
+  box-shadow: 0 0 45px #e7d721;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+  position: relative;
+  top: -130px;
+  -moz-animation: spinoff 1s infinite linear;
+  -webkit-animation: spinoff 1s infinite linear;
+}
+@-webkit-keyframes spinoff {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(359deg);
+  }
+  to {
+    -webkit-transform: rotate(0deg);
+  }
+}
 footer {
   background: #f0f0f0;
   -webkit-border-radius: 0px 0px 40px 40px;
@@ -346,3 +447,28 @@ footer p {
     display: none;
   }
 }
+/*#iOSInstallPromt {
+    background-image:url("/Images/iOS/bg.png");
+    background-size: cover;
+    div {
+        width: auto;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-top: 30px;
+        }
+    #logo img {
+        width: 161px;
+    }
+    #text img {
+        width: 216px;
+    }
+    #arrow img {
+        width: 48px;
+    }
+    .bottom {
+        position:absolute; 
+        bottom:0;
+        width: 100%;
+    }
+}*/

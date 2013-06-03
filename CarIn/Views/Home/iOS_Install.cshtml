@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "";
+}
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CarIn</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="orange">
+    <meta name="format-detection" content="telephone=no">
+	<link rel="apple-touch-icon" href="@Url.Content("/Images/CarInIcon2x.png")" >
+    <link rel="apple-touch-startup-image" href="@Url.Content("/Images/iOS/apple-startup-iPhone-RETINA.png")">
+    <!-- iPhone (Retina) -->
+    <link href="@Url.Content("/Images/iOS/apple-startup-iPhone-RETINA.png")" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <!-- iPhone 5 -->
+    <link href="@Url.Content("/Images/iOS/apple-startup-iPhone-Tall-RETINA.png")"  media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <style>
+        div {
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            margin-top: 30px;
+            }
+        #logo img {
+            width: 161px;
+        }
+        #text img {
+            width: 216px;
+        }
+        #arrow img {
+            width: 48px;
+        }
+        .bottom{
+            position:absolute; 
+            bottom:0;
+            width: 100%;
+        }
+        body {
+            background-image:url(@Url.Content("/Images/iOS/bg.png"));
+            background-size: cover;
+            margin: 0;
+            }
+    </style>
+  </head>
+  <body>
+      <script>
+          if (window.navigator.standalone) {
+              window.location.replace("/");
+              //$("#container").remove();
+              //$.get('home/iOS_Install', function (data) {
+              //    $('body').html(data);
+              //    alert('Load was performed.');
+              //});
+          }
+      </script>
+      <div id="logo"><img src="@Url.Content("/Images/iOS/logo.png")" /></div>
+      <div id="text"><img src="@Url.Content("/Images/iOS/text.png")" /></div>
+      <div id="arrow" class="bottom"><img src="@Url.Content("/Images/iOS/arrow.png")" /></div>
+  </body>
+</html>
+
