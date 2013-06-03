@@ -350,44 +350,66 @@ header .log-in-btn:hover {
   }
 }
 #appStartLoading {
-  top: 101px;
-  left: 50%;
-  background-color: rgba(243, 243, 243, 0.701961);
+  border: solid 1px black;
   position: absolute;
-  z-index: 3;
-  display: block;
-  width: 200px;
-  margin-left: -100px;
+  left: 50%;
+  top: 50%;
+  background-color: white;
+  z-index: 100;
+  height: 400px;
+  margin-top: -200px;
+  width: 600px;
+  margin-left: -300px;
+  text-align: center;
   display: none;
-  padding-top: 30px;
+  /*top: 101px; 
+    left: 50%; 
+    background-color: rgba(243, 243, 243, 0.701961); 
+    position: absolute; 
+    z-index: 3; 
+    display: block; 
+    width: 200px; 
+    margin-left: -100px;
+    display:none;
+    padding-top: 30px;*/
+
 }
-#appStartLoading .ball {
+#appStartLoading #balls {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 180px;
+  height: 180px;
+  margin-left: -90px;
+  margin-top: -90px;
+}
+#appStartLoading #balls .ball {
   background-color: rgba(0, 0, 0, 0);
   border: 5px solid orange;
   opacity: .9;
   border-top: 5px solid rgba(0, 0, 0, 0);
   border-left: 5px solid rgba(0, 0, 0, 0);
-  border-radius: 50px;
-  box-shadow: 0 0 35px orange;
-  width: 50px;
-  height: 50px;
+  border-radius: 150px;
+  box-shadow: 0 0 60px orange;
+  width: 150px;
+  height: 150px;
   margin: 0 auto;
   -moz-animation: spin .5s infinite linear;
   -webkit-animation: spin .5s infinite linear;
 }
-#appStartLoading .ball1 {
+#appStartLoading #balls .ball1 {
   background-color: rgba(0, 0, 0, 0);
   border: 5px solid rgba(255, 204, 0, 0.9);
   opacity: .9;
   border-top: 5px solid rgba(0, 0, 0, 0);
   border-left: 5px solid rgba(0, 0, 0, 0);
-  border-radius: 50px;
-  box-shadow: 0 0 15px #e7d721;
-  width: 30px;
-  height: 30px;
+  border-radius: 150px;
+  box-shadow: 0 0 45px #e7d721;
+  width: 90px;
+  height: 90px;
   margin: 0 auto;
   position: relative;
-  top: -50px;
+  top: -130px;
   -moz-animation: spinoff 1s infinite linear;
   -webkit-animation: spinoff 1s infinite linear;
 }

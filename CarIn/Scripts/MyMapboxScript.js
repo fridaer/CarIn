@@ -1,7 +1,7 @@
 ﻿/// <reference path="mapbox.js" />
 "use strict";
 $(document).ready(function () {
-
+    ShowLoadingDiv();
     var layer = L.mapbox.tileLayer('tobohr.map-n6vjouf7', {
         detectRetina: true,
         retinaVersion: 'tobohr.map-fkbh0rtn'
@@ -63,6 +63,7 @@ $(document).ready(function () {
 
                             var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
                         }
+                        HideLoadingDiv();
                     });
                     var i = 0;
                     $.each(json.MapQuestDirections, function () {
