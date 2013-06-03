@@ -14,7 +14,7 @@ $(document).ready(function () {
         event.preventDefault();
         var message = "Information om tullarna och kostnader";
         $(".TollsMarker").toggle();
-        alertInTooltipbox(message);
+        CheckTollHelpFunction();
 
     });
     $("#vaderBtn").click(function (event) {
