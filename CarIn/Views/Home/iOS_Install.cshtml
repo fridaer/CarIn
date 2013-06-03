@@ -12,6 +12,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="orange">
     <meta name="format-detection" content="telephone=no">
 	<link rel="apple-touch-icon" href="@Url.Content("/Images/CarInIcon2x.png")" >
+    <link rel="apple-touch-startup-image" href="@Url.Content("/Images/iOS/apple-startup-iPhone-RETINA.png")">
+    <!-- iPhone (Retina) -->
+    <link href="@Url.Content("/Images/iOS/apple-startup-iPhone-RETINA.png")" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+    <!-- iPhone 5 -->
+    <link href="@Url.Content("/Images/iOS/apple-startup-iPhone-Tall-RETINA.png")"  media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
     <style>
         div {
             width: auto;
@@ -37,6 +42,7 @@
         body {
             background-image:url(@Url.Content("/Images/iOS/bg.png"));
             background-size: cover;
+            margin: 0;
             }
     </style>
   </head>
