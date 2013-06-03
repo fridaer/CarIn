@@ -21,16 +21,22 @@
             var mapHight = deviceHight - navMenuHight;
             console.log("mapHight = " + mapHight);
             $('#map').height(mapHight);
+
             
         })
 
     }
-    window.setTimeout(moveMapNavArrows, 300)
+    window.setTimeout(moveMapNavArrows, 400)
     function moveMapNavArrows() {
         $('.leaflet-left').removeClass('leaflet-left').addClass('leaflet-right');
         $('div.leaflet-bottom.leaflet-right').remove();
     }
 
+    window.setTimeout(moveMapNavArrows, 1000)
+    function moveMapNavArrows() {
+        $('.leaflet-left').removeClass('leaflet-left').addClass('leaflet-right');
+        $('div.leaflet-bottom.leaflet-right').remove();
+    }
     if (window.navigator.standalon) {
         alert("window.navigator.standalon = true");
     }
