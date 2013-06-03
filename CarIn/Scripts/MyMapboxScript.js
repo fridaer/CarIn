@@ -158,15 +158,14 @@ $(document).ready(function () {
                     point[1] = parseFloat(point[1]);
                     LongLatArrayInArray.push(point);
                 });
-                                
-                return LongLatArrayInArray
+
+                return LongLatArrayInArray;
             }
 
 
     });
     function getUrlForSymbolName(symbolname)
     {
-        console.log(symbolname);
         switch (symbolname) {
             case "Sun":
                 return "/Images/Wheather_Icons/sun.png";
