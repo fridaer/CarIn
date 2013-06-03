@@ -251,6 +251,7 @@
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
     <Compile Include="Models\Entities\MapQuestDirection.cs" />
     <Compile Include="Models\Entities\TollLocation.cs" />
@@ -336,6 +337,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\elements.less" />
     <Content Include="Content\main.less" />
+    <Content Include="Images\._apple-startup-iPhone-RETINA.png" />
+    <Content Include="Images\._apple-startup-iPhone-Tall-RETINA.png" />
+    <Content Include="Images\._CarInIcon2x.png" />
     <Content Include="Images\apple-startup-iPhone-RETINA.png" />
     <Content Include="Images\apple-startup-iPhone-Tall-RETINA.png" />
     <Content Include="Images\CarInIcon2x.png" />
@@ -346,6 +350,8 @@
     <Content Include="Images\icon-tullar.png" />
     <Content Include="Images\icon-vader.png" />
     <Content Include="Images\icon-varning.png" />
+    <Content Include="Images\iOS\apple-startup-iPhone-RETINA.png" />
+    <Content Include="Images\iOS\apple-startup-iPhone-Tall-RETINA.png" />
     <Content Include="Images\iOS\arrow.png" />
     <Content Include="Images\iOS\bg.png" />
     <Content Include="Images\iOS\logo.png" />
@@ -387,6 +393,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyMapboxScript.js" />
     <Content Include="Scripts\scripts.js" />
+    <Content Include="Scripts\tollfee.js" />
     <Content Include="Scripts\tooltipbox.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Home\ChangePassword.cshtml" />
