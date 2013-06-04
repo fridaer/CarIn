@@ -19,7 +19,7 @@ $(document).ready(function () {
     });
     $("#vaderBtn").click(function (event) {
         event.preventDefault();
-        var message = "V&#228;derinformation";
+        var message = GetAdvancedWheatherInfo();
         alertInTooltipbox(message);
 
     });
@@ -38,9 +38,21 @@ $(document).ready(function () {
 });
 
 function alertInTooltipbox(message) {
+    $("#tooltipbox").css({
+        'white-space': 'pre-line',
+        'line-height' : '1.1em'
+    });
     $("#tooltipbox").html(message);
     $("#tooltipbox").show(200);
 }
 
 
-
+function GetAdvancedWheatherInfo() {
+    var $WheatherDiv = $('#vaderBtn');
+    
+    var messageToBeDisplayed = "Temperaturen : " + $WheatherDiv.attr('data-WheatherTemp') + "\u2103" + "\n";
+    messageToBeDisplayed += " Vindriktning : " + $WheatherDiv.attr('data-WheatherWindCode') + "\n";
+    messageToBeDisplayed += " Vindhastighet : " + $WheatherDiv.attr('data-WindSpeedMps') + "Mps";
+    
+    return messageToBeDisplayed;
+}

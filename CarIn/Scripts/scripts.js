@@ -45,9 +45,14 @@
 
 
 function ShowLoadingDiv() {
-    $("#appStartLoading").slideDown("slow");
+    $("#appStartLoading").slideDown("slow", function () {
+        $("#balls").fadeIn("slow");
+    });
 }
 
 function HideLoadingDiv() {
-    $("#appStartLoading").slideUp("slow");
+    $("#balls").fadeOut("fast", function () {
+        $("#appStartLoading").slideUp("slow");
+    });
+
 }
