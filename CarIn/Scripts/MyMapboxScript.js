@@ -127,14 +127,13 @@ $(document).ready(function () {
                     //WindCode: "NNE"
                     //WindSpeedMps: "4.9"
                     var $WheatherDiv = $('#vaderBtn');
-                    console.log(json.WheatherPeriods[0]);
-  
                     $WheatherDiv.attr({
                         'data-WheatherTemp' : json.WheatherPeriods[0].TemperatureCelsius,
                         'data-WheatherWindCode' : json.WheatherPeriods[0].WindCode,
                         'data-WindSpeedMps' : json.WheatherPeriods[0].WindSpeedMps
                     });
-                    $WheatherDiv.children('span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
+                    //$WheatherDiv.children('span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
+                    
                     $WheatherDiv.children('img').attr('src', getUrlForSymbolName(json.WheatherPeriods[0].SymbolName));
                 },
                 error: function (e) {
