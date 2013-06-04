@@ -63,7 +63,9 @@ $(document).ready(function () {
 
                             var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
                         }
-                        HideLoadingDiv();
+                        window.setTimeout(function () {
+                            HideLoadingDiv();
+                        }, 2000);
                     });
                     var i = 0;
                     $.each(json.MapQuestDirections, function () {
