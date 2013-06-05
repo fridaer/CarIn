@@ -84,6 +84,12 @@ namespace CarIn.BLL
 
             }
         }
+        public void StopTimers()
+        {
+            _timerForBing.Dispose();
+            _timerForYr.Dispose();
+            _timerForVasttrafik.Dispose();
+        }
     }
 }
 
