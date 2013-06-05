@@ -15,6 +15,7 @@ namespace CarInService
 {
     public partial class CarInWebServiceCaller : ServiceBase
     {
+        private HandlerForWebServiceCalls _handlerForWebServiceCalls; 
 
         public CarInWebServiceCaller()
         {
@@ -28,21 +29,24 @@ namespace CarInService
             CarInEventLogger.Source = "MySource";
             CarInEventLogger.Log = "MyNewLog";
             CarInEventLogger.Clear();
+            _handlerForWebServiceCalls = new HandlerForWebServiceCalls();
+
         }
 
         protected override void OnStart(string[] args)
         {
-            CarInEventLogger.WriteEntry("Startar");
+            CarInEventLogger.WriteEntry("Calling BeginTimers");
             Thread.Sleep(10000);
             try
             {
+                _handlerForWebServiceCalls.BeginTimers(CarInEventLogger);
+                //using(var context = new CarInContext())
+                //{
+                //    CarInEventLogger.WriteEntry(context.WheatherPeriods.Select(x => x.SymbolName).First());
+                //    LoggHelper.SetLogg("inne i context","ok","inte i context");
 
-                using(var context = new CarInContext())
-                {
-                    CarInEventLogger.WriteEntry(context.WheatherPeriods.Select(x => x.SymbolName).First());
-
-                }
-
+                //}
+                
             }
             catch (Exception e)
             {
@@ -60,9 +64,8 @@ namespace CarInService
 
         protected override void OnStop()
         {
-            //LoggHelper.SetLogg("CarinWebService", "Stop", "stopar");
-
-            //handlerForWebServiceCalls.StopTimers();
+         
+            _handlerForWebServiceCalls.StopTimers();
         }
     }
 }

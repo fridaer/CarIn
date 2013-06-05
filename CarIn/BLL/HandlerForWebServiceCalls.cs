@@ -20,6 +20,8 @@ namespace CarIn.BLL
         private Timer _timerForYr;
         private Timer _timerForVasttrafik;
 
+        private EventLog _eventLogger;
+
         public HandlerForWebServiceCalls()
         {
             _bingMapTrafficWebService = new BingMapTrafficWebService("AoWk0xixw7Xr16xE6Tne-3nNsYihl9ab7yIhnoASonYm2sWCdYk7VNhhAUg82cUj");
@@ -27,8 +29,9 @@ namespace CarIn.BLL
             _yrWeatherWebService = new YrWeatherWebService();
             _vasttrafikTrafficWebService = new VasttrafikTrafficWebService("key");
         }
-        public void BeginTimers()
+        public void BeginTimers(EventLog eventLogger)
         {
+            _eventLogger = eventLogger;
             _timerForBing = new Timer(x => MakeReqForBing(), null, 0, Timeout.Infinite);
             _timerForYr = new Timer(x => MakeReqForYr(), null, 0, Timeout.Infinite);
             _timerForVasttrafik = new Timer(x => MakeReqForVasttrafik(), null, 0, Timeout.Infinite);
@@ -40,15 +43,14 @@ namespace CarIn.BLL
             {
 
                 _mapQuestDirectionsWebService.TakeTrafficIncident(_bingMapTrafficWebService.GetParsedResponse().ToList());
-                var result = _mapQuestDirectionsWebService.GetParsedResponse();
 
-                _timerForBing.Change(5000, Timeout.Infinite);
-                Debug.WriteLine(string.Format("{0} called starting over with 5sec", "bing"));
+                _timerForBing.Change(10000, Timeout.Infinite);
+                _eventLogger.WriteEntry(string.Format("{0} called starting over with 10sec", "bing"));
             }
             else
             {
-                _timerForBing.Change(0, Timeout.Infinite);
-                Debug.WriteLine(string.Format("{0} called starting over with 0sec", "bing"));
+                _timerForBing.Change(1000, Timeout.Infinite);
+                _eventLogger.WriteEntry(String.Format("{0} called starting over with 1sec", "bing"));
 
             }
         }
@@ -57,14 +59,14 @@ namespace CarIn.BLL
         {
             if (_yrWeatherWebService.MakeRequest())
             {
-                _timerForYr.Change(10000, Timeout.Infinite);
-                Debug.WriteLine(string.Format("{0} called starting over with 10sec", "Yr"));
+                _timerForYr.Change(20000, Timeout.Infinite);
+                _eventLogger.WriteEntry(string.Format("{0} called starting over with 20sec", "Yr"));
 
             }
             else
             {
-                _timerForYr.Change(0, Timeout.Infinite);
-                Debug.WriteLine(string.Format("{0} called starting over with 0sec", "Yr"));
+                _timerForYr.Change(1000, Timeout.Infinite);
+                _eventLogger.WriteEntry(string.Format("{0} called starting over with 1sec", "Yr"));
 
             }
         }
@@ -73,14 +75,14 @@ namespace CarIn.BLL
         {
             if (_vasttrafikTrafficWebService.MakeRequest())
             {
-                _timerForVasttrafik.Change(22000, Timeout.Infinite);
-                Debug.WriteLine(string.Format("{0} called starting over with 22sec", "Vasstrafik"));
+                _timerForVasttrafik.Change(25000, Timeout.Infinite);
+                _eventLogger.WriteEntry(string.Format("{0} called starting over with 25sec", "Vasstrafik"));
 
             }
             else
             {
-                _timerForVasttrafik.Change(0, Timeout.Infinite);
-                Debug.WriteLine(string.Format("{0} called starting over with 0sec", "Vasttrafik"));
+                _timerForVasttrafik.Change(1000, Timeout.Infinite);
+                _eventLogger.WriteEntry(string.Format("{0} called starting over with 1sec", "Vasttrafik"));
 
             }
         }
