@@ -24,24 +24,24 @@
 
 "use strict";
 
-var h;
-var m;
-var TimeNow;
-var month;
-var date;
-var daynumber;
+var hour = 0;
+var min = 0;
+var TimeNow = 0;
+var month = 0;
+var date = 0;
+var daynumber = 0;
 
 function GetTimeNow() {
     TimeNow = new Date();
-    h = TimeNow.getHours();
-    m = TimeNow.getMinutes();
+    hour = TimeNow.getHours();
+    min = TimeNow.getMinutes();
     month = TimeNow.getMonth() + 1;
     date = TimeNow.getDate();
     daynumber = TimeNow.getDay();
 
 }
 
-function CheckTollFee(month, date, daynumber, h, m) {
+function CheckTollFee(month, date, daynumber, hour, min) {
     switch (daynumber) {
         case 5:
         case 6:
@@ -110,37 +110,37 @@ function CheckTollFee(month, date, daynumber, h, m) {
             break;
     }
 
-    if (h === 6 && m <= 29 && m >= 0) {
+    if (hour === 6 && min <= 29 && min >= 0) {
         return 8;
     }
-    else if (h === 6 && m <= 59 && m >= 30) {
+    else if (hour === 6 && min <= 59 && min >= 30) {
         return 13;
     }
-    else if (h === 7 && m <= 59 && m >= 0) {
+    else if (hour === 7 && min <= 59 && min >= 0) {
         return 18;
     }
-    else if (h === 8 && m <= 29 && m >= 0) {
+    else if (hour === 8 && min <= 29 && min >= 0) {
         return 13;
     }
-    else if (h === 8 && m <= 29 && m >= 59) {
+    else if (hour === 8 && min <= 29 && min >= 59) {
         return 8;
     }
-    else if (h >= 9 && h <= 14) {
+    else if (hour >= 9 && hour <= 14) {
         return 8;
     }
-    else if (h === 15 && m <= 29 && m >= 0) {
+    else if (hour === 15 && min <= 29 && min >= 0) {
         return 13;
     }
-    else if (h === 15 && m <= 59 && m >= 30) {
+    else if (hour === 15 && min <= 59 && min >= 30) {
         return 18;
     }
-    else if (h === 16) {
+    else if (hour === 16) {
         return 18;
     }
-    else if (h === 17) {
+    else if (hour === 17) {
         return 13;
     }
-    else if (h === 18 && m <= 29 && m >= 0) {
+    else if (hour === 18 && min <= 29 && min >= 0) {
         return 8;
     }
     else {
@@ -152,10 +152,10 @@ function CheckTollFee(month, date, daynumber, h, m) {
 
 function CheckTollHelpFunction() {
     GetTimeNow();
-    var Fee = CheckTollFee(month, date, h, m);
+    var Fee = CheckTollFee(month, date, daynumber, hour, min);
 
-    if (h === 18 && m > 14) {
-        alertInTooltipbox("Det kostar just nu " + Fee + " kr i trängselskatt , eller väntar du till 18:30 så är det gratis;)");
+    if (hour === 18 && min > 14) {
+        alertInTooltipbox("Det kostar just nu " + Fee + " kr i trängselskatt , eller väntar du till 18:30 så är det gratis ;)");
     }
     else {
         alertInTooltipbox("Det kostar just nu " + Fee + " kr i trängselskatt");
