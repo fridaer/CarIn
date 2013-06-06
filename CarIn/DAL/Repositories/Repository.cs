@@ -80,5 +80,14 @@ namespace CarIn.DAL.Repositories
         {
             _context.SaveChanges();
         }
+
+        public void TruncateTable(string tableName )
+        {
+            //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.TrafficIncidents");
+
+            var sqlCommand = string.Format("TRUNCATE TABLE dbo.{0}", tableName);
+            _context.Database.ExecuteSqlCommand(sqlCommand);
+            _context.SaveChanges();
+        }
     }
 }

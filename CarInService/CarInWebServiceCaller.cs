@@ -29,17 +29,16 @@ namespace CarInService
             CarInEventLogger.Source = "MySource";
             CarInEventLogger.Log = "MyNewLog";
             CarInEventLogger.Clear();
-            _handlerForWebServiceCalls = new HandlerForWebServiceCalls();
+            _handlerForWebServiceCalls = new HandlerForWebServiceCalls(CarInEventLogger);
 
         }
 
         protected override void OnStart(string[] args)
         {
             CarInEventLogger.WriteEntry("Calling BeginTimers");
-            Thread.Sleep(10000);
             try
             {
-                _handlerForWebServiceCalls.BeginTimers(CarInEventLogger);
+                _handlerForWebServiceCalls.BeginTimers();
                 //using(var context = new CarInContext())
                 //{
                 //    CarInEventLogger.WriteEntry(context.WheatherPeriods.Select(x => x.SymbolName).First());

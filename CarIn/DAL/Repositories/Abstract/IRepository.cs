@@ -17,5 +17,6 @@ namespace CarIn.DAL.Repositories.Abstract
         void Delete(T entity);
 
         void Commit();
+        void TruncateTable(string tableName );
     }
 }
