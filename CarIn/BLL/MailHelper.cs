@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SUI.Helpers
 {
-    public static class MailHandler
+    public static class MailHelper
     {
         // SHARP
         private static  string _smtpClient = "213.115.225.28";
@@ -13,6 +13,8 @@ namespace SUI.Helpers
         // LOCAL
         private const string _papercut = "127.0.0.1";
 
+        //Port
+        private const int _portNr = 26;
         // Admin email
         private static List<string> _admins = new List<string>()
                                                   {
@@ -25,13 +27,13 @@ namespace SUI.Helpers
         {
             var txtMessage =
                 "<h3>Meddelande ifrån CarIn server</h3>" +
-                "<span>At " + errorOccured.ToShortTimeString() + "</span>" +
-                "<b>Message: </b><br/>" + message + "<br/>";
+                "<b>Time : </b>" + errorOccured.ToString()+ "<br/>" +
+                "<b>Message : </b><br/>" + message + "<br/>";
 
             try
             {
 
-                using (var client = new SmtpClient(_papercut, 25))
+                using (var client = new SmtpClient(_papercut, _portNr))
                 {
 
                     using (var mail = new MailMessage())

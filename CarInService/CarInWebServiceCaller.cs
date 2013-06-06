@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CarIn.BLL;
 using CarIn.DAL.Context;
+using SUI.Helpers;
 
 namespace CarInService
 {
@@ -35,17 +36,11 @@ namespace CarInService
 
         protected override void OnStart(string[] args)
         {
-            CarInEventLogger.WriteEntry("Calling BeginTimers");
+            CarInEventLogger.WriteEntry("Begining Timers");
             try
             {
                 _handlerForWebServiceCalls.BeginTimers();
-                //using(var context = new CarInContext())
-                //{
-                //    CarInEventLogger.WriteEntry(context.WheatherPeriods.Select(x => x.SymbolName).First());
-                //    LoggHelper.SetLogg("inne i context","ok","inte i context");
 
-                //}
-                
             }
             catch (Exception e)
             {
@@ -56,14 +51,11 @@ namespace CarInService
 
 
             }
-                //
-            //handlerForWebServiceCalls = new HandlerForWebServiceCalls();
-            //handlerForWebServiceCalls.BeginTimers();
         }
 
         protected override void OnStop()
         {
-         
+            CarInEventLogger.WriteEntry("Stopping Timers");
             _handlerForWebServiceCalls.StopTimers();
         }
     }

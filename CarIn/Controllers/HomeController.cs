@@ -8,6 +8,7 @@ using CarIn.DAL.Repositories;
 using CarIn.DAL.Repositories.Abstract;
 using CarIn.Models.Entities;
 using CarIn.Models.ViewModels;
+using SUI.Helpers;
 
 namespace CarIn.Controllers
 {
@@ -26,6 +27,7 @@ namespace CarIn.Controllers
             // Checking Logged In Session
             try
             {
+
                 if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated) //User is logged in via membership provider
                 {
                     ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
