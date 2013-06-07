@@ -43,8 +43,8 @@ function GetTimeNow() {
 
 function CheckTollFee(month, date, daynumber, hour, min) {
     switch (daynumber) {
-        case 5:
         case 6:
+        case 0:
             return 0;
             break;
     }

@@ -323,8 +323,6 @@
     <Content Include="Images\._apple-startup-iPhone-RETINA.png" />
     <Content Include="Images\._apple-startup-iPhone-Tall-RETINA.png" />
     <Content Include="Images\._CarInIcon2x.png" />
-    <Content Include="Images\apple-startup-iPhone-RETINA.png" />
-    <Content Include="Images\apple-startup-iPhone-Tall-RETINA.png" />
     <Content Include="Images\CarInIcon2x.png" />
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
@@ -339,8 +337,6 @@
     <Content Include="Images\iOS\bg.png" />
     <Content Include="Images\iOS\logo.png" />
     <Content Include="Images\iOS\text.png" />
-    <Content Include="Images\trangselskatt.png" />
-    <Content Include="Images\trangselskatt2.png" />
     <Content Include="Images\trangselskatt25x25.png" />
     <Content Include="Images\trangselskatt50x50.png" />
     <Content Include="Images\Wheather_Icons\Cloudy.png" />
@@ -409,6 +405,7 @@
     <Content Include="Content\fontello\font\fontello.eot" />
     <Content Include="Content\fontello\font\fontello.ttf" />
     <Content Include="Content\fontello\font\fontello.woff" />
+    <None Include="Properties\PublishProfiles\asd.pubxml" />
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
