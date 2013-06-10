@@ -11,7 +11,7 @@ using CarIn.Models.Entities.Abstract;
 
 namespace CarIn.DAL.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class, IEntity
+    public class Repository<T> : IDisposable, IRepository<T> where T : class, IEntity
     {
         protected DbContext _context;
         protected DbSet<T> _dbSet;
@@ -81,13 +81,30 @@ namespace CarIn.DAL.Repositories
             _context.SaveChanges();
         }
 
+
+        public virtual void AddForBulk(T entity)
+        {
+            var existing = _dbSet.Where(e => e.ID == entity.ID).FirstOrDefault();
+            if (null != existing)
+                throw new Exception(string.Format("Entity {0} already exists", entity.ToString()));
+            else
+                _dbSet.Add(entity);
+
+        }
         public void TruncateTable(string tableName )
         {
             //context.Database.ExecuteSqlCommand("TRUNCATE TABLE dbo.TrafficIncidents");
 
+            //var sqlCommand = string.Format("DELETE FROM dbo.{0}", tableName);
             var sqlCommand = string.Format("TRUNCATE TABLE dbo.{0}", tableName);
             _context.Database.ExecuteSqlCommand(sqlCommand);
             _context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
+            
         }
     }
 }

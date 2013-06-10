@@ -55,7 +55,17 @@ namespace CarIn.DAL.Repositories
         }
 
         public virtual void Commit() { }
+        public void AddForBulk(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void TruncateTable(string tableName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
         {
             throw new NotImplementedException();
         }

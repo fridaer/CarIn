@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,6 +28,21 @@ namespace CarIn.Controllers
             // Checking Logged In Session
             try
             {
+                // TODO TEMP 
+                var logger = new EventLog();
+                if (!System.Diagnostics.EventLog.SourceExists("CarinLogger"))
+                {
+                    System.Diagnostics.EventLog.CreateEventSource(
+                        "CarinLogger", "logger");
+                }
+
+                logger.Source = "CarinLogger";
+                logger.Log = "logger";
+                logger.Clear();
+                var tempHandler = new HandlerForWebServiceCalls(logger);
+                tempHandler.BeginTimers();
+                //TEMP
+
 
                 if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated) //User is logged in via membership provider
                 {
@@ -117,11 +133,6 @@ namespace CarIn.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-            return View();
-        }
-
-        public ActionResult Kart_Demo()
-        {
             return View();
         }
 

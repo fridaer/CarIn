@@ -19,10 +19,10 @@ namespace CarIn.BLL
         private YrWeatherWebService _yrWeatherWebService;
         private VasttrafikTrafficWebService _vasttrafikTrafficWebService;
 
-        static readonly IRepository<TrafficIncident> _trafficRespository = new Repository<TrafficIncident>();
-        static readonly IRepository<WheatherPeriod> _wheatherRespository = new Repository<WheatherPeriod>();
-        static readonly IRepository<VasttrafikIncident> _vasttrafikRespository = new Repository<VasttrafikIncident>();
-        static readonly IRepository<MapQuestDirection> _directionsRepository = new Repository<MapQuestDirection>();
+        static IRepository<TrafficIncident> _trafficRespository = new Repository<TrafficIncident>();
+        static IRepository<WheatherPeriod> _wheatherRespository = new Repository<WheatherPeriod>();
+        static IRepository<VasttrafikIncident> _vasttrafikRespository = new Repository<VasttrafikIncident>();
+        static IRepository<MapQuestDirection> _directionsRepository = new Repository<MapQuestDirection>();
 
         private Timer _timerForBing;
         private Timer _timerForYr;
@@ -38,6 +38,8 @@ namespace CarIn.BLL
         private readonly int _hour;
 
         private bool _isDown;
+
+        private Mutex _mutext;
 
         public HandlerForWebServiceCalls(EventLog eventLogger)
         {
@@ -55,12 +57,13 @@ namespace CarIn.BLL
             _isDown = false;
             _hour = 60000 * 60;
 
+            _mutext = new Mutex();
         }
         public void BeginTimers()
         {
             _timerForBing = new Timer(x => MakeReqForBing(), null, 0, Timeout.Infinite);
-            //_timerForYr = new Timer(x => MakeReqForYr(), null, 0, Timeout.Infinite);
-            //_timerForVasttrafik = new Timer(x => MakeReqForVasttrafik(), null, 0, Timeout.Infinite);
+            _timerForYr = new Timer(x => MakeReqForYr(), null, 0, Timeout.Infinite);
+            _timerForVasttrafik = new Timer(x => MakeReqForVasttrafik(), null, 0, Timeout.Infinite);
         }
 
         private void MakeReqForBing()
@@ -72,8 +75,13 @@ namespace CarIn.BLL
 
                 foreach (var trafficIncident in trafficIncidents)
                 {
-                    _trafficRespository.Add(trafficIncident);
+                    _trafficRespository.AddForBulk(trafficIncident);
                 }
+                _mutext.WaitOne();
+
+                _trafficRespository.Commit();
+
+                _mutext.ReleaseMutex();
 
                 _eventLogger.WriteEntry(string.Format("{0} updated", "BingDb"));
 
@@ -83,10 +91,25 @@ namespace CarIn.BLL
 
                     if (_mapQuestDirectionsWebService.MakeRequest())
                     {
-                        var mapQuestDirections = _mapQuestDirectionsWebService.GetParsedResponse();
+                        var mapQuestDirections = _mapQuestDirectionsWebService.GetParsedResponse().ToList();
+                        
                         _directionsRepository.TruncateTable("MapQuestDirections");
-                        mapQuestDirections.ForEach(x => _directionsRepository.Add(x));
+
+                        foreach (var mapQuestDirection in mapQuestDirections)
+                        {
+                            _directionsRepository.AddForBulk(mapQuestDirection);
+                        }
+                        _mutext.WaitOne();
+
+                        _directionsRepository.Commit();
+
+                        _mutext.ReleaseMutex();
+                        
                         _eventLogger.WriteEntry(string.Format("{0} updated", "MapQuestDb"));
+                        _directionsRepository.Dispose();
+                        Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                        _eventLogger.WriteEntry(currentProcess.WorkingSet64 + " TotalMemory used bing");
+                        _directionsRepository = new Repository<MapQuestDirection>();
 
                     }
                     else
@@ -106,8 +129,13 @@ namespace CarIn.BLL
                     }
                 }
 
-                _timerForBing.Change(30000, Timeout.Infinite);
-                _eventLogger.WriteEntry(string.Format("{0} called starting over with 30sec", "bing"));
+                _timerForBing.Change(300000, Timeout.Infinite);
+                _eventLogger.WriteEntry(string.Format("{0} called starting over with 5min", "bing"));
+                _trafficRespository.Dispose();
+                Process _currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                long totalBytesOfMemoryUsed = _currentProcess.WorkingSet64;
+                _eventLogger.WriteEntry(totalBytesOfMemoryUsed + " TotalMemory used bing");
+                _trafficRespository = new Repository<TrafficIncident>();
                 
             }
             else
@@ -135,16 +163,37 @@ namespace CarIn.BLL
 
             if (_yrWeatherWebService.MakeRequest())
             {
-                _timerForYr.Change(20000, Timeout.Infinite);
-                _eventLogger.WriteEntry(string.Format("{0} called starting over with 20sec", "Yr"));
+                var wheatherPeriods = _yrWeatherWebService.GetParsedResponse().ToList();
+                _wheatherRespository.TruncateTable("WheatherPeriods");
+
+                foreach (var wheatherPeriod in wheatherPeriods)
+                {
+                    _wheatherRespository.AddForBulk(wheatherPeriod);
+                }
+
+                _mutext.WaitOne();
+
+                _wheatherRespository.Commit();
+
+                _mutext.ReleaseMutex();
+
+
+                _timerForYr.Change(120000, Timeout.Infinite);
+                _eventLogger.WriteEntry(string.Format("{0} called starting over with 20min", "Yr"));
+                _wheatherRespository.Dispose();
+                Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+
+                long totalBytesOfMemoryUsed = currentProcess.WorkingSet64;
+                _eventLogger.WriteEntry(totalBytesOfMemoryUsed + " TotalMemory used yr");
+                _wheatherRespository = new Repository<WheatherPeriod>();
             }
             else
             {
 
                 if (_errorCounterYr <= 5)
                 {
-                    _timerForYr.Change(1000, Timeout.Infinite);
-                    _eventLogger.WriteEntry(string.Format("{0} called starting over with 1sec", "Yr"));
+                    _timerForYr.Change(10000, Timeout.Infinite);
+                    _eventLogger.WriteEntry(string.Format("{0} called starting over with 10sec", "Yr"));
                     _errorCounterYr++;
                 }
                 else
@@ -156,22 +205,42 @@ namespace CarIn.BLL
                     MailHelper.SendEmail("YrService", "Error calling Yr 5 times sleep for 6h", DateTime.Now);
                 }
             }
+            
         }
 
         private void MakeReqForVasttrafik()
         {
             if (_vasttrafikTrafficWebService.MakeRequest())
             {
-                _timerForVasttrafik.Change(25000, Timeout.Infinite);
-                _eventLogger.WriteEntry(string.Format("{0} called starting over with 25sec", "Vasstrafik"));
+                var vasttrafikTrafficIncidents = _vasttrafikTrafficWebService.GetParsedResponse().ToList();
+                _vasttrafikRespository.TruncateTable("VasttrafikIncidents");
 
+                foreach (var vasttrafikTrafficIncident in vasttrafikTrafficIncidents)
+                {
+                    _vasttrafikRespository.AddForBulk(vasttrafikTrafficIncident);
+                }
+
+                _mutext.WaitOne();
+
+                _vasttrafikRespository.Commit();
+
+                _mutext.ReleaseMutex();
+
+                _timerForVasttrafik.Change(600000, Timeout.Infinite);
+                _eventLogger.WriteEntry(string.Format("{0} called starting over with 10min", "Vasstrafik"));
+                _vasttrafikRespository.Dispose();
+                Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+
+                long totalBytesOfMemoryUsed = currentProcess.WorkingSet64;
+                _eventLogger.WriteEntry(totalBytesOfMemoryUsed + " TotalMemory used vast");
+                _vasttrafikRespository = new Repository<VasttrafikIncident>();
             }
             else
             {
                 if (_errorCounterVasttrafik <= 5)
                 {
-                    _timerForVasttrafik.Change(1000, Timeout.Infinite);
-                    _eventLogger.WriteEntry(string.Format("{0} called starting over with 1sec", "Vasttrafik"));
+                    _timerForVasttrafik.Change(10000, Timeout.Infinite);
+                    _eventLogger.WriteEntry(string.Format("{0} called starting over with 10sec", "Vasttrafik"));
                     _errorCounterVasttrafik++;
                 }
                 else
@@ -183,6 +252,7 @@ namespace CarIn.BLL
                 
                 }
             }
+           
         }
         public void StopTimers()
         {
@@ -190,7 +260,12 @@ namespace CarIn.BLL
             _timerForBing.Dispose();
             _timerForYr.Dispose();
             _timerForVasttrafik.Dispose();
+            _trafficRespository.Dispose();
+            _directionsRepository.Dispose();
+            _wheatherRespository.Dispose();
+            _vasttrafikRespository.Dispose();
         }
+      
     }
 }
 

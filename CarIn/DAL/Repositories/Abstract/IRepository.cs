@@ -17,6 +17,9 @@ namespace CarIn.DAL.Repositories.Abstract
         void Delete(T entity);
 
         void Commit();
+        void AddForBulk(T entity);
         void TruncateTable(string tableName );
+
+        void Dispose();
     }
 }
