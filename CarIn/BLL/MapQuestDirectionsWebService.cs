@@ -35,6 +35,7 @@ namespace CarIn.BLL
 
         private List<MapQuestDirection> _mapQuestDirections = new List<MapQuestDirection>();
         private List<TrafficIncident> _trafficIncidents = new List<TrafficIncident>();
+        private string TempServerity;
 
         public void TakeTrafficIncident(List<TrafficIncident> TrafficIncidents)
         {
@@ -49,7 +50,6 @@ namespace CarIn.BLL
 
         public bool MakeRequest()
         {
-
             try
             {
                 var TrafficIncedentsWithEndPoints = FindTrafficIncedentsWithEndPoints(_trafficIncidents);
@@ -57,10 +57,10 @@ namespace CarIn.BLL
                 foreach (TrafficIncident item in TrafficIncedentsWithEndPoints)
                 {
                     var MapQuestRequestURL = MakeUrl(item.PointLat, item.PointLong, item.ToPointLat, item.ToPointLong);
-
                     var request = (HttpWebRequest)WebRequest.Create(MapQuestRequestURL);
                     request.Method = WebRequestMethods.Http.Get;
-                    request.Accept = "text/xml";
+                    request.Accept = "application/json";
+                    TempStoreServerity(item.Severity);
                     GetResponse(request);
                 }
                 return true;
@@ -81,13 +81,17 @@ namespace CarIn.BLL
         {
             LoggHelper.SetLogg("MapQuestDirectionsWebService", statusCode.ToString(), statusMessage);
         }
+        public String GetTempStoredServerity() {
+            return TempServerity;
+        }
+        public void TempStoreServerity(string Serverity) {
+            TempServerity = Serverity;
+        }
 
         public bool GetResponse(HttpWebRequest request)
         {
             try
             {
-                request.Method = WebRequestMethods.Http.Get;
-                request.Accept = "application/json";
                 string text;
                 routeObj json;
                 var response = (HttpWebResponse)request.GetResponse();
@@ -105,6 +109,7 @@ namespace CarIn.BLL
                 MapQuestDirection direction = new MapQuestDirection();
 
                 direction.shapePoints = ShapePointsToString(json);
+                direction.Severity = GetTempStoredServerity();
                 _mapQuestDirections.Add(direction);
                 return true;
             }

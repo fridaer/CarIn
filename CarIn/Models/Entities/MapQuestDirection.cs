@@ -10,5 +10,6 @@ namespace CarIn.Models.Entities
     {
         public int ID { get; set; }
         public string shapePoints { get; set; }
+        public string Severity { get; set; } 
     }
 }
