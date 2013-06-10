@@ -3,12 +3,6 @@
 $(document).ready(function () {
 
     ShowLoadingDiv();
-    var layer = L.mapbox.tileLayer('tobohr.map-n6vjouf7', {
-        detectRetina: true,
-        retinaVersion: 'tobohr.map-fkbh0rtn',
-        minZoom: 11
-    });
-    layer.on('ready', function () {
 
         var map = L.map('map')
         .setView([57.75, 11.974749], 11)
@@ -145,10 +139,8 @@ $(document).ready(function () {
 
             var LongLatArrayInArray = new Array();
             var LatLongStringArray = StringWithLatlong.split(";");
-            //console.log(LatLongStringArray);
             LatLongStringArray.splice(LatLongStringArray.length - 1, 1);
 
-            //console.log(LatLongStringArray);
 
             $.each(LatLongStringArray, function () {
 
@@ -164,7 +156,6 @@ $(document).ready(function () {
         }
 
 
-    });
     function getUrlForSymbolName(symbolname) {
         switch (symbolname) {
             case "Sun":
@@ -201,4 +192,5 @@ $(document).ready(function () {
                 return "/Images/Wheather_Icons/Fair.png";
         }
     }
-})
+
+});
