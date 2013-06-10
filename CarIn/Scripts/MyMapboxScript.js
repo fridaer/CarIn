@@ -1,40 +1,29 @@
 ﻿/// <reference path="mapbox.js" />
 "use strict";
 $(document).ready(function () {
-    
-    ShowLoadingDiv();
-    var layer = L.mapbox.tileLayer('tobohr.map-n6vjouf7', {
-        detectRetina: true,
-        retinaVersion: 'tobohr.map-fkbh0rtn'
-    });
-    layer.on('ready', function () {
-        // the layer has been fully loaded now, and you can
-        // call .getTileJSON and investigate its properties
-        /*        
-                var map = L.mapbox.map('map', 'tobohr.map-n6vjouf7', {   
-                detectRetina: true,
-                retinaVersion: 'tobohr.map-fkbh0rtn'
-                }).setView([57.75, 11.974749], 11);
-        
-        */
-        var map = L.map('map')
-        .setView([57.75, 11.974749], 11)
-        .addLayer(L.mapbox.tileLayer('tobohr.map-n6vjouf7', {
-            detectRetina: true,
-            retinaVersion: 'tobohr.map-fkbh0rtn'
-        }));
 
-        var updateEvery2sec = setInterval(function () {
-            var zoomlevel = map.getZoom();
-            if (zoomlevel <= 11) {
-                map.setView([57.75, 11.974749], 11);
-                map.dragging.disable();
-            }
-            else {
-                map.dragging.enable();
-            }
-        }, 500);
-    
+    ShowLoadingDiv();
+
+        var map = L.mapbox.map('map','tobohr.map-n6vjouf7', {
+            detectRetina: true,
+            retinaVersion: 'tobohr.map-fkbh0rtn',
+            minZoom: 11,
+            zoomControl: false,
+            attributionControl: false,
+        }).setView([57.75, 11.974749], 11);
+        new L.Control.Zoom({ position: 'topright' }).addTo(map);
+
+        var southWest = new L.LatLng(58.076242, 11.472473);
+        var northEast = new L.LatLng(57.537758, 12.675476);
+        map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+        L.marker([58.076242, 11.472473]).addTo(map).bindPopup("Kartyta slutar här");
+        L.marker([58.09657, 12.565613]).addTo(map).bindPopup("Kartyta slutar här");
+        L.marker([57.465058, 11.820946]).addTo(map).bindPopup("Kartyta slutar här");
+        L.marker([57.537758, 12.675476]).addTo(map).bindPopup("Kartyta slutar här");
+
+        
+
+
 
         var url = "/api/v1/CarInRESTful/GetAllInfo/";
         $.ajax({
@@ -60,7 +49,7 @@ $(document).ready(function () {
                     }
                     else {
                         var myIcon = L.divIcon({ className: 'traffic-problem2 icon-attention' });
-                        var popupContent = this.Description +  "  - Beräknat klart " + this.End;
+                        var popupContent = this.Description + "  - Beräknat klart " + this.End;
 
                         var themarker = L.marker([this.PointLat, this.PointLong], { icon: myIcon }).addTo(map).bindPopup(popupContent);
                     }
@@ -83,8 +72,8 @@ $(document).ready(function () {
                     var myIcon = L.icon({
                         iconUrl: '../images/trangselskatt25x25.png',
                         iconRetinaUrl: '../images/trangselskatt50x50.png',
-                        iconSize:     [25, 25], // size of the icon
-                        iconAnchor:   [0,0], // point of the icon which will correspond to marker's location
+                        iconSize: [25, 25], // size of the icon
+                        iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
                         popupAnchor: [13, -10],  // point from which the popup should open relative to the iconAnchor
                         className: 'TollsMarker'
                     })
@@ -114,7 +103,7 @@ $(document).ready(function () {
                     })
                     var LatLongArray = StringToLatLongArray(this.TrafficChangesCoords);
 
-                       
+
 
                     var popupContent = this.Title;
                     var themarker = L.marker([LatLongArray[0][0], LatLongArray[0][1]], { icon: myIcon }).addTo(map).bindPopup(popupContent);
@@ -131,20 +120,20 @@ $(document).ready(function () {
                 //WindSpeedMps: "4.9"
                 var $WheatherDiv = $('#vaderBtn');
                 $WheatherDiv.attr({
-                    'data-WheatherTemp' : json.WheatherPeriods[0].TemperatureCelsius,
-                    'data-WheatherWindCode' : json.WheatherPeriods[0].WindCode,
+                    'data-WheatherTemp': json.WheatherPeriods[0].TemperatureCelsius,
+                    'data-WheatherWindCode': json.WheatherPeriods[0].WindCode,
                     'data-WindSpeedMps': json.WheatherPeriods[0].WindSpeedMps,
                     'data-WheatherSymbolName': json.WheatherPeriods[0].SymbolName
                 });
                 //$WheatherDiv.children('span').text(json.WheatherPeriods[0].TemperatureCelsius + "\u2103");
-                    
+
                 $WheatherDiv.children('img').attr('src', getUrlForSymbolName(json.WheatherPeriods[0].SymbolName));
             },
             error: function (e) {
                 console.log("Det gick åt apan :( ingen data via apit! ");
             }
         });
-           
+
         map.on('popupopen', function (e) {
             var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
             if (width < 767) {
@@ -153,16 +142,14 @@ $(document).ready(function () {
                 alertInTooltipbox(marker._popup._content);
             }
         });
-        
+
 
         function StringToLatLongArray(StringWithLatlong) {
 
             var LongLatArrayInArray = new Array();
             var LatLongStringArray = StringWithLatlong.split(";");
-            //console.log(LatLongStringArray);
-            LatLongStringArray.splice(LatLongStringArray.length-1, 1);
-                      
-            //console.log(LatLongStringArray);
+            LatLongStringArray.splice(LatLongStringArray.length - 1, 1);
+
 
             $.each(LatLongStringArray, function () {
 
@@ -178,9 +165,7 @@ $(document).ready(function () {
         }
 
 
-    });
-    function getUrlForSymbolName(symbolname)
-    {
+    function getUrlForSymbolName(symbolname) {
         switch (symbolname) {
             case "Sun":
                 return "/Images/Wheather_Icons/sun.png";
@@ -212,8 +197,9 @@ $(document).ready(function () {
                 return "/Images/Wheather_Icons/Snow.png";
             case "Fog":
                 return "/Images/Wheather_Icons/Fog.png";
-            default :
+            default:
                 return "/Images/Wheather_Icons/Fair.png";
         }
     }
-})
+
+});

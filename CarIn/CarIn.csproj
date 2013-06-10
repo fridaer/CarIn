@@ -234,6 +234,10 @@
     <Compile Include="Migrations\201305230946406_Added MapQuestDirections.Designer.cs">
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306101249399_Add_Servirty_InMapQuestDirections.cs" />
+    <Compile Include="Migrations\201306101249399_Add_Servirty_InMapQuestDirections.Designer.cs">
+      <DependentUpon>201306101249399_Add_Servirty_InMapQuestDirections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Entities\Abstract\IEntity.cs" />
@@ -324,8 +328,6 @@
     <Content Include="Images\._apple-startup-iPhone-RETINA.png" />
     <Content Include="Images\._apple-startup-iPhone-Tall-RETINA.png" />
     <Content Include="Images\._CarInIcon2x.png" />
-    <Content Include="Images\apple-startup-iPhone-RETINA.png" />
-    <Content Include="Images\apple-startup-iPhone-Tall-RETINA.png" />
     <Content Include="Images\CarInIcon2x.png" />
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
@@ -340,8 +342,6 @@
     <Content Include="Images\iOS\bg.png" />
     <Content Include="Images\iOS\logo.png" />
     <Content Include="Images\iOS\text.png" />
-    <Content Include="Images\trangselskatt.png" />
-    <Content Include="Images\trangselskatt2.png" />
     <Content Include="Images\trangselskatt25x25.png" />
     <Content Include="Images\trangselskatt50x50.png" />
     <Content Include="Images\Wheather_Icons\Cloudy.png" />
@@ -410,6 +410,7 @@
     <Content Include="Content\fontello\font\fontello.eot" />
     <Content Include="Content\fontello\font\fontello.ttf" />
     <Content Include="Content\fontello\font\fontello.woff" />
+    <None Include="Properties\PublishProfiles\asd.pubxml" />
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -422,6 +423,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201305230946406_Added MapQuestDirections.resx">
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306101249399_Add_Servirty_InMapQuestDirections.resx">
+      <DependentUpon>201306101249399_Add_Servirty_InMapQuestDirections.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

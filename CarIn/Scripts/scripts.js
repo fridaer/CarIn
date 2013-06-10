@@ -26,17 +26,6 @@
         })
 
     }
-    window.setTimeout(moveMapNavArrows, 400)
-    function moveMapNavArrows() {
-        $('.leaflet-left').removeClass('leaflet-left').addClass('leaflet-right');
-        $('div.leaflet-bottom.leaflet-right').remove();
-    }
-
-    window.setTimeout(moveMapNavArrows, 1000)
-    function moveMapNavArrows() {
-        $('.leaflet-left').removeClass('leaflet-left').addClass('leaflet-right');
-        $('div.leaflet-bottom.leaflet-right').remove();
-    }
     if (window.navigator.standalon) {
         alert("window.navigator.standalon = true");
     }
