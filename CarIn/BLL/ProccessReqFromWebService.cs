@@ -98,8 +98,11 @@ namespace CarIn.BLL
             {
                 case "all":
                     return _mapQuestRepository.FindAll().ToList();
+                case "serious":
+                    return _mapQuestRepository.FindAll(x => int.Parse(x.Severity) == 4).ToList();
                 default:
                     return null;
+
             }
         }
         private List<TollLocation> GetTolls(string tolls)

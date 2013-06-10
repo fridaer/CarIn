@@ -207,6 +207,7 @@
     <Compile Include="BLL\BCrypt.cs" />
     <Compile Include="BLL\BingMapTrafficWebService.cs" />
     <Compile Include="BLL\HandlerForWebServiceCalls.cs" />
+    <Compile Include="BLL\MailHelper.cs" />
     <Compile Include="BLL\MapQuestDirectionsWebService.cs" />
     <Compile Include="BLL\CookieHelper.cs" />
     <Compile Include="BLL\LoggHelper.cs" />
@@ -232,6 +233,10 @@
     <Compile Include="Migrations\201305230946406_Added MapQuestDirections.cs" />
     <Compile Include="Migrations\201305230946406_Added MapQuestDirections.Designer.cs">
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201306101249399_Add_Servirty_InMapQuestDirections.cs" />
+    <Compile Include="Migrations\201306101249399_Add_Servirty_InMapQuestDirections.Designer.cs">
+      <DependentUpon>201306101249399_Add_Servirty_InMapQuestDirections.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -418,6 +423,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201305230946406_Added MapQuestDirections.resx">
       <DependentUpon>201305230946406_Added MapQuestDirections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306101249399_Add_Servirty_InMapQuestDirections.resx">
+      <DependentUpon>201306101249399_Add_Servirty_InMapQuestDirections.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

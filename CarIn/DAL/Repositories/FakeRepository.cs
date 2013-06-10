@@ -55,5 +55,9 @@ namespace CarIn.DAL.Repositories
         }
 
         public virtual void Commit() { }
+        public void TruncateTable(string tableName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
