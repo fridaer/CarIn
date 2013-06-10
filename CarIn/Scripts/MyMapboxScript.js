@@ -4,17 +4,26 @@ $(document).ready(function () {
 
     ShowLoadingDiv();
 
-        var map = L.map('map')
-        .setView([57.75, 11.974749], 11)
-        .addLayer(L.mapbox.tileLayer('tobohr.map-n6vjouf7', {
+        var map = L.mapbox.map('map','tobohr.map-n6vjouf7', {
             detectRetina: true,
             retinaVersion: 'tobohr.map-fkbh0rtn',
-            minZoom: 11
-        }));
+            minZoom: 11,
+            zoomControl: false,
+            attributionControl: false,
+        }).setView([57.75, 11.974749], 11);
+        new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
         var southWest = new L.LatLng(58.076242, 11.472473);
         var northEast = new L.LatLng(57.537758, 12.675476);
         map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+        L.marker([58.076242, 11.472473]).addTo(map).bindPopup("Kartyta slutar här");
+        L.marker([58.09657, 12.565613]).addTo(map).bindPopup("Kartyta slutar här");
+        L.marker([57.465058, 11.820946]).addTo(map).bindPopup("Kartyta slutar här");
+        L.marker([57.537758, 12.675476]).addTo(map).bindPopup("Kartyta slutar här");
+
+        
+
+
 
         var url = "/api/v1/CarInRESTful/GetAllInfo/";
         $.ajax({
