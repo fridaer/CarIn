@@ -4,36 +4,21 @@ $(document).ready(function () {
     ShowLoadingDiv();
     var layer = L.mapbox.tileLayer('tobohr.map-n6vjouf7', {
         detectRetina: true,
-        retinaVersion: 'tobohr.map-fkbh0rtn'
+        retinaVersion: 'tobohr.map-fkbh0rtn',
+        minZoom: 11
     });
     layer.on('ready', function () {
-        // the layer has been fully loaded now, and you can
-        // call .getTileJSON and investigate its properties
-        /*        
-                var map = L.mapbox.map('map', 'tobohr.map-n6vjouf7', {   
-                detectRetina: true,
-                retinaVersion: 'tobohr.map-fkbh0rtn'
-                }).setView([57.75, 11.974749], 11);
-        
-        */
+
         var map = L.map('map')
         .setView([57.75, 11.974749], 11)
         .addLayer(L.mapbox.tileLayer('tobohr.map-n6vjouf7', {
             detectRetina: true,
-            retinaVersion: 'tobohr.map-fkbh0rtn'
+            retinaVersion: 'tobohr.map-fkbh0rtn',
+            minZoom: 11
         }));
-
-        var updateEvery2sec = setInterval(function () {
-            var zoomlevel = map.getZoom();
-            if (zoomlevel <= 11) {
-                map.setView([57.75, 11.974749], 11);
-                map.dragging.disable();
-            }
-            else {
-                map.dragging.enable();
-            }
-        }, 500);
-    
+        var southWest = new L.LatLng(58.076242, 11.472473);
+        var northEast = new L.LatLng(57.537758, 12.675476);
+        map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
 
             var url = "/api/v1/CarInRESTful/GetAllInfo/";
             $.ajax({
@@ -113,7 +98,10 @@ $(document).ready(function () {
                         })
                         var LatLongArray = StringToLatLongArray(this.TrafficChangesCoords);
 
-                       
+                        //var test = new array() 
+                        //test.push(LatLongArray);
+
+                        //if(test[0][0][0])
 
                         var popupContent = this.Title;
                         var themarker = L.marker([LatLongArray[0][0], LatLongArray[0][1]], { icon: myIcon }).addTo(map).bindPopup(popupContent);
