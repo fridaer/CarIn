@@ -113,7 +113,11 @@ top: 30px;
             font-size: 11px;
             line-height: 10px;
         }
+        &.small{
+            font-size: 0.8em;
+            margin-top: 5px;
 
+        }
         &:hover
         {
             background: #FFF394;
@@ -331,7 +335,15 @@ top: 30px;
     from { -webkit-transform: rotate(359deg); }
     to { -webkit-transform: rotate(0deg); }
 }
+.span12 form{
+    fieldset{
 
+    }
+    .field-validation-error{
+        color:rgb(213, 93, 93);
+        display:block;
+    }
+}
 footer {
     background: #f0f0f0;
     .rounded-corners(0px 0px 40px 40px);
@@ -346,6 +358,7 @@ footer {
         display: none;
     }
 }
+
 /*#iOSInstallPromt {
     background-image:url("/Images/iOS/bg.png");
     background-size: cover;

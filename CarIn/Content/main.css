@@ -165,6 +165,10 @@ header .log-in-btn {
     line-height: 10px;
   }
 }
+header .log-in-btn.small {
+  font-size: 0.8em;
+  margin-top: 5px;
+}
 header .log-in-btn:hover {
   background: #FFF394;
   background-color: #fcf5c0;
@@ -405,6 +409,10 @@ header .log-in-btn:hover {
   to {
     -webkit-transform: rotate(0deg);
   }
+}
+.span12 form .field-validation-error {
+  color: #d55d5d;
+  display: block;
 }
 footer {
   background: #f0f0f0;

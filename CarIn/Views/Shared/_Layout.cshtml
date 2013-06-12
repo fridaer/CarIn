@@ -55,36 +55,28 @@
                     </a>
                     
                     <div class="carin-msg">
-                        <span>@if(ViewBag.Message != null)
+                        <span>@if (ViewData["Message"] != null && !string.IsNullOrWhiteSpace(ViewData["Message"].ToString()))
                               {
-                                  ViewBag.Message.toString();
+                                  ViewData["Message"].ToString();
                               }
                         </span>
                             </div>
                     @{
                         Html.RenderAction("AccountStatus", "Account");
                     }
-                    @if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
+                    @*@if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
                     {
-                        <a href="#myModalChangePass" role="button" class="btn log-in-btn" data-toggle="modal">Ändra lösenord</a>
-                        <div>@Html.ActionLink("Logga Ut", "SignOut", "Account")</div>
-                            
-                        <!-- Modal-ChangePass -->
-                        <div id="myModalChangePass" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabelChangePass" aria-hidden="true">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h3 id="myModalLabelChangePass">Ändra lösenord</h3>
-                            </div>
-                            @{
-                                Html.RenderAction("ChangePassword", "Home");
-                            }
-                        </div>
+                        *@
+                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <div>@Html.ActionLink("Ändra lösenord", "ChangePassword", "Home", null, new {@class = "btn log-in-btn small"})</div>
+                        <div>@Html.ActionLink("Logga Ut", "SignOut", "Account", null, new {@class = "btn log-in-btn small"})</div>
+
                     }
-                        
                     else {
                         <!-- Button to trigger modal-LogIn -->
-                        <a href="#myModal" role="button" class="btn log-in-btn" data-toggle="modal">Logga in</a>
-				
+                        <div><a href="#myModal" role="button" class="btn log-in-btn small" data-toggle="modal">Logga in</a>
+				</div>
                         <!-- Modal-LogIn -->
                         <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-header">
@@ -94,8 +86,8 @@
                             @using(Html.BeginForm("LogOn", "Account", FormMethod.Post))
                             {
                                 <div class="modal-body">
-                                    <input type="text" name="username" placeholder="Användarnamn"/>
-                                    <input type="password" name="password" placeholder="Lösenord"/>
+                                    <input type="text" name="LoginUserName" placeholder="Användarnamn"/>
+                                    <input type="password" name="LoginPassword" placeholder="Lösenord"/>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn" data-dismiss="modal" aria-hidden="true">Avbryt</button>

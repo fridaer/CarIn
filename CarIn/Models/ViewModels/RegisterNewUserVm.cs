@@ -8,21 +8,18 @@ namespace CarIn.Models.ViewModels
 {
     public class RegisterNewUserVm
     {
-        [ScaffoldColumn(false)]
-        public int UserId { get; set; }
-
         [Required(ErrorMessage = "*")]
         [Display(Name = "Användarnamn")]
-        public string Username { get; set; }
+        public string NewUsername { get; set; }
 
         [Required(ErrorMessage = "*")]
         [Display(Name = "Lösenord")]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string NewPassword { get; set; }
 
         [Required(ErrorMessage = "*")]
         [Display(Name = "Upprepa lösenord")]
-        [Compare("Password", ErrorMessage = "Lösenorden stämmer inte")]
+        [Compare("NewPassword", ErrorMessage = "Lösenorden stämmer inte")]
         [DataType(DataType.Password)]
         public string ConfirmNewPassword { get; set; }
 
