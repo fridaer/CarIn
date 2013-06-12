@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using CarIn.BLL;
 using CarIn.DAL.Repositories;
 using CarIn.DAL.Repositories.Abstract;
@@ -28,6 +29,7 @@ namespace CarIn.Controllers
             // Checking Logged In Session
             try
             {
+
                 // TODO TEMP 
                 //var logger = new EventLog();
                 //if (!System.Diagnostics.EventLog.SourceExists("CarinLogger"))
@@ -43,6 +45,7 @@ namespace CarIn.Controllers
                 //tempHandler.BeginTimers();
                 //TEMP
 
+             
 
                 if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated) //User is logged in via membership provider
                 {
@@ -108,7 +111,7 @@ namespace CarIn.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordVm model)
         {
-            var db = new DAL.Context.CarInContext();
+  
             if(ModelState.IsValid)
             {
                 var passHelper = new PasswordHelper();
@@ -128,7 +131,50 @@ namespace CarIn.Controllers
             return PartialView("ChangePassword", model);
 
         }
-        
+
+        public ActionResult RegisterNewUser() 
+        {
+
+            var viewModelRegisterNewUser = new RegisterNewUserVm();
+            return View("RegisterNewUser", viewModelRegisterNewUser);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterNewUser(RegisterNewUserVm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User();
+                var passHelper = new PasswordHelper();
+
+                var password = passHelper.HashPassword(model.Password, passHelper.GenerateSalt().ToString());
+                user.Password = password;
+                user.Username = model.Username;
+                _userRepo.Add(user);
+
+                if (!string.IsNullOrEmpty(model.Username) && !string.IsNullOrEmpty(model.Password))
+                {
+                    var passwordHelper = new PasswordHelper();
+                    var hashedPassword = _userRepo.FindAll(u => u.Username == model.Username).Select(u => u.Password).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(hashedPassword))
+                    {
+                        if (passwordHelper.CheckIfPasswordMatch(model.Password, hashedPassword))
+                        {
+                            var cookieHelper = new CookieHelper();
+
+                            //Response.Cookies["domain"].Domain = "support.contoso.com";
+                            Response.Cookies.Add(cookieHelper.CreateCookie(model.Username));
+                            FormsAuthentication.SetAuthCookie(model.Username, false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+
+                }
+            }
+            return View("RegisterNewUser", model);
+        }
+
 
         public ActionResult Contact()
         {
