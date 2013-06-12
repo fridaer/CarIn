@@ -29,18 +29,18 @@ namespace CarIn.Controllers
             try
             {
                 // TODO TEMP 
-                var logger = new EventLog();
-                if (!System.Diagnostics.EventLog.SourceExists("CarinLogger"))
-                {
-                    System.Diagnostics.EventLog.CreateEventSource(
-                        "CarinLogger", "logger");
-                }
+                //var logger = new EventLog();
+                //if (!System.Diagnostics.EventLog.SourceExists("CarinLogger"))
+                //{
+                //    System.Diagnostics.EventLog.CreateEventSource(
+                //        "CarinLogger", "logger");
+                //}
 
-                logger.Source = "CarinLogger";
-                logger.Log = "logger";
-                logger.Clear();
-                var tempHandler = new HandlerForWebServiceCalls(logger);
-                tempHandler.BeginTimers();
+                //logger.Source = "CarinLogger";
+                //logger.Log = "logger";
+                //logger.Clear();
+                //var tempHandler = new HandlerForWebServiceCalls(logger);
+                //tempHandler.BeginTimers();
                 //TEMP
 
 
@@ -125,7 +125,7 @@ namespace CarIn.Controllers
                 ViewBag.Message = "Lösenord ändrat";
                 return RedirectToAction("Index");
             }
-            return View("ChangePassword", model);
+            return PartialView("ChangePassword", model);
 
         }
         
