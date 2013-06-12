@@ -47,56 +47,69 @@
     </div>
             
             <div class="row-fluid">
+
                 <header class="span12">
+   
+                    <a href="/" class="logo">
+                        <img src="@Url.Content("/Images/CarInIcon2x.png")" />
+                    </a>
                     
-                    <a href="/" class="logo"><img src="@Url.Content("/Images/CarInIcon2x.png")" /></a>
-                        @{Html.RenderAction("AccountStatus", "Account");}
-                        @if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
-                        {
-				            <a href="#myModalChangePass" role="button" class="btn log-in-btn" data-toggle="modal">Ändra lösenord</a>
-                            <div>@Html.ActionLink("Logga Ut", "SignOut", "Account")</div>
-                            <!-- Modal-ChangePass -->
-                            
-				            <div id="myModalChangePass" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabelChangePass" aria-hidden="true">
-				                <div class="modal-header">
-					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					                <h3 id="myModalLabelChangePass">Ändra lösenord</h3>
-				                </div>
-                                @{
-                                    Html.RenderAction("ChangePassword", "Home");
-                                }
+                    <div class="carin-msg">
+                        <span>@if(ViewBag.Message != null)
+                              {
+                                  ViewBag.Message.toString();
+                              }
+                        </span>
                             </div>
-                        }
+                    @{
+                        Html.RenderAction("AccountStatus", "Account");
+                    }
+                    @if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
+                    {
+                        <a href="#myModalChangePass" role="button" class="btn log-in-btn" data-toggle="modal">Ändra lösenord</a>
+                        <div>@Html.ActionLink("Logga Ut", "SignOut", "Account")</div>
+                            
+                        <!-- Modal-ChangePass -->
+                        <div id="myModalChangePass" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabelChangePass" aria-hidden="true">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 id="myModalLabelChangePass">Ändra lösenord</h3>
+                            </div>
+                            @{
+                                Html.RenderAction("ChangePassword", "Home");
+                            }
+                        </div>
+                    }
                         
-                        else {
-                            <!-- Button to trigger modal-LogIn -->
-				            <a href="#myModal" role="button" class="btn log-in-btn" data-toggle="modal">Logga in</a>
+                    else {
+                        <!-- Button to trigger modal-LogIn -->
+                        <a href="#myModal" role="button" class="btn log-in-btn" data-toggle="modal">Logga in</a>
 				
-				            <!-- Modal-LogIn -->
-				            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				                <div class="modal-header">
-					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					                <h3 id="myModalLabel">Logga in</h3>
-				                </div>
-                                @using(Html.BeginForm("LogOn", "Account", FormMethod.Post))
-                                {
-                                    <div class="modal-body">
-                                        <input type="text" name="username" value="Användarnamn"/>
-                                        <input type="text" name="password" value="Lösenord"/>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Avbryt</button>
-                                        <input type="submit" class="btnSubmit btn btn-primary" value="Logga in" />
-                                    </div>
-                                }
-				            </div>
-                        }
-                        
-                        <div class="clear"></div>
-                </header>
+                        <!-- Modal-LogIn -->
+                        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 id="myModalLabel">Logga in</h3>
+                            </div>
+                            @using(Html.BeginForm("LogOn", "Account", FormMethod.Post))
+                            {
+                                <div class="modal-body">
+                                    <input type="text" name="username" placeholder="Användarnamn"/>
+                                    <input type="password" name="password" placeholder="Lösenord"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Avbryt</button>
+                                    <input type="submit" class="btnSubmit btn btn-primary" value="Logga in" />
+                                </div>
+                                <script> EnterToSubmitForm();</script>
+                            }
+                        </div>
+                    }
+                <div class="clear"></div>
+            </header>
             </div>
+
             <div class="row-fluid">
-                @*@RenderSection("featured", required: false)*@
                 @RenderBody()
              </div>
             <div class="row-fluid">
@@ -109,7 +122,6 @@
                 </footer>
             </div>
         </div>
-        @*@Scripts.Render("~/bundles/jquery")*@
         @RenderSection("scripts", required: false)
     </body>
 </html>

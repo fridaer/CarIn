@@ -103,7 +103,7 @@ namespace CarIn.Controllers
                                                   Username = "TmpUserNotInDb"
                                               };
             }
-            return View("ChangePassword", viewModelChangePassword);
+            return PartialView("ChangePassword", viewModelChangePassword);
 
         }
         [HttpPost]
@@ -128,6 +128,8 @@ namespace CarIn.Controllers
                 ViewBag.Message = "Lösenord ändrat";
                 return RedirectToAction("Index");
             }
+            ViewBag.Message = "Bajs";
+
             return PartialView("ChangePassword", model);
 
         }

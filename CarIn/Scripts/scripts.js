@@ -29,8 +29,18 @@
     if (window.navigator.standalon) {
         alert("window.navigator.standalon = true");
     }
+    
+    
 });
-
+function EnterToSubmitForm() {
+    $(".modal").keypress(function (event) {
+        console.log(this);
+        if (event.which == 13) {
+        event.preventDefault();
+        $("form").submit();
+        }
+    });
+}
 
 
 function ShowLoadingDiv() {
@@ -45,3 +55,4 @@ function HideLoadingDiv() {
     });
 
 }
+

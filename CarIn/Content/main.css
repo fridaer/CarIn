@@ -2,48 +2,7 @@
 /* GRADIENT */
 /* ROUNDED CORNERS */
 /* BOX SHADOW */
-/* Fridas responsiv-top-bar 
-	.fridas-media {
-		.margin {height: 25px;}
-		.fixed {
-			z-index: 100;
-			font-family: arial;
-			font-size: 11px;
-			line-height: 25px;
-			overflow: hidden;
-			position: fixed;
-			left: 0;
-			top: 0;
-			width: 100%; 
-			background: #000; 
-			color: #FFF; 
-			margin: 0px auto;
-			.show_at_1200px { 
-				display: none;
-				@media (min-width: 1201px){ display: inline; }
-			}
-			.show_at_980px {
-				display: none;
-				@media (max-width: 1200px){ display: inline; }
-				@media (max-width: 767px){ display: none; }
-			}
-			.show_at_767px {
-				display: none;
-				@media (max-width: 767px){ display: inline; }
-				@media (max-width: 480px){ display: none; }
-			}
-			.show_at_480px { 
-				display: none;
-				@media (max-width: 480px){ display: inline; }
-				@media (max-width: 320px){ display: none; }
-			}
-			.show_at_320px { 
-				display: none;
-				@media (max-width: 320px){ display: inline;} 
-			}
-		}
-	}
-	 Fridas responsive-top-bar *//* RESET */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -126,7 +85,7 @@ header {
   background: -moz-linear-gradient(center bottom, #f39c12 0%, #f1c40f 100%);
   background: -o-linear-gradient(#f1c40f, #f39c12);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1c40f', endColorstr='#f39c12', GradientType=0);
-  padding: 30px 40px;
+  padding: 5px 20px;
   text-align: right;
 }
 @media (max-width: 767px) {
@@ -142,11 +101,12 @@ header {
 }
 header .logo {
   float: left;
-  font-size: 35px;
-  line-height: 30px;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: -1px 2px 5px #333333;
+  /*font-size: 35px;
+        line-height: 30px;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: -1px 2px 5px #333;*/
+
 }
 @media (max-width: 767px) {
   header .logo {
@@ -155,16 +115,32 @@ header .logo {
     text-shadow: -1px 2px 3px #333333;
   }
 }
-header .logo:hover {
-  text-decoration: none;
-}
-header .viewbagmessage {
-  display: inline;
+header .logo img {
+  width: 80%;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  border-radius: 20px;
+  background-color: #fff394;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #dab10d), color-stop(1, #fff394));
+  background: -ms-linear-gradient(bottom, #dab10d, #fff394);
+  background: -moz-linear-gradient(center bottom, #dab10d 0%, #fff394 100%);
+  background: -o-linear-gradient(#fff394, #dab10d);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff394', endColorstr='#dab10d', GradientType=0);
+  -webkit-box-shadow: 0px 1px 3px #333333;
+  -moz-box-shadow: 0px 1px 3px #333333;
+  box-shadow: 0px 1px 3px #333333;
 }
 @media (max-width: 767px) {
-  header .viewbagmessage {
-    font-size: 12px;
+  header .logo img {
+    width: 60%;
   }
+}
+header .carin-msg {
+  margin-right: 45%;
+  position: relative;
+  top: 30px;
 }
 header .log-in-btn {
   margin-left: 10px;
