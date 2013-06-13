@@ -3,15 +3,23 @@
 @{
     ViewBag.Title = "RegisterNewUser";
 }
+<div id="formContainer" class="span12">
 
-<h2>RegisterNewUser</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>RegisterNewUserVm</legend>
+        <h2>Registrera ny användare</h2>
+
+        @{
+           if(!string.IsNullOrEmpty(Model.ErrorMessage))
+           {
+               <span class="ErrorMessage">@Model.ErrorMessage</span>
+           } 
+            
+        }
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Username)
@@ -42,9 +50,6 @@
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {

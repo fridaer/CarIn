@@ -129,6 +129,13 @@ namespace CarIn.Controllers
             {
                 var user = new User();
                 var passHelper = new PasswordHelper();
+                if(!string.IsNullOrEmpty(_userRepo.FindAll(u => u.Username == model.Username).Select(u => u.Password).FirstOrDefault()))
+                {
+                    model.Password = model.ConfirmNewPassword = string.Empty; 
+                    model.ErrorMessage = "Error: Användarnamnet är uppdaget!";
+                    return View("RegisterNewUser", model);
+                }
+
 
                 var password = passHelper.HashPassword(model.Password, passHelper.GenerateSalt().ToString());
                 user.Password = password;
@@ -153,7 +160,14 @@ namespace CarIn.Controllers
                     }
 
                 }
+            } else {
+            model.ErrorMessage = "Error: något har gått fel vid registreringen (Validation error)";
             }
+
+            if(string.IsNullOrEmpty(model.ErrorMessage))
+                model.ErrorMessage = "Error: något har gått fel vid registreringen";
+
+            model.Password = model.ConfirmNewPassword = string.Empty;
             return View("RegisterNewUser", model);
         }
 
