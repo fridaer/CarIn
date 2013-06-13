@@ -68,6 +68,7 @@ namespace CarIn.Controllers
             {
                 FormsAuthentication.SignOut();
             }
+            TempData["Message"] = "Utloggad";
             return RedirectToAction("Index","Home");
         }
 

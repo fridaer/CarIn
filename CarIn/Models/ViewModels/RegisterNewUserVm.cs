@@ -23,5 +23,7 @@ namespace CarIn.Models.ViewModels
         [DataType(DataType.Password)]
         public string ConfirmNewPassword { get; set; }
 
+        public string ErrorMessage { get; set; }
+
     }
 }

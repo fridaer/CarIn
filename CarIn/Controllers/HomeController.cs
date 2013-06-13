@@ -49,8 +49,7 @@ namespace CarIn.Controllers
 
                 if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated) //User is logged in via membership provider
                 {
-                    ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
-                    ViewBag.showChangePassLink = true;
+                    //ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
                     return View();
                 }
                 if (Request.Cookies["userInfo"] != null) //User is not logged in but has a cookie
@@ -61,16 +60,15 @@ namespace CarIn.Controllers
 
                     if (cookieHelper.SignInByCookie(aCookie))
                     {
-                        ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
-                        ViewBag.showChangePassLink = true;
+                        //ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
+                        //ViewBag.showChangePassLink = true;
                         return View();
                     }
                 }
             }
             catch
             {
-                ViewBag.showChangePassLink = false;
-                ViewBag.loggedInMessage = "Inte inloggad";
+                TempData["Message"] = "Inte inloggad";
             }
 
             //User is not signed in and has no/not valid cookie
@@ -117,11 +115,11 @@ namespace CarIn.Controllers
                 var password = passHelper.HashPassword(model.NewPassword, passHelper.GenerateSalt());
                 user.Password = password;
                 _userRepo.Update(user);
-                ViewData["Message"] = "Lösenord ändrat";
+                TempData["Message"] = "Lösenord ändrat";
                 return RedirectToAction("Index");
 
             }
-            ViewBag.Message = "Något gick fel prova igen";
+            TempData["Message"] = "Något gick fel prova igen";
 
             return RedirectToAction("Index");
 
@@ -143,6 +141,13 @@ namespace CarIn.Controllers
             {
                 var user = new User();
                 var passHelper = new PasswordHelper();
+                if(!string.IsNullOrEmpty(_userRepo.FindAll(u => u.Username == model.NewUsername).Select(u => u.Password).FirstOrDefault()))
+                {
+                    model.NewPassword = model.ConfirmNewPassword = string.Empty; 
+                    model.ErrorMessage = "Error: Användarnamnet är upptaget!";
+                    return View("RegisterNewUser", model);
+                }
+
 
                 var password = passHelper.HashPassword(model.NewPassword, passHelper.GenerateSalt());
                 user.Password = password;
@@ -162,12 +167,20 @@ namespace CarIn.Controllers
                             //Response.Cookies["domain"].Domain = "support.contoso.com";
                             Response.Cookies.Add(cookieHelper.CreateCookie(model.NewUsername));
                             FormsAuthentication.SetAuthCookie(model.NewUsername, false);
+                            TempData["Message"] = "Välkommen";
                             return RedirectToAction("Index", "Home");
                         }
                     }
 
                 }
+            } else {
+            model.ErrorMessage = "Error: något har gått fel vid registreringen (Validation error)";
             }
+
+            if(string.IsNullOrEmpty(model.ErrorMessage))
+                model.ErrorMessage = "Error: något har gått fel vid registreringen";
+
+            model.NewPassword = model.ConfirmNewPassword = string.Empty;
             return View("RegisterNewUser", model);
         }
 

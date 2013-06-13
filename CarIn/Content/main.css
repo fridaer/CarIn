@@ -142,6 +142,10 @@ header .carin-msg {
   position: relative;
   top: 30px;
 }
+header .carin-msg span {
+  position: absolute;
+  left: 80%;
+}
 header .log-in-btn {
   margin-left: 10px;
   -webkit-border-radius: 20px;
@@ -317,7 +321,8 @@ header .log-in-btn:hover {
   padding: 20px;
   background-color: #FFF;
 }
-#formContainer .field-validation-error {
+#formContainer .field-validation-error,
+#formContainer .ErrorMessage {
   color: red;
 }
 @media (max-width: 767px) {
@@ -409,6 +414,9 @@ header .log-in-btn:hover {
   to {
     -webkit-transform: rotate(0deg);
   }
+}
+.span12 form label {
+  cursor: default;
 }
 .span12 form .field-validation-error {
   color: #d55d5d;

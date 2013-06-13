@@ -95,9 +95,10 @@ header
 {
     margin-right:45%;
     position: relative;
-top: 30px;
+    top: 30px;
     span{
-            
+        position: absolute;
+        left: 80%;
     }
 }
 
@@ -245,7 +246,7 @@ top: 30px;
 #formContainer {
     padding: 20px;
     background-color: #FFF;
-    .field-validation-error{
+    .field-validation-error, .ErrorMessage{
         color: red;
     }
 
@@ -336,8 +337,8 @@ top: 30px;
     to { -webkit-transform: rotate(0deg); }
 }
 .span12 form{
-    fieldset{
-
+    label{
+        cursor:default;
     }
     .field-validation-error{
         color:rgb(213, 93, 93);
