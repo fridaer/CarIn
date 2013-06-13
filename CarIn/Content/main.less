@@ -336,15 +336,40 @@ header
     from { -webkit-transform: rotate(359deg); }
     to { -webkit-transform: rotate(0deg); }
 }
-.span12 form{
-    label{
-        cursor:default;
+.span12 form
+{
+    label
+    {
+        cursor: default;
     }
-    .field-validation-error{
-        color:rgb(213, 93, 93);
-        display:block;
+
+    .field-validation-error
+    {
+        color: rgb(213, 93, 93);
+        display: block;
     }
+
+    
+    
 }
+
+.btn-green
+    {
+        .gradient(#53A853, darken(#53A853, 10%), #53A853);
+
+        &:hover
+        {
+            .gradient(#53A853, lighten(#53A853, 10%), #53A853);
+        }
+    }
+    .btn-blue{
+        .gradient(#5A5AC8, darken(#5A5AC8, 10%), #5A5AC8);
+
+        &:hover{
+            .gradient(#5A5AC8, lighten(#5A5AC8, 10%), #5A5AC8);
+
+        }
+    }
 footer {
     background: #f0f0f0;
     .rounded-corners(0px 0px 40px 40px);

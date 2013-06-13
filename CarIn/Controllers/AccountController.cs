@@ -35,6 +35,7 @@ namespace CarIn.Controllers
                         //Response.Cookies["domain"].Domain = "support.contoso.com";
                         Response.Cookies.Add(cookieHelper.CreateCookie(LoginUserName));
                         FormsAuthentication.SetAuthCookie(LoginUserName, false);
+                        TempData["Message"] = "Välkommen";
                         return RedirectToAction("Index", "Home");
                     }
                 }

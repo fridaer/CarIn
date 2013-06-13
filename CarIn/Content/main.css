@@ -422,6 +422,38 @@ header .log-in-btn:hover {
   color: #d55d5d;
   display: block;
 }
+.btn-green {
+  background-color: #53a853;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #428642), color-stop(1, #53a853));
+  background: -ms-linear-gradient(bottom, #428642, #53a853);
+  background: -moz-linear-gradient(center bottom, #428642 0%, #53a853 100%);
+  background: -o-linear-gradient(#53a853, #428642);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#53a853', endColorstr='#428642', GradientType=0);
+}
+.btn-green:hover {
+  background-color: #53a853;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #74ba74), color-stop(1, #53a853));
+  background: -ms-linear-gradient(bottom, #74ba74, #53a853);
+  background: -moz-linear-gradient(center bottom, #74ba74 0%, #53a853 100%);
+  background: -o-linear-gradient(#53a853, #74ba74);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#53a853', endColorstr='#74ba74', GradientType=0);
+}
+.btn-blue {
+  background-color: #5a5ac8;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #3c3cb3), color-stop(1, #5a5ac8));
+  background: -ms-linear-gradient(bottom, #3c3cb3, #5a5ac8);
+  background: -moz-linear-gradient(center bottom, #3c3cb3 0%, #5a5ac8 100%);
+  background: -o-linear-gradient(#5a5ac8, #3c3cb3);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5a5ac8', endColorstr='#3c3cb3', GradientType=0);
+}
+.btn-blue:hover {
+  background-color: #5a5ac8;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #8080d5), color-stop(1, #5a5ac8));
+  background: -ms-linear-gradient(bottom, #8080d5, #5a5ac8);
+  background: -moz-linear-gradient(center bottom, #8080d5 0%, #5a5ac8 100%);
+  background: -o-linear-gradient(#5a5ac8, #8080d5);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5a5ac8', endColorstr='#8080d5', GradientType=0);
+}
 footer {
   background: #f0f0f0;
   -webkit-border-radius: 0px 0px 40px 40px;
