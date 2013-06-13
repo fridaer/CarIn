@@ -30,10 +30,26 @@ namespace CarIn.Controllers
             try
             {
 
+                // TODO TEMP 
+                //var logger = new EventLog();
+                //if (!System.Diagnostics.EventLog.SourceExists("CarinLogger"))
+                //{
+                //    System.Diagnostics.EventLog.CreateEventSource(
+                //        "CarinLogger", "logger");
+                //}
+
+                //logger.Source = "CarinLogger";
+                //logger.Log = "logger";
+                //logger.Clear();
+                //var tempHandler = new HandlerForWebServiceCalls(logger);
+                //tempHandler.BeginTimers();
+                //TEMP
+
+             
+
                 if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated) //User is logged in via membership provider
                 {
-                    ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
-                    ViewBag.showChangePassLink = true;
+                    //ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
                     return View();
                 }
                 if (Request.Cookies["userInfo"] != null) //User is not logged in but has a cookie
@@ -44,73 +60,69 @@ namespace CarIn.Controllers
 
                     if (cookieHelper.SignInByCookie(aCookie))
                     {
-                        ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
-                        ViewBag.showChangePassLink = true;
+                        //ViewBag.loggedInMessage = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"]);
+                        //ViewBag.showChangePassLink = true;
                         return View();
                     }
                 }
             }
             catch
             {
-                ViewBag.showChangePassLink = false;
-                ViewBag.loggedInMessage = "Inte inloggad";
+                TempData["Message"] = "Inte inloggad";
             }
 
             //User is not signed in and has no/not valid cookie
             ViewBag.AllUsers = _userRepo.FindAll().ToList(); 
             return View();
         }
-
+        [Authorize]
         public ActionResult ChangePassword()
         {
-
-
-            ChangePasswordVm viewModelChangePassword = null;
-            string loggedinUser = Session != null ? Session["UserName"] as string : "TmpUserName";
-            
-            
-            var tmpLoggedinUser = _userRepo.FindAll().FirstOrDefault();
-            if(tmpLoggedinUser != null)
+            try
             {
-                viewModelChangePassword = new ChangePasswordVm
-                {
-                    UserId = tmpLoggedinUser.ID,
-                    Username = loggedinUser
-                };
-            }
-            else
-            {
-                viewModelChangePassword = new ChangePasswordVm
-                                              {
-                                                  UserId = 0,
-                                                  Username = "TmpUserNotInDb"
-                                              };
-            }
-            return View("ChangePassword", viewModelChangePassword);
+                ChangePasswordVm viewModelChangePassword = new ChangePasswordVm
+                                                               {
+                                                                   Username = Server.HtmlEncode(Request.Cookies["userInfo"]["userName"])
 
+                                                               };
+                ViewBag.showChangePassLink = true; //QUick fix
+
+                return View("ChangePassword", viewModelChangePassword);
+            }
+            catch(Exception)
+            {
+                return RedirectToAction("Index");
+            }
         }
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordVm model)
         {
+  
             if(ModelState.IsValid)
             {
                 var passHelper = new PasswordHelper();
 
-                if (!passHelper.CheckIfPasswordMatch(model.OldPassword, _userRepo.FindAll(u => u.Username == Session["username"].ToString()).Select(u => u.Password).FirstOrDefault()))
+                if (!passHelper.CheckIfPasswordMatch(model.OldPassword, _userRepo.FindAll(u => u.Username == model.Username)
+                                                                                 .Select(u => u.Password)
+                                                                                 .FirstOrDefault()))
                 {
                     ModelState.AddModelError("OldPassword", "Felaktigt lösenord");
-                    return View(model);
+                    return View();
                 }
                 var user = _userRepo.FindAll(x => x.Username == model.Username).FirstOrDefault();
-                var password = passHelper.HashPassword(model.NewPassword, passHelper.GenerateSalt().ToString());
+                var password = passHelper.HashPassword(model.NewPassword, passHelper.GenerateSalt());
                 user.Password = password;
                 _userRepo.Update(user);
-                ViewBag.Message = "Lösenord ändrat";
+                TempData["Message"] = "Lösenord ändrat";
                 return RedirectToAction("Index");
+
             }
-            return View("ChangePassword", model);
+            TempData["Message"] = "Något gick fel prova igen";
+
+            return RedirectToAction("Index");
+
 
         }
 
@@ -129,32 +141,33 @@ namespace CarIn.Controllers
             {
                 var user = new User();
                 var passHelper = new PasswordHelper();
-                if(!string.IsNullOrEmpty(_userRepo.FindAll(u => u.Username == model.Username).Select(u => u.Password).FirstOrDefault()))
+                if(!string.IsNullOrEmpty(_userRepo.FindAll(u => u.Username == model.NewUsername).Select(u => u.Password).FirstOrDefault()))
                 {
-                    model.Password = model.ConfirmNewPassword = string.Empty; 
-                    model.ErrorMessage = "Error: Användarnamnet är uppdaget!";
+                    model.NewPassword = model.ConfirmNewPassword = string.Empty; 
+                    model.ErrorMessage = "Error: Användarnamnet är upptaget!";
                     return View("RegisterNewUser", model);
                 }
 
 
-                var password = passHelper.HashPassword(model.Password, passHelper.GenerateSalt().ToString());
+                var password = passHelper.HashPassword(model.NewPassword, passHelper.GenerateSalt());
                 user.Password = password;
-                user.Username = model.Username;
+                user.Username = model.NewUsername;
                 _userRepo.Add(user);
 
-                if (!string.IsNullOrEmpty(model.Username) && !string.IsNullOrEmpty(model.Password))
+                if (!string.IsNullOrEmpty(model.NewUsername) && !string.IsNullOrEmpty(model.NewPassword))
                 {
                     var passwordHelper = new PasswordHelper();
-                    var hashedPassword = _userRepo.FindAll(u => u.Username == model.Username).Select(u => u.Password).FirstOrDefault();
+                    var hashedPassword = _userRepo.FindAll(u => u.Username == model.NewUsername).Select(u => u.Password).FirstOrDefault();
                     if (!string.IsNullOrEmpty(hashedPassword))
                     {
-                        if (passwordHelper.CheckIfPasswordMatch(model.Password, hashedPassword))
+                        if (passwordHelper.CheckIfPasswordMatch(model.NewPassword, hashedPassword))
                         {
                             var cookieHelper = new CookieHelper();
 
                             //Response.Cookies["domain"].Domain = "support.contoso.com";
-                            Response.Cookies.Add(cookieHelper.CreateCookie(model.Username));
-                            FormsAuthentication.SetAuthCookie(model.Username, false);
+                            Response.Cookies.Add(cookieHelper.CreateCookie(model.NewUsername));
+                            FormsAuthentication.SetAuthCookie(model.NewUsername, false);
+                            TempData["Message"] = "Välkommen";
                             return RedirectToAction("Index", "Home");
                         }
                     }
@@ -167,7 +180,7 @@ namespace CarIn.Controllers
             if(string.IsNullOrEmpty(model.ErrorMessage))
                 model.ErrorMessage = "Error: något har gått fel vid registreringen";
 
-            model.Password = model.ConfirmNewPassword = string.Empty;
+            model.NewPassword = model.ConfirmNewPassword = string.Empty;
             return View("RegisterNewUser", model);
         }
 

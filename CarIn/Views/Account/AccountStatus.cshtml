@@ -2,9 +2,9 @@
 @{
     if (!string.IsNullOrEmpty(Model.UserName))
     {
-        <small>@Model.UserName</small>  
+        <div class="username">@Model.UserName</div>  
     }else{
-        @Html.ActionLink("Registrera dig här!", "RegisterNewUser", "Home")
+        @Html.ActionLink("Registrera dig här!", "RegisterNewUser", "Home", null, new {@class = "btn log-in-btn small"})
     }
 }
     

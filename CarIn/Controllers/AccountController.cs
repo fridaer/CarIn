@@ -20,21 +20,22 @@ namespace CarIn.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogOn(string userName, string passWord)
+        public ActionResult LogOn(string LoginUserName, string LoginPassword)
         {
 
-            if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(passWord))
+            if (!string.IsNullOrEmpty(LoginUserName) && !string.IsNullOrEmpty(LoginPassword))
             {
                 var passwordHelper = new PasswordHelper();
-                var hashedPassword = _userRepo.FindAll(u => u.Username == userName).Select(u => u.Password).FirstOrDefault();
+                var hashedPassword = _userRepo.FindAll(u => u.Username == LoginUserName).Select(u => u.Password).FirstOrDefault();
                 if(!string.IsNullOrEmpty(hashedPassword)){
-                    if(passwordHelper.CheckIfPasswordMatch(passWord, hashedPassword))
+                    if (passwordHelper.CheckIfPasswordMatch(LoginPassword, hashedPassword))
                     {
                         var cookieHelper = new CookieHelper();
 
                         //Response.Cookies["domain"].Domain = "support.contoso.com";
-                        Response.Cookies.Add(cookieHelper.CreateCookie(userName));
-                        FormsAuthentication.SetAuthCookie(userName, false);
+                        Response.Cookies.Add(cookieHelper.CreateCookie(LoginUserName));
+                        FormsAuthentication.SetAuthCookie(LoginUserName, false);
+                        TempData["Message"] = "Välkommen";
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -68,6 +69,7 @@ namespace CarIn.Controllers
             {
                 FormsAuthentication.SignOut();
             }
+            TempData["Message"] = "Utloggad";
             return RedirectToAction("Index","Home");
         }
 
@@ -83,7 +85,7 @@ namespace CarIn.Controllers
                 }
                 catch 
                 {
-                    RedirectToAction("SignOut", "Home");
+                    RedirectToAction("Index", "Home");
                 }
 
 
