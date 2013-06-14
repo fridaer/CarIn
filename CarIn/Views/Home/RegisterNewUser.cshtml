@@ -1,23 +1,32 @@
-﻿@model CarIn.Models.ViewModels.ChangePasswordVm
-<div  id="formContainer" class="span12">
-@using (Html.BeginForm()) {
+﻿@model CarIn.Models.ViewModels.RegisterNewUserVm
+
+@{
+    ViewBag.Title = "RegisterNewUser";
+}
+<div id="formContainer" class="span12">
+
+
+@using (Html.BeginForm("RegisterNewUser", "Home", FormMethod.Post, new {autocomplete = "off" })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <h2>Byt lösenord</h2>
-        
-        <div class="editor-field">
-            @Html.HiddenFor(model => model.Username)
-        </div>
+        <h2>Registrera ny användare</h2>
+
+        @{
+           if(!string.IsNullOrEmpty(Model.ErrorMessage))
+           {
+               <span class="ErrorMessage">@Model.ErrorMessage</span>
+           } 
+            
+        }
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.OldPassword)
-
+            @Html.LabelFor(model => model.NewUsername)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.OldPassword)
-            @Html.ValidationMessageFor(model => model.OldPassword)
+            @Html.EditorFor(model => model.NewUsername)
+            @Html.ValidationMessageFor(model => model.NewUsername)
         </div>
 
         <div class="editor-label">
@@ -35,16 +44,16 @@
             @Html.EditorFor(model => model.ConfirmNewPassword)
             @Html.ValidationMessageFor(model => model.ConfirmNewPassword)
         </div>
+
         <p>
             <input type="submit" value="Spara" class="btn btn-green"/>
             @Html.ActionLink("Tillbaka", "Index", "Home", null, new { @class = "btn btn-blue"})
+
         </p>
     </fieldset>
 }
-    </div>
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        EnterToSubmitForm();
-    </script>
 }

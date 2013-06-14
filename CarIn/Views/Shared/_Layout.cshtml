@@ -22,6 +22,15 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="orange">
         <meta name="format-detection" content="telephone=no">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0; user-scalable=no;" >
+        <script>
+            if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
+                document.write('<!-- Not letterboxed on iPhone 5 -->');
+                document.write('<meta name="viewport" content="initial-scale=1.0">');
+                document.write('<meta name="viewport" content="width=320.1">');
+            }
+        </script>
+        
+
 
 
         <!-- Javascripts -->
@@ -34,21 +43,6 @@
         <script src="@Url.Content("/Scripts/tollfee.js")" type="text/javascript"></script>   
     </head>
     <body>
-@*        <div class="fridas-media" >
-			<div class="margin"></div>
-			<div class="fixed">
-				<div class="visible-phone">
-					<span class="show_at_320px">320px</span>
-					<span class="show_at_480px">480px och mindre</span>
-					<span class="show_at_767px">767px och mindre ::: Mobiltelefoner: Landscape phone to portrait tablet </span> 
-				</div>
-				<div class="visible-tablet">768px-979px ::: Tablets: Portrait tablet to landscape tablets and desktop </div>
-				<div class="visible-desktop">
-					<span class="show_at_980px">980px och större </span>
-					<span class="show_at_1200px">1200px och större</span> ::: Large desktop
-				</div>
-			</div>
-		</div>*@
 
         <div class="container">
 <div id="appStartLoading">
@@ -62,44 +56,63 @@
     </div>
             
             <div class="row-fluid">
+
                 <header class="span12">
-                        <a href="/" class="logo">@ViewBag.NameOfProject</a>
-                        @{Html.RenderAction("AccountStatus", "Account");}
-                        <p class="viewbagmessage">@ViewBag.loggedInMessage</p>
-                        @if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
+   
+                    <a href="/" class="logo">
+                        <img src="@Url.Content("/Images/CarInIcon2x.png")" />
+                    </a>
+                    
+                    <div class="carin-msg">
+                        @if (TempData["Message"] != null)
                         {
-                            @Html.ActionLink("Ändra lösenord", "ChangePassword", "Home")
-                            @Html.ActionLink("Logga Ut", "SignOut", "Account")
+                            <span>@TempData["Message"]</span>
                         }
-                        else {
-                            <!-- Button to trigger modal-LogIn -->
-				            <a href="#myModal" role="button" class="btn log-in-btn" data-toggle="modal">Logga in</a>
-				
-				            <!-- Modal-LogIn -->
-				            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				                <div class="modal-header">
-					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					                <h3 id="myModalLabel">Logga in</h3>
-				                </div>
-                                <form action="/Account/LogOn" method="post">
-				                    <div class="modal-body">
-					                    <input type="text" name="username" value="Användarnamn"/>
-                                        <input type="text" name="password" value="Lösenord"/>
- 				                    </div>
-				                    <div class="modal-footer">
-					                    <button class="btn" data-dismiss="modal" aria-hidden="true">Avbryt</button>
-                                        <input type="submit" class="btnSubmit btn btn-primary" value="Logga in" />
-				                    </div>
-                                </form>
-				            </div>
-                        }
-                        <div class="clear"></div>
-                </header>
+                    </div>
+                    @{
+                        Html.RenderAction("AccountStatus", "Account");
+                    }
+                    @*@if(ViewBag.showChangePassLink != null && (bool)ViewBag.showChangePassLink)
+                    {
+                        *@
+                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <div>@Html.ActionLink("Ändra lösenord", "ChangePassword", "Home", null, new { @class = "btn log-in-btn small" })</div>
+                        <div>@Html.ActionLink("Logga Ut", "SignOut", "Account", null, new { @class = "btn log-in-btn small" })</div>
+
+                    }
+                    else
+                    {
+                        <!-- Button to trigger modal-LogIn -->
+                        <div><a href="#myModal" role="button" class="btn log-in-btn small" data-toggle="modal">Logga in</a>
+				</div>
+                        <!-- Modal-LogIn -->
+                        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 id="myModalLabel">Logga in</h3>
+                            </div>
+                            @using (Html.BeginForm("LogOn", "Account", FormMethod.Post))
+                            {
+                                <div class="modal-body">
+                                    <input type="text" name="LoginUserName" placeholder="Användarnamn"/>
+                                    <input type="password" name="LoginPassword" placeholder="Lösenord"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-blue" data-dismiss="modal" aria-hidden="true">Avbryt</button>
+                                    <input type="submit" class="btnSubmit btn btn-primary btn-green" value="Logga in" />
+                                </div>
+                                <script> EnterToSubmitForm();</script>
+                            }
+                        </div>
+                    }
+                <div class="clear"></div>
+            </header>
             </div>
+
             <div class="row-fluid">
-                        @RenderSection("featured", required: false)
-                            @RenderBody()
-                </div>
+                @RenderBody()
+             </div>
             <div class="row-fluid">
                 <footer>
                     <div class="content-wrapper">
@@ -110,7 +123,6 @@
                 </footer>
             </div>
         </div>
-        @*@Scripts.Render("~/bundles/jquery")*@
         @RenderSection("scripts", required: false)
     </body>
 </html>

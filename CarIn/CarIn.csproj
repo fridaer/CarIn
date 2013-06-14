@@ -250,6 +250,7 @@
     <Compile Include="Models\Entities\WheaterPeriod.cs" />
     <Compile Include="Models\ViewModels\ChangePasswordVm.cs" />
     <Compile Include="Models\ViewModels\AccountStatus.cs" />
+    <Compile Include="Models\ViewModels\RegisterNewUserVm.cs" />
     <Compile Include="Models\ViewModels\MapInfoVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -416,6 +417,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Views\Account\AccountStatus.cshtml" />
     <Content Include="Views\Home\iOS_Install.cshtml" />
+    <Content Include="Views\Home\RegisterNewUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201305230826012_InitialCreate.resx">

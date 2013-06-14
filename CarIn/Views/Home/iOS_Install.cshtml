@@ -17,7 +17,14 @@
     <link href="@Url.Content("/Images/iOS/apple-startup-iPhone-RETINA.png")" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
     <!-- iPhone 5 -->
     <link href="@Url.Content("/Images/iOS/apple-startup-iPhone-Tall-RETINA.png")"  media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
-    <style>
+    <script>
+        if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
+            document.write('<!-- Not letterboxed on iPhone 5 -->');
+            document.write('<meta name="viewport" content="initial-scale=1.0">');
+            document.write('<meta name="viewport" content="width=320.1">');
+        }
+    </script>
+      <style>
         div {
             width: auto;
             margin-left: auto;
