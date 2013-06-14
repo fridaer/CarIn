@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    var vastbuttonclick = 0;
     $("#tooltipbox").hide();
 
     $("#olyckaBtn").click(function (event) {
@@ -26,6 +28,36 @@ $(document).ready(function () {
     
     $("#lokalBtn").click(function(event) {
         event.preventDefault();
+        if (vastbuttonclick === 0) {
+            $(".VasttrafikIncidentsMarker1").hide();
+            alertInTooltipbox("Döljer nu Västraffikincedenter som är 'Lätta' Och visar Endast 'Svåra' och 'Normala'");
+            vastbuttonclick++;
+        }
+        else if (vastbuttonclick === 1) {
+            $(".VasttrafikIncidentsMarker2").hide();
+            alertInTooltipbox("Döljer nu Västraffikincedenter som är 'Normala' Och visar Endast 'Svåra'.");
+            vastbuttonclick++;
+        }
+        else if (vastbuttonclick === 2) {
+            $(".VasttrafikIncidentsMarker3").hide();
+            alertInTooltipbox("Döljer nu alla Västraffikincedenter ");
+            vastbuttonclick++;
+        }
+        else if (vastbuttonclick === 3) {
+            $(".VasttrafikIncidentsMarker1").show();
+            alertInTooltipbox("Västtrafik nu Västraffikincedenter som är 'Lätta'");
+            vastbuttonclick++;
+        }
+        else if (vastbuttonclick === 4) {
+            $(".VasttrafikIncidentsMarker2").show();
+            alertInTooltipbox("Västtrafik nu Västraffikincedenter som är 'Normala'");
+            vastbuttonclick++;
+        }
+        else if (vastbuttonclick === 5) {
+            $(".VasttrafikIncidentsMarker3").show();
+            alertInTooltipbox("Västtrafik nu Västraffikincedenter som är 'Svåra'");
+            vastbuttonclick = 0;
+        }
         var message = "Information om lokaltrafikst&#246;ningar";
         alertInTooltipbox(message);
 
@@ -33,7 +65,7 @@ $(document).ready(function () {
     
     $("#installningarBtn").click(function (event) {
         event.preventDefault();
-        alert("Inst&#228;llningar");
+        //alert("Inst&#228;llningar");
 
     });
 
